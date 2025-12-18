@@ -1,37 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# asiatoren.uz
 
-## Getting Started
+Монорепозиторий проекта asiatoren.uz, включающий frontend и admin panel.
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Структура проекта
+```
+asiatoren.uz/
+├── frontend/          # Основной сайт (Next.js)
+└── admin-panel/       # Панель администратора (Next.js)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Быстрый старт
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-## Learn More
+### Admin Panel
+```bash
+cd admin-panel
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Откройте [http://localhost:3000](http://localhost:3000) в браузере (или другой порт, если frontend уже запущен).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Технологии
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Framework:** [Next.js](https://nextjs.org)
+- **Package Manager:** npm / yarn / pnpm / bun
+- **Font Optimization:** [next/font](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) с [Geist](https://vercel.com/font)
 
-## Deploy on Vercel
+## Разработка
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+После изменений в `app/page.tsx` страница автоматически обновится благодаря Hot Reload.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# asiatoren.uz
+## Полезные ссылки
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Learn Next.js](https://nextjs.org/learn)
+- [Next.js GitHub](https://github.com/vercel/next.js)
+
+## Деплой
+
+Рекомендуется использовать [Vercel Platform](https://vercel.com/new) для деплоя обоих приложений.
+
+Подробнее: [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying)
