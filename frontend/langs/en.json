@@ -11,5 +11,31 @@
         "title": "Welcome to Taren Asia",
         "subtitle": "Your trusted partner in Asia",
         "cta": "Contact Us"
+    },
+    "stages": {
+        "title": "Turnkey Business Launch Stages",
+        "subtitle1": "We specialize in the development and production of advanced equipment for poultry farms.",
+        "subtitle2": "Our mission is to provide innovative and reliable solutions that increase the efficiency and profitability of your business.",
+        "stageLabel": "stage",
+        "stage1": {
+            "title": "Consultation and Project Analysis",
+            "description": "We determine what kind of poultry farm you need and what site conditions are required."
+        },
+        "stage2": {
+            "title": "Design and Calculations",
+            "description": "We create a technical plan and select equipment for your specific needs."
+        },
+        "stage3": {
+            "title": "Equipment Supply",
+            "description": "We manufacture and supply a complete set of systems for broiler farming."
+        },
+        "stage4": {
+            "title": "Turnkey Installation and Launch",
+            "description": "We install, connect, and configure — the farm is ready to operate."
+        },
+        "stage5": {
+            "title": "Post-Launch Support",
+            "description": "Monitoring, updates, consultations, and service."
+        }
     }
 }
