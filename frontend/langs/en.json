@@ -1,4 +1,12 @@
 {
+    "header": {
+        "nav": {
+            "products": "Catalog",
+            "about": "About Us",
+            "contacts": "Contacts"
+        },
+        "btn": "Get in touch"
+    },
     "hero": {
         "title": "Welcome to Taren Asia",
         "subtitle": "Your trusted partner in Asia",

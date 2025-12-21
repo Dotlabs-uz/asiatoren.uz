@@ -1,4 +1,12 @@
 {
+    "header": {
+        "nav": {
+            "products": "Mahsulotlar",
+            "about": "Biz haqimizda",
+            "contacts": "Kontaktlar"
+        },
+        "btn": "Bog'lanish"
+    },
     "hero": {
         "title": "Taren Osiyosiga xush kelibsiz",
         "subtitle": "Sizning Osiyodagi ishonchli hamkoringiz",
