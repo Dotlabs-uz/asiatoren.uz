@@ -1,4 +1,5 @@
 import Header from "@/components/server/Header";
+import StagesSection from "@/components/server/Stages";
 import { getProductsServer } from "@/lib/firebase/server-api";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
@@ -17,6 +18,7 @@ export default async function Home() {
                 height={5000}
                 className="h-screen w-full"
             />
+            <StagesSection />
         </div>
     );
 }

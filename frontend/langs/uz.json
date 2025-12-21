@@ -11,5 +11,31 @@
         "title": "Taren Osiyosiga xush kelibsiz",
         "subtitle": "Sizning Osiyodagi ishonchli hamkoringiz",
         "cta": "Biz bilan bog'laning"
+    },
+    "stages": {
+        "title": "Biznesni \"kalit taslim\" ishga tushirish bosqichlari",
+        "subtitle1": "Biz parranda fermalari uchun ilg'or uskunalarni ishlab chiqish va ishlab chiqarishga ixtisoslashganmiz.",
+        "subtitle2": "Bizning vazifamiz — sizning biznesingizning samaradorligini va rentabelligini oshiradigan innovatsion va ishonchli yechimlarni taqdim etish.",
+        "stageLabel": "bosqich",
+        "stage1": {
+            "title": "Maslahat va loyiha tahlili",
+            "description": "Sizga qanday parranda fermasi kerakligini va maydon shartlarini aniqlaymiz."
+        },
+        "stage2": {
+            "title": "Loyihalash va hisob-kitoblar",
+            "description": "Texnik reja tuzamiz va sizning vazifalaringizga mos uskunalarni tanlaymiz."
+        },
+        "stage3": {
+            "title": "Uskunalar bilan ta'minlash",
+            "description": "Broylerni yetishtirish uchun to'liq tizimlar to'plamini ishlab chiqaramiz va yetkazib beramiz."
+        },
+        "stage4": {
+            "title": "\"Kalit taslim\" o'rnatish va ishga tushirish",
+            "description": "O'rnatamiz, ulaymiz, sozlaymiz — ferma ishlashga tayyor."
+        },
+        "stage5": {
+            "title": "Ishga tushirishdan keyingi qo'llab-quvvatlash",
+            "description": "Nazorat, yangilanishlar, maslahatlar va xizmat ko'rsatish."
+        }
     }
 }
