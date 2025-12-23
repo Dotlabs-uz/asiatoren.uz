@@ -124,9 +124,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                                 </span>
                             </Button>
                         </div>
-                        <Button className="bg-cRed hover:bg-cRed/80 text-white px-6 py-2.5 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200">
-                            {text.btn}
-                        </Button>
+                        <Button>{text.btn}</Button>
                     </div>
 
                     {/* Mobile Menu - shadcn Sheet */}
@@ -225,9 +223,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                                         </span>
                                     </Button>
                                 </div>
-                                <Button className="w-full bg-cRed hover:bg-cRed/80 text-white py-6 rounded-lg font-medium shadow-lg">
-                                    {text.btn}
-                                </Button>
+                                <Button>{text.btn}</Button>
                             </div>
                         </SheetContent>
                     </Sheet>
