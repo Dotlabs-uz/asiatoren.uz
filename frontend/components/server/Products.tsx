@@ -1,27 +1,29 @@
 import { ArrowRight } from "lucide-react";
 import { Category, Product } from "@/types";
 import { Button } from "../ui/button";
+import { getTranslations } from "next-intl/server";
 
 interface ProductsSectionProps {
     categories: Category[];
     products: Product[];
 }
 
-export const ProductsSection = ({
+export default async function ProductsSection({
     categories,
     products,
-}: ProductsSectionProps) => {
+}: ProductsSectionProps) {
+    const t = await getTranslations("our-products");
     return (
         <section className="w-full py-12 md:py-20 px-5 sm:px-8 lg:px-16 bg-white">
             <div className="max-w-[1400px] mx-auto">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center lg:items-center gap-8 mb-8 md:mb-12">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cGray">
-                        Наши товары
+                        {t("title")}
                     </h2>
 
                     <Button className="group flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 w-full md:w-60 justify-center transition-all duration-300">
-                        Открыть каталог
+                        {t("btn")}
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </Button>
                 </div>
@@ -30,7 +32,8 @@ export const ProductsSection = ({
                 <div className="mb-8 md:mb-12">
                     <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                         {categories.map((category) => (
-                            <Button variant={"default"}
+                            <Button
+                                variant={"default"}
                                 key={category.id}
                                 className={`whitespace-nowrap  transition-all duration-500 px-6 py-3 rounded-xl font-semibold text-lg bg-gray-100 text-gray-600 hover:bg-cRed hover:text-white
                                 `}
@@ -89,4 +92,4 @@ export const ProductsSection = ({
             </div>
         </section>
     );
-};
+}

@@ -5,7 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/server/Header";
-import { Footer } from "@/components/server/Footer";
+import Footer from "@/components/server/Footer";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",

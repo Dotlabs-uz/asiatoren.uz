@@ -7,10 +7,20 @@
         },
         "btn": "Get in touch"
     },
+    "footer": {
+        "nav": {
+            "title": "Navigation",
+            "products": "Catalog",
+            "about": "About Us",
+            "contacts": "Contacts"
+        },
+        "socials": "Social Media"
+    },
     "hero": {
-        "title": "Welcome to Taren Asia",
-        "subtitle": "Your trusted partner in Asia",
-        "cta": "Contact Us"
+        "title": "Technologies for Optimal Conditions",
+        "p": "Comprehensive solutions for poultry farms — from ventilation to automated feeding systems.",
+        "btn1": "Request a Consultation",
+        "btn2": "Download Catalog"
     },
     "stages": {
         "title": "Turnkey Business Launch Stages",
@@ -37,5 +47,69 @@
             "title": "Post-Launch Support",
             "description": "Monitoring, updates, consultations, and service."
         }
+    },
+    "our-products": {
+        "title": "Our Products",
+        "btn": "Open Catalog"
+    },
+    "about-us": {
+        "subtitle": "About",
+        "title": "About Our <br /> Company",
+        "p1": "We specialize in the development and manufacture of advanced equipment for poultry farms.",
+        "p2": "Our mission is to provide innovative and reliable solutions that increase the efficiency and profitability of your business.",
+        "stats": [
+            {
+                "number": "100%",
+                "label": "Satisfied Customers"
+            },
+            {
+                "number": "10000+",
+                "label": "Installed Systems"
+            },
+            {
+                "number": "10+",
+                "label": "Established Farms"
+            },
+            {
+                "number": "100+",
+                "label": "Partners"
+            }
+        ]
+    },
+    "faq": {
+        "subtitle": "Frequently Asked Questions",
+        "title": "Have questions about <br /> the project?",
+        "accordion": [
+            {
+                "question": "What does the turnkey service for opening a poultry farm include?",
+                "answer": "We provide a full range of services: designing the poultry farm according to your requirements, supplying and installing all necessary equipment (ventilation, feeding, watering, lighting systems), commissioning, staff training, and ongoing technical support. You receive a ready-to-operate production facility optimized for maximum efficiency."
+            },
+            {
+                "question": "What equipment do you manufacture and supply?",
+                "answer": "We specialize in a full range of equipment for poultry farms: modern ventilation and climate-control systems, automatic feeders and drinkers of various types, high-efficiency air purification filters, LED lighting for poultry farming, and climate control systems. All equipment meets international quality standards and is adapted to the conditions of Central Asia."
+            },
+            {
+                "question": "How long does it take to launch a poultry farm?",
+                "answer": "Timelines depend on the project scale. For a small farm (up to 10,000 birds) the full cycle from design to launch takes 2–3 months. Medium farms (up to 50,000 birds) require 3–5 months. Large projects can take 6–9 months. We prepare a detailed work schedule during the design phase and adhere to it strictly."
+            },
+            {
+                "question": "Do you provide warranty and after-sales service?",
+                "answer": "Yes, all supplied equipment comes with a warranty of 12 to 24 months depending on the type. We provide full technical support: scheduled maintenance, prompt repairs, spare parts supply, and expert consultations 24/7. We also conduct regular training for your staff on equipment operation and maintenance."
+            }
+        ]
+    },
+    "form": {
+        "title": "Get a consultation <br /> from a specialist",
+        "p": "We will contact you <br /> within 2 business days",
+        "name": "Your name",
+        "phone": "Phone number",
+        "email": "Your email",
+        "btn1": "Submit",
+        "btn2": "Sending...",
+        "nameError": "Please enter your name",
+        "phoneError": "Please enter a valid phone number",
+        "emailError": "Please enter a valid email address",
+        "successMessage": "Form submitted successfully!",
+        "errorMessage": "An error occurred while submitting the form. Please try again."
     }
 }

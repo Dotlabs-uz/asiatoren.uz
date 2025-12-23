@@ -1,51 +1,36 @@
 import Link from "next/link";
-import { Instagram, Send, Linkedin, Phone, Mail } from "lucide-react";
+import { Instagram, Send, Phone, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-interface FooterLink {
-    label: string;
-    href: string;
-    icon?: React.ReactNode;
-}
+export default async function Footer() {
+    const t = await getTranslations("footer");
 
-interface FooterProps {
-    navigation?: FooterLink[];
-    socialLinks?: FooterLink[];
-    contact?: {
-        phone: string;
-        email: string;
-    };
-}
+    const currentYear = new Date().getFullYear();
 
-export const Footer = ({
-    navigation = [
-        { label: "Каталог", href: "/catalog" },
-        { label: "О нас", href: "/about" },
-        { label: "Контакты", href: "/contacts" }
-    ],
-    socialLinks = [
+    const navigation = [
+        { label: t("nav.products"), href: "/catalog" },
+        { label: t("nav.about"), href: "/about" },
+        { label: t("nav.contacts"), href: "/contacts" },
+    ];
+
+    const socialLinks = [
         {
             label: "Instagram",
-            href: "https://instagram.com",
+            href: "https://www.instagram.com/asiatarenuz?igsh=aWpwZjJ5eG9pbmE2",
             icon: <Instagram className="w-5 h-5" />,
         },
         {
             label: "Telegram",
-            href: "https://telegram.org",
+            href: "https://t.me/Asia_Taren_Poultry",
             icon: <Send className="w-5 h-5" />,
-        },
-        {
-            label: "LinkedIn",
-            href: "https://linkedin.com",
-            icon: <Linkedin className="w-5 h-5" />,
-        },
-    ],
-    contact = {
-        phone: "+998 91 123 45 67",
-        email: "info@asiataren.uz",
-    },
-}: FooterProps) => {
-    const currentYear = new Date().getFullYear();
+        }
+    ];
+
+    const contact = {
+        phone: "+998 91 187 28 67",
+        tg: "@Asiatarenpoultry1",
+    };
 
     return (
         <footer className="w-full bg-linear-to-b from-gray-900 to-black text-white">
@@ -88,12 +73,14 @@ export const Footer = ({
                                 </span>
                             </Link>
                             <Link
-                                href={`mailto:${contact.email}`}
+                                href={`https://t.me/${contact.tg.replace(/@/, "")}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="flex items-center gap-3 group"
                             >
-                                <Mail className="w-6 h-6 text-gray-400 group-hover:text-cRed transition-colors" />
+                                <MessageCircle className="w-6 h-6 text-gray-400 group-hover:text-cRed transition-colors" />
                                 <span className="text-lg md:text-xl font-medium text-gray-300 group-hover:text-cRed transition-colors">
-                                    {contact.email}
+                                    {contact.tg}
                                 </span>
                             </Link>
                         </div>
@@ -101,7 +88,7 @@ export const Footer = ({
                         {/* Navigation */}
                         <div className="flex flex-col gap-4">
                             <h3 className="text-lg md:text-xl font-bold mb-2">
-                                Навигация
+                                {t("nav.title")}
                             </h3>
                             <nav className="flex flex-col gap-3">
                                 {navigation.map((link) => (
@@ -119,7 +106,7 @@ export const Footer = ({
                         {/* Social Links */}
                         <div className="flex flex-col gap-4">
                             <h3 className="text-lg md:text-xl font-bold mb-2">
-                                Соц сети
+                                {t("socials")}
                             </h3>
                             <nav className="flex flex-col gap-3">
                                 {socialLinks.map((link) => (
@@ -155,4 +142,4 @@ export const Footer = ({
             </div>
         </footer>
     );
-};
+}

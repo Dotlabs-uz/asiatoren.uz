@@ -1,3 +1,4 @@
+// components/client/FormClient.tsx
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -14,21 +15,41 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-const formSchema = z.object({
-    name: z.string().min(2, {
-        message: "Имя должно содержать минимум 2 символа",
-    }),
-    phone: z.string().min(10, {
-        message: "Введите корректный номер телефона",
-    }),
-    email: z.string().email({
-        message: "Введите корректный email",
-    }),
-});
+interface Translations {
+    title: string;
+    p: string;
+    name: string;
+    phone: string;
+    email: string;
+    btn1: string;
+    btn2: string;
+    nameError: string;
+    phoneError: string;
+    emailError: string;
+    successMessage: string;
+    errorMessage: string;
+}
 
-type FormValues = z.infer<typeof formSchema>;
+interface FormClientProps {
+    translations: Translations;
+}
 
-export const FormClient = () => {
+export const FormClient = ({ translations }: FormClientProps) => {
+    // Создаем схему валидации с переведенными сообщениями
+    const formSchema = z.object({
+        name: z.string().min(2, {
+            message: translations.nameError,
+        }),
+        phone: z.string().min(10, {
+            message: translations.phoneError,
+        }),
+        email: z.string().email({
+            message: translations.emailError,
+        }),
+    });
+
+    type FormValues = z.infer<typeof formSchema>;
+
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -40,16 +61,15 @@ export const FormClient = () => {
 
     const onSubmit = async (values: FormValues) => {
         try {
-            // Здесь будет логика отправки формы
             console.log(values);
 
             // Имитация отправки
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            toast.success("Заявка успешно отправлена!");
+            toast.success(translations.successMessage);
             form.reset();
         } catch (error) {
-            toast.error("Произошла ошибка. Попробуйте снова.");
+            toast.error(translations.errorMessage);
         }
     };
 
@@ -58,17 +78,14 @@ export const FormClient = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 {/* Left Side - Text */}
                 <div className="flex flex-col gap-6 md:gap-8">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-cGray leading-tight">
-                        Получите
-                        <br />
-                        консультацию
-                        <br />
-                        специалиста
-                    </h2>
-                    <p className="text-base md:text-lg text-gray-500">
-                        Мы свяжемся с вами
-                        <br />в течении 2 рабочих дней
-                    </p>
+                    <h2
+                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-cGray leading-tight"
+                        dangerouslySetInnerHTML={{ __html: translations.title }}
+                    />
+                    <p
+                        className="text-base md:text-lg text-gray-500"
+                        dangerouslySetInnerHTML={{ __html: translations.p }}
+                    />
                 </div>
 
                 {/* Right Side - Form */}
@@ -85,7 +102,7 @@ export const FormClient = () => {
                                     <FormItem>
                                         <FormControl>
                                             <Input
-                                                placeholder="Ваше имя"
+                                                placeholder={translations.name}
                                                 className="h-14 md:h-16 px-6 text-base md:text-lg bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 placeholder:text-gray-400"
                                                 {...field}
                                             />
@@ -102,7 +119,7 @@ export const FormClient = () => {
                                     <FormItem>
                                         <FormControl>
                                             <Input
-                                                placeholder="Номер телефона"
+                                                placeholder={translations.phone}
                                                 type="tel"
                                                 className="h-14 md:h-16 px-6 text-base md:text-lg bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 placeholder:text-gray-400"
                                                 {...field}
@@ -120,13 +137,13 @@ export const FormClient = () => {
                                     <FormItem>
                                         <FormControl>
                                             <Input
-                                                placeholder="Электронная почта"
+                                                placeholder={translations.email}
                                                 type="email"
                                                 className="h-14 md:h-16 px-6 text-base md:text-lg bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 placeholder:text-gray-400"
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage className="text-red-500 text-sm mt-1" />
+                                        <FormMessage className="text-cRed text-sm mt-1" />
                                     </FormItem>
                                 )}
                             />
@@ -137,8 +154,8 @@ export const FormClient = () => {
                                 disabled={form.formState.isSubmitting}
                             >
                                 {form.formState.isSubmitting
-                                    ? "Отправка..."
-                                    : "Отправить"}
+                                    ? translations.btn2
+                                    : translations.btn1}
                             </Button>
                         </form>
                     </Form>
