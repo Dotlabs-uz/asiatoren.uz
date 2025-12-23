@@ -31,7 +31,7 @@ export const AboutSection = ({
 
                     {/* Title */}
                     <div className="lg:col-span-2">
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cGray leading-tight">
                             О нашей
                             <br />
                             компании

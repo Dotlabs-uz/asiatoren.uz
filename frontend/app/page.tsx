@@ -1,4 +1,6 @@
 import { AboutSection } from "@/components/server/About";
+import { FAQSection } from "@/components/server/Faq";
+import { Form } from "@/components/server/Form";
 import Header from "@/components/server/Header";
 import { ProductsSection } from "@/components/server/Products";
 import StagesSection from "@/components/server/Stages";
@@ -16,7 +18,7 @@ export default async function Home() {
 
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
 
             {/* Hero section */}
             <div className="w-full h-screen bg-[url('/images/hero-bg.png')] bg-cover bg-center relative">
@@ -52,6 +54,12 @@ export default async function Home() {
 
             {/* About Us */}
             <AboutSection />
+
+            {/* Faq */}
+            <FAQSection />
+
+            {/* Form */}
+            <Form />
         </div>
     );
 }
