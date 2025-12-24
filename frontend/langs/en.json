@@ -141,5 +141,13 @@
             "success": "Request submitted successfully!",
             "error": "An error occurred. Please try again."
         }
+    },
+    "catalog": {
+        "title": "Equipment Catalog",
+        "searchPlaceholder": "Search products (feeders, ventilation, feeders)",
+        "all": "All",
+        "viewButton": "View",
+        "notFound": "Products not found",
+        "tryAgain": "Try changing the search parameters"
     }
 }
