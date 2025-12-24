@@ -141,5 +141,13 @@
             "success": "Ariza muvaffaqiyatli yuborildi!",
             "error": "Xatolik yuz berdi. Qayta urinib ko'ring."
         }
+    },
+    "catalog": {
+        "title": "Uskunalar katalogi",
+        "searchPlaceholder": "Tovarlar bo'yicha qidiruv (oziqlantirgichlar, ventilyatsiya, yemlar)",
+        "all": "Barchasi",
+        "viewButton": "Ko'rish",
+        "notFound": "Tovarlar topilmadi",
+        "tryAgain": "Qidiruv parametrlarini o'zgartirib ko'ring"
     }
 }

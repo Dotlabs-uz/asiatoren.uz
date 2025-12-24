@@ -12,7 +12,6 @@ import {
 import { db } from "./client";
 import { Product, Category } from "@/types";
 
-
 export const getCategories = async (): Promise<Category[]> => {
     try {
         const categoriesRef = collection(db, "categories");
@@ -31,7 +30,6 @@ export const getCategories = async (): Promise<Category[]> => {
         return [];
     }
 };
-
 
 export const getCategoryById = async (id: string): Promise<Category | null> => {
     try {
@@ -55,7 +53,6 @@ export const getCategoryById = async (id: string): Promise<Category | null> => {
     }
 };
 
-
 export const getProducts = async (options?: {
     categoryId?: string;
     limit?: number;
@@ -75,8 +72,11 @@ export const getProducts = async (options?: {
             constraints.push(where("featured", "==", true));
         }
 
-        // Сортировка по дате создания (новые первые)
-        constraints.push(orderBy("createdAt", "desc"));
+        // Сортировка только если НЕТ фильтров (чтобы избежать необходимости в индексе)
+        // Если есть фильтры - сортируем на клиенте
+        if (!options?.categoryId && !options?.featured) {
+            constraints.push(orderBy("createdAt", "desc"));
+        }
 
         // Лимит
         if (options?.limit) {
@@ -86,7 +86,7 @@ export const getProducts = async (options?: {
         const q = query(productsRef, ...constraints);
         const snapshot = await getDocs(q);
 
-        return snapshot.docs.map((doc) => {
+        let products = snapshot.docs.map((doc) => {
             const data = doc.data();
             return {
                 id: doc.id,
@@ -100,12 +100,20 @@ export const getProducts = async (options?: {
                 updatedAt: data.updatedAt?.toDate() || new Date(),
             };
         });
+
+        // Если были фильтры - сортируем на клиенте
+        if (options?.categoryId || options?.featured) {
+            products = products.sort(
+                (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+            );
+        }
+
+        return products;
     } catch (error) {
         console.error("Error fetching products:", error);
         return [];
     }
 };
-
 
 export const getProductById = async (id: string): Promise<Product | null> => {
     try {
@@ -134,13 +142,11 @@ export const getProductById = async (id: string): Promise<Product | null> => {
     }
 };
 
-
 export const getFeaturedProducts = async (
     limitCount: number = 6
 ): Promise<Product[]> => {
     return getProducts({ featured: true, limit: limitCount });
 };
-
 
 export const getProductsByCategory = async (
     categoryId: string,
@@ -148,7 +154,6 @@ export const getProductsByCategory = async (
 ): Promise<Product[]> => {
     return getProducts({ categoryId, limit: limitCount });
 };
-
 
 export const searchProducts = async (
     searchQuery: string
