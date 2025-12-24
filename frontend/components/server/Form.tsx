@@ -15,11 +15,11 @@ export default async function Form() {
         btn1: t("btn1"),
         btn2: t("btn2"),
         // Валидационные сообщения
-        nameError: t("nameError"),
-        phoneError: t("phoneError"),
-        emailError: t("emailError"),
-        successMessage: t("successMessage"),
-        errorMessage: t("errorMessage"),
+        nameError: t("validation.name"),
+        phoneError: t("validation.phone"),
+        emailError: t("validation.email"),
+        successMessage: t("messages.success"),
+        errorMessage: t("messages.error"),
     };
 
     return (

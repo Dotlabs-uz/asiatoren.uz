@@ -22,6 +22,32 @@
         "btn1": "Maslahat olish",
         "btn2": "Katalogni yuklab olish"
     },
+    "scroll-section": {
+        "items": [
+            {
+                "type": "text",
+                "content": "Broyler tovuqlarini samarali <span class='text-cRed'>yetishtirish</span> uchun zamonaviy yechimlar"
+            },
+            {
+                "type": "image",
+                "src": "/images/chicken.png",
+                "alt": "Tovuq"
+            },
+            {
+                "type": "video",
+                "src": "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE",
+                "poster": "/images/farm.png"
+            },
+            {
+                "type": "text",
+                "content": "Parranda fabrikangizni murakkabliklarsiz va ortiqcha xarajatlarsiz ishga tushirmoqchimisiz?"
+            },
+            {
+                "type": "text",
+                "content": "Biz g'oyadan to'liq ishlaydigan ishlab chiqarishgacha bo'lgan barcha bosqichlarda yordam beramiz."
+            }
+        ]
+    },
     "stages": {
         "title": "Biznesni \"kalit taslim\" ishga tushirish bosqichlari",
         "subtitle1": "Biz parranda fermalari uchun ilg'or uskunalarni ishlab chiqish va ishlab chiqarishga ixtisoslashganmiz.",
@@ -99,17 +125,21 @@
         ]
     },
     "form": {
-        "title": "Mutaxassisdan <br /> maslahat oling",
-        "p": "Biz siz bilan <br /> 2 ish kuni ichida bog'lanamiz",
+        "title": "Mutaxassisdan<br />konsultatsiya oling",
+        "p": "Biz siz bilan<br />2 ish kuni ichida bog'lanamiz",
         "name": "Ismingiz",
         "phone": "Telefon raqami",
         "email": "Elektron pochta",
         "btn1": "Yuborish",
         "btn2": "Yuborilmoqda...",
-        "nameError": "Iltimos, ismingizni kiriting",
-        "phoneError": "Iltimos, to'g'ri telefon raqamini kiriting",
-        "emailError": "Iltimos, to'g'ri elektron pochta manzilini kiriting",
-        "successMessage": "Forma muvaffaqiyatli yuborildi!",
-        "errorMessage": "Forma yuborishda xatolik yuz berdi. Iltimos, qayta urinib ko'ring."
+        "validation": {
+            "name": "Ism kamida 2 ta belgidan iborat bo'lishi kerak",
+            "phone": "To'g'ri telefon raqamini kiriting",
+            "email": "To'g'ri elektron pochta manzilini kiriting"
+        },
+        "messages": {
+            "success": "Ariza muvaffaqiyatli yuborildi!",
+            "error": "Xatolik yuz berdi. Qayta urinib ko'ring."
+        }
     }
 }
