@@ -1,54 +1,27 @@
 import AboutSection from "@/components/server/About";
 import FAQSection from "@/components/server/Faq";
 import Form from "@/components/server/Form";
+import HeroSection from "@/components/server/Hero";
 import ProductsSection from "@/components/server/Products";
+import ScrollMain from "@/components/server/ScrollMain";
 import StagesSection from "@/components/server/Stages";
-import { Button } from "@/components/ui/button";
-import {
-    getCategoriesServer,
-    getProductsServer,
-} from "@/lib/firebase/server-api";
-import { getTranslations } from "next-intl/server";
 
-export default async function Home() {
-    const t = await getTranslations("hero");
-    const products = await getProductsServer();
-    const categories = await getCategoriesServer();
-
+export default function Home() {
     return (
         <div>
             {/* <Header /> */}
 
             {/* Hero section */}
-            <div className="w-full h-screen bg-[url('/images/hero-bg.png')] bg-cover bg-center relative">
-                <div className="w-full lg:w-[40%] md:w-[50%] h-screen flex flex-col justify-end items-start gap-8 md:gap-12 lg:gap-20 px-5 sm:px-8 md:mx-10 pb-8 md:pb-12">
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold">
-                        {t("title")}
-                    </h1>
-                    <div className="flex flex-col justify-start items-start gap-4 md:gap-6 lg:gap-8">
-                        <p className="text-base sm:text-lg md:text-xl text-white font-medium max-w-2xl">
-                            {t("p")}
-                        </p>
-                        <div className="flex flex-col sm:flex-row justify-start items-stretch sm:items-start gap-3 w-full sm:w-auto">
-                            <Button
-                                className="w-full sm:w-52 md:w-60 px-6 sm:px-8 md:px-10 py-4 md:py-5 text-sm md:text-base"
-                                variant={"custom"}
-                            >
-                                {t("btn1")}
-                            </Button>
-                            <Button className="w-full sm:w-52 md:w-60 px-6 sm:px-8 md:px-10 py-4 md:py-5 text-sm md:text-base bg-transparent hover:bg-transparent/80 border border-white">
-                                {t("btn2")}
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <HeroSection />
+
+            {/* Scroll Section */}
+            <ScrollMain />
 
             {/* Stages section */}
             <StagesSection />
 
             {/* Products */}
-            <ProductsSection products={products} categories={categories} />
+            <ProductsSection />
 
             {/* About Us */}
             <AboutSection />

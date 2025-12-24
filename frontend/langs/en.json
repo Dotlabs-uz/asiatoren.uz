@@ -22,6 +22,32 @@
         "btn1": "Request a Consultation",
         "btn2": "Download Catalog"
     },
+    "scroll-section": {
+        "items": [
+            {
+                "type": "text",
+                "content": "Modern solutions for efficient <span class='text-cRed'>broiler</span> chicken farming"
+            },
+            {
+                "type": "image",
+                "src": "/images/chicken.png",
+                "alt": "Chicken"
+            },
+            {
+                "type": "video",
+                "src": "/videos/asia-taren.mp4",
+                "poster": "/images/farm.png"
+            },
+            {
+                "type": "text",
+                "content": "Want to launch your poultry farm without complications or unnecessary costs"
+            },
+            {
+                "type": "text",
+                "content": "We will help you through the entire process — from concept to a fully operational production facility."
+            }
+        ]
+    },
     "stages": {
         "title": "Turnkey Business Launch Stages",
         "subtitle1": "We specialize in the development and production of advanced equipment for poultry farms.",
@@ -99,17 +125,21 @@
         ]
     },
     "form": {
-        "title": "Get a consultation <br /> from a specialist",
-        "p": "We will contact you <br /> within 2 business days",
+        "title": "Get a<br />consultation<br />with a specialist",
+        "p": "We will contact you<br />within 2 business days",
         "name": "Your name",
         "phone": "Phone number",
-        "email": "Your email",
+        "email": "Email",
         "btn1": "Submit",
         "btn2": "Sending...",
-        "nameError": "Please enter your name",
-        "phoneError": "Please enter a valid phone number",
-        "emailError": "Please enter a valid email address",
-        "successMessage": "Form submitted successfully!",
-        "errorMessage": "An error occurred while submitting the form. Please try again."
+        "validation": {
+            "name": "Name must be at least 2 characters",
+            "phone": "Please enter a valid phone number",
+            "email": "Please enter a valid email"
+        },
+        "messages": {
+            "success": "Request submitted successfully!",
+            "error": "An error occurred. Please try again."
+        }
     }
 }
