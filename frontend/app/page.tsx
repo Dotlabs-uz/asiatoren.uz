@@ -7,6 +7,7 @@ import ScrollMain from "@/components/server/ScrollMain";
 import StagesSection from "@/components/server/Stages";
 
 export default function Home() {
+    
     return (
         <div>
             {/* <Header /> */}
