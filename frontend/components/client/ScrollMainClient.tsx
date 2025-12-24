@@ -13,6 +13,7 @@ interface ScrollItem {
     src?: string;
     alt?: string;
     poster?: string;
+    videoUrl?: string; // Для YouTube URL
 }
 
 interface ScrollMainClientProps {
@@ -115,15 +116,18 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                             )}
 
                             {item.type === "video" && (
-                                <div className="relative w-full max-w-4xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-cGray mx-5">
-                                    <video
-                                        src={item.src || ""}
-                                        poster={item.poster}
-                                        autoPlay
-                                        muted
-                                        loop
-                                        playsInline
-                                        className="w-full h-full object-cover"
+                                <div className="relative w-full max-w-4xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-cGray">
+                                    <iframe
+                                        className="w-full h-full"
+                                        src={
+                                            item.videoUrl ||
+                                            "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE"
+                                        }
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerPolicy="strict-origin-when-cross-origin"
+                                        allowFullScreen
                                     />
                                 </div>
                             )}
