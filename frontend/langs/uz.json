@@ -149,5 +149,87 @@
         "viewButton": "Ko'rish",
         "notFound": "Tovarlar topilmadi",
         "tryAgain": "Qidiruv parametrlarini o'zgartirib ko'ring"
+    },
+    "about-page": {
+        "hero": {
+            "title": "Kompaniya haqida",
+            "subtitle": "Samaraliroq va ishonchliroq qiladigan texnologiyalar"
+        },
+        "sections": {
+            "aboutCompany": "Kompaniya haqida",
+            "equipment": {
+                "title": "Kalit ostida uskunalar",
+                "production": "Yuqori texnologiyali uskunalarni ishlab chiqarish.",
+                "description": "Biz zamonaviy sifat standartlariga va parrandachilik xo'jaliklarining talablariga javob beradigan uskunalar ishlab chiqarish bilan shug'ullanamiz."
+            },
+            "stages": {
+                "title": "Loyiha bosqichlari",
+                "projectDescription": "Loyiha har bir bosqichni nazorat qilish va texnik standartlarga rioya qilish bilan bosqichma-bosqich amalga oshiriladi. Barcha qarorlar aniq va o'ylangan holda qabul qilinadi.",
+                "clientTasks": "Biz mijozning vazifalarini va foydalanish sharoitlarini hisobga olamiz, uskunalarning barqaror va ishonchli ishlashini ta'minlaymiz.",
+                "step1": {
+                    "title": "Tahlil va maslahat",
+                    "description": "Mijozning vazifalarini, ferma xususiyatlarini va uskunalarga qo'yiladigan talablarni o'rganamiz. Aniq sharoitlar va loyiha parametrlari asosida optimal yechimlarni tanlaymiz."
+                },
+                "step2": {
+                    "title": "Yechimlarni loyihalash",
+                    "description": "Muhandislik va texnologik yechimlarni ishlab chiqamiz. Zarur me'yorlar va kelajakdagi foydalanish xavfsizligini hisobga olgan holda loyiha shakllantirilamiz."
+                },
+                "step3": {
+                    "title": "Uskunalarni ishlab chiqarish",
+                    "description": "Uskunalarni ishlab chiqaramiz va to'ldiramiz, ishlab chiqarishning barcha bosqichlarida sinov va sifat nazoratini o'tkazamiz."
+                },
+                "step4": {
+                    "title": "Montaj va ishga tushirish",
+                    "description": "Ob'ektda uskunalarni o'rnatamiz, tizimlarning ishlashini tekshiramiz va barqaror va samarali ish uchun xodimlarni o'qitamiz."
+                }
+            },
+            "certificates": {
+                "label": "Sertifikatlar",
+                "title": "Sertifikatlarimiz",
+                "p1": "Bizning uskunalarimiz sertifikatlangan va sifat hamda xavfsizlik bo‘yicha xalqaro standartlarga javob beradi.",
+                "p2": "Bu real ekspluatatsiya sharoitlarida ishonchli va barqaror ishlashni ta'minlaydi."
+            },
+            "partners": {
+                "label": "Hamkorlar",
+                "title": "Bizning hamkorlarimiz",
+                "p1": "15 yillik faoliyat davomida turli mintaqalarda yuzlab mijozlar va hamkorlar bizga ishonch bildirdi.",
+                "p2": "Bizning hamkorlarimiz — ishonchli kompaniyalar va ishlab chiqaruvchilar bo‘lib, ular bilan birgalikda parrandachilik uchun samarali yechimlarni amalga oshiramiz."
+            }
+        }
+    },
+    "contacts-page": {
+        "hero": {
+            "title": "Aloqa",
+            "subtitle": "Samaraliroq va ishonchli qiladigan texnologiyalar"
+        },
+        "form": {
+            "title": "Aloqaga chiqing",
+            "firstName": "Ism",
+            "lastName": "Familiya",
+            "phone": "Telefon raqam",
+            "message": "Xabaringizni qoldiring...",
+            "agree": "Men o'qidim va roziman",
+            "terms": "shartlar",
+            "privacy": "maxfiylik siyosati",
+            "submit": "Ariza qoldirish",
+            "sending": "Yuborilmoqda...",
+            "validation": {
+                "firstName": "Ismni kiriting (kamida 2 ta belgi)",
+                "lastName": "Familiyani kiriting (kamida 2 ta belgi)",
+                "phone": "To'g'ri telefon raqamini kiriting",
+                "message": "Xabar kamida 10 ta belgidan iborat bo'lishi kerak",
+                "agree": "Shartlarga rozilik bildirish kerak"
+            },
+            "messages": {
+                "success": "Ariza muvaffaqiyatli yuborildi!",
+                "error": "Xatolik yuz berdi. Qayta urinib ko'ring."
+            }
+        },
+        "contact": {
+            "phone": "+998 91 187 28 67",
+            "email": "asiataren2017@gmail.com",
+            "address": "O'zbekiston, Toshkent, Navoiy ko'chasi 123",
+            "connectTitle": "Biz bilan bog'laning"
+        }
     }
 }

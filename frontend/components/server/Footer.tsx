@@ -9,8 +9,8 @@ export default async function Footer() {
     const currentYear = new Date().getFullYear();
 
     const navigation = [
-        { label: t("nav.products"), href: "/catalog" },
-        { label: t("nav.about"), href: "/about" },
+        { label: t("nav.products"), href: "/products" },
+        { label: t("nav.about"), href: "/about-us" },
         { label: t("nav.contacts"), href: "/contacts" },
     ];
 
@@ -24,7 +24,7 @@ export default async function Footer() {
             label: "Telegram",
             href: "https://t.me/Asia_Taren_Poultry",
             icon: <Send className="w-5 h-5" />,
-        }
+        },
     ];
 
     const contact = {
@@ -73,7 +73,10 @@ export default async function Footer() {
                                 </span>
                             </Link>
                             <Link
-                                href={`https://t.me/${contact.tg.replace(/@/, "")}`}
+                                href={`https://t.me/${contact.tg.replace(
+                                    /@/,
+                                    ""
+                                )}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-3 group"
