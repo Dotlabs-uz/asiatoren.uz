@@ -1,6 +1,6 @@
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import { Product, Category } from "@/types";
+import { Product, Category, Media } from "@/types";
 
 // Тип для заявки
 export interface Application {
@@ -151,5 +151,65 @@ export async function getApplicationServer(
     } catch (error) {
         console.error("Error fetching application (server):", error);
         return null;
+    }
+}
+
+// ==========================================
+// МЕДИА (Сертификаты и Партнёры)
+// ==========================================
+
+/**
+ * Получить все сертификаты
+ */
+export async function getCertificatesServer(): Promise<Media[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("media")
+            .where("type", "==", "certificate")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || "",
+                imageUrl: data.imageUrl || "",
+                type: "certificate" as const,
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching certificates (server):", error);
+        return [];
+    }
+}
+
+/**
+ * Получить всех партнёров
+ */
+export async function getPartnersServer(): Promise<Media[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("media")
+            .where("type", "==", "partner")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || "",
+                imageUrl: data.imageUrl || "",
+                type: "partner" as const,
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching partners (server):", error);
+        return [];
     }
 }

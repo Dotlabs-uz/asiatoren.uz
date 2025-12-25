@@ -80,6 +80,15 @@ export interface ApplicationFormData {
     text?: string;
 }
 
+export interface Media {
+    id: string;
+    title: string;
+    imageUrl: string;
+    type: 'certificate' | 'partner';
+    createdAt: Date;
+    updatedAt: Date;
+}
+
 /**
  * Firebase Firestore document snapshot type
  */

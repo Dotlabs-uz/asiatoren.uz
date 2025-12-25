@@ -12,34 +12,7 @@ import {
     QueryConstraint,
 } from "firebase/firestore";
 import { db } from "./client";
-import { Product, Category } from "@/types";
-
-// ==========================================
-// ТИПЫ
-// ==========================================
-
-export interface Application {
-    id: string;
-    name: string;
-    surname: string;
-    phoneNumber: string;
-    email: string;
-    text?: string;
-    createdAt: Date;
-    status: "new" | "processing" | "completed";
-}
-
-export interface ApplicationFormData {
-    name: string;
-    surname: string;
-    phoneNumber: string;
-    email: string;
-    text?: string;
-}
-
-// ==========================================
-// КАТЕГОРИИ
-// ==========================================
+import { Product, Category, ApplicationFormData, Media } from "@/types";
 
 export const getCategories = async (): Promise<Category[]> => {
     try {
@@ -234,3 +207,64 @@ export const createApplication = async (
         throw error;
     }
 };
+
+/**
+ * Получить все сертификаты
+ */
+export const getCertificates = async (): Promise<Media[]> => {
+    try {
+        const mediaRef = collection(db, "media");
+        const q = query(
+            mediaRef,
+            where("type", "==", "certificate"),
+            orderBy("createdAt", "desc")
+        );
+        const snapshot = await getDocs(q);
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || "",
+                imageUrl: data.imageUrl || "",
+                type: "certificate",
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching certificates:", error);
+        return [];
+    }
+};
+
+/**
+ * Получить всех партнёров
+ */
+export const getPartners = async (): Promise<Media[]> => {
+    try {
+        const mediaRef = collection(db, "media");
+        const q = query(
+            mediaRef,
+            where("type", "==", "partner"),
+            orderBy("createdAt", "desc")
+        );
+        const snapshot = await getDocs(q);
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || "",
+                imageUrl: data.imageUrl || "",
+                type: "partner",
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching partners:", error);
+        return [];
+    }
+};
+
