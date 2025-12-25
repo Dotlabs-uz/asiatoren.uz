@@ -149,5 +149,52 @@
         "viewButton": "View",
         "notFound": "Products not found",
         "tryAgain": "Try changing the search parameters"
+    },
+    "about-page": {
+        "hero": {
+            "title": "About Company",
+            "subtitle": "Technologies that make it more efficient and reliable"
+        },
+        "sections": {
+            "aboutCompany": "About Company",
+            "equipment": {
+                "title": "Turnkey Equipment",
+                "production": "Production of high-tech equipment.",
+                "description": "We are engaged in the production of equipment that meets modern quality standards and the requirements of poultry farms."
+            },
+            "stages": {
+                "title": "Project Stages",
+                "projectDescription": "The project is implemented in stages with control of each step and compliance with technical standards. All decisions are made accurately and thoughtfully.",
+                "clientTasks": "We take into account the client's tasks and operating conditions, ensure stable and reliable operation of the equipment.",
+                "step1": {
+                    "title": "Analysis and Consultation",
+                    "description": "We study the client's tasks, farm features and equipment requirements. We select optimal solutions based on specific conditions and project parameters."
+                },
+                "step2": {
+                    "title": "Solution Design",
+                    "description": "We develop engineering and technological solutions. We form a project taking into account the necessary standards and safety of future operation."
+                },
+                "step3": {
+                    "title": "Equipment Manufacturing",
+                    "description": "We produce and complete equipment, conduct testing and quality control at all stages of production."
+                },
+                "step4": {
+                    "title": "Installation and Launch",
+                    "description": "We install equipment at the facility, check the operation of systems and train personnel for stable and efficient operation."
+                }
+            },
+            "certificates": {
+                "label": "Certificates",
+                "title": "Our Certificates",
+                "p1": "Our equipment is certified and complies with international quality and safety standards.",
+                "p2": "This ensures reliable and stable operation under real-world conditions."
+            },
+            "partners": {
+                "label": "Partners",
+                "title": "Our Partners",
+                "p1": "Over 15 years of operation, hundreds of customers and partners across different regions have trusted us.",
+                "p2": "Our partners are trusted companies and manufacturers with whom we jointly implement effective poultry farming solutions."
+            }
+        }
     }
 }

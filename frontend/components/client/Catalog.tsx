@@ -6,12 +6,18 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Category, Product } from "@/types";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import {
     getProducts,
     getProductsByCategory,
     searchProducts,
 } from "@/lib/firebase/public-api";
+
+// Register ScrollTrigger plugin
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 interface CatalogClientProps {
     initialCategories: Category[];
@@ -35,67 +41,56 @@ export const CatalogClient = ({
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
     const [products, setProducts] = useState<Product[]>(initialProducts);
     const [loading, setLoading] = useState(false);
-    const [hasAnimated, setHasAnimated] = useState(false);
 
-    const heroRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const productsGridRef = useRef<HTMLDivElement>(null);
 
-    // Начальная анимация (только один раз)
+    // Начальная анимация
     useEffect(() => {
-        if (!hasAnimated) {
-            const ctx = gsap.context(() => {
-                const tl = gsap.timeline();
+        if (!containerRef.current) return;
 
-                // Hero секция
-                tl.from(".hero-title", {
-                    y: 50,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power3.out",
-                });
-
-                // Поиск
-                tl.from(
-                    ".search-bar",
-                    {
-                        y: 30,
-                        opacity: 0,
-                        duration: 0.8,
-                        ease: "power3.out",
-                    },
-                    "-=0.5"
-                );
-
-                // Категории
-                tl.from(
-                    ".category-tab",
-                    {
-                        x: -30,
-                        opacity: 0,
-                        duration: 0.6,
-                        stagger: 0.1,
-                        ease: "power3.out",
-                    },
-                    "-=0.4"
-                );
-
-                // Карточки
-                tl.from(
-                    ".product-card",
-                    {
-                        y: 60,
-                        opacity: 0,
-                        duration: 0.8,
-                        stagger: 0.1,
-                        ease: "power3.out",
-                    },
-                    "-=0.3"
-                );
+        const ctx = gsap.context(() => {
+            // Hero секция
+            gsap.from(".hero-title", {
+                y: 100,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.2,
             });
 
-            setHasAnimated(true);
-            return () => ctx.revert();
-        }
-    }, [hasAnimated]);
+            // Поиск и фильтры
+            gsap.from(".search-bar", {
+                y: 60,
+                opacity: 0,
+                scale: 0.95,
+                duration: 1,
+                ease: "back.out(1.2)",
+                delay: 0.5,
+            });
+
+            // Категории
+            gsap.from(".category-tab", {
+                x: 0,
+                duration: 0.5,
+                stagger: 0.08,
+                ease: "power3.out",
+                delay: 0.8,
+            });
+
+            // Начальные карточки продуктов
+            gsap.from(".product-card", {
+                y: 80,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power3.out",
+                delay: 1,
+            });
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
 
     // Загрузка продуктов при изменении категории
     useEffect(() => {
@@ -113,20 +108,25 @@ export const CatalogClient = ({
                     }
                     setProducts(newProducts);
 
-                    // Анимация для новых продуктов (только если уже была начальная анимация)
-                    if (hasAnimated) {
+                    // Анимация для новых продуктов
+                    setTimeout(() => {
                         gsap.fromTo(
                             ".product-card",
-                            { y: 40, opacity: 0 },
+                            {
+                                y: 60,
+                                opacity: 0,
+                                scale: 0.9,
+                            },
                             {
                                 y: 0,
                                 opacity: 1,
+                                scale: 1,
                                 duration: 0.6,
                                 stagger: 0.08,
                                 ease: "power3.out",
                             }
                         );
-                    }
+                    }, 100);
                 } catch (error) {
                     console.error("Error loading products:", error);
                 } finally {
@@ -136,7 +136,7 @@ export const CatalogClient = ({
         };
 
         loadProducts();
-    }, [selectedCategory, searchQuery, hasAnimated]);
+    }, [selectedCategory, searchQuery]);
 
     // Поиск продуктов с debounce
     useEffect(() => {
@@ -148,19 +148,24 @@ export const CatalogClient = ({
                     setProducts(results);
 
                     // Анимация результатов поиска
-                    if (hasAnimated) {
+                    setTimeout(() => {
                         gsap.fromTo(
                             ".product-card",
-                            { y: 40, opacity: 0 },
+                            {
+                                y: 60,
+                                opacity: 0,
+                                scale: 0.9,
+                            },
                             {
                                 y: 0,
                                 opacity: 1,
+                                scale: 1,
                                 duration: 0.6,
                                 stagger: 0.08,
                                 ease: "power3.out",
                             }
                         );
-                    }
+                    }, 100);
                 } catch (error) {
                     console.error("Error searching products:", error);
                 } finally {
@@ -170,15 +175,12 @@ export const CatalogClient = ({
 
             return () => clearTimeout(timeoutId);
         }
-    }, [searchQuery, hasAnimated]);
+    }, [searchQuery]);
 
     return (
-        <div className="min-h-screen bg-white">
+        <div ref={containerRef} className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div
-                ref={heroRef}
-                className="relative bg-[url('/images/farm.png')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex items-center justify-center"
-            >
+            <div className="relative bg-[url('/images/farm.png')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex items-center justify-center">
                 <div className="absolute inset-0 bg-black/30" />
                 <h1 className="hero-title relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
                     {translations.title}
@@ -243,7 +245,10 @@ export const CatalogClient = ({
                     </div>
                 ) : (
                     <>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div
+                            ref={productsGridRef}
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                        >
                             {products.map((product) => (
                                 <div
                                     key={product.id}
