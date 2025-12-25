@@ -1,7 +1,7 @@
 // components/client/FormClient.tsx
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { createApplication } from "@/lib/firebase/public-api";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,11 +25,13 @@ interface Translations {
     title: string;
     p: string;
     name: string;
+    surname: string; // ← Добавлено
     phone: string;
     email: string;
     btn1: string;
     btn2: string;
     nameError: string;
+    surnameError: string; // ← Добавлено
     phoneError: string;
     emailError: string;
     successMessage: string;
@@ -41,13 +44,17 @@ interface FormClientProps {
 
 export const FormClient = ({ translations }: FormClientProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const [loading, setLoading] = useState(false);
 
     // Создаем схему валидации с переведенными сообщениями
     const formSchema = z.object({
         name: z.string().min(2, {
             message: translations.nameError,
         }),
-        phone: z.string().min(10, {
+        surname: z.string().min(2, {
+            message: translations.surnameError,
+        }),
+        phoneNumber: z.string().min(10, {
             message: translations.phoneError,
         }),
         email: z.string().email({
@@ -61,7 +68,8 @@ export const FormClient = ({ translations }: FormClientProps) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            phone: "",
+            surname: "",
+            phoneNumber: "",
             email: "",
         },
     });
@@ -129,17 +137,18 @@ export const FormClient = ({ translations }: FormClientProps) => {
         return () => ctx.revert();
     }, []);
 
-    const onSubmit = async (values: FormValues) => {
+    const onSubmit = async (data: FormValues) => {
         try {
-            console.log(values);
-
-            // Имитация отправки
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            setLoading(true);
+            await createApplication(data);
 
             toast.success(translations.successMessage);
             form.reset();
         } catch (error) {
+            console.error("Error submitting application:", error);
             toast.error(translations.errorMessage);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -168,31 +177,57 @@ export const FormClient = ({ translations }: FormClientProps) => {
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="flex flex-col gap-4"
                         >
-                            <div className="form-field">
-                                <FormField
-                                    control={form.control}
-                                    name="name"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder={
-                                                        translations.name
-                                                    }
-                                                    className="h-14 md:h-16 px-6 text-base md:text-lg bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 placeholder:text-gray-400"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage className="text-cRed text-sm mt-1" />
-                                        </FormItem>
-                                    )}
-                                />
+                            {/* Имя и Фамилия в одну строку на больших экранах */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="form-field">
+                                    <FormField
+                                        control={form.control}
+                                        name="name"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder={
+                                                            translations.name
+                                                        }
+                                                        className="h-14 md:h-16 px-6 text-base md:text-lg bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 placeholder:text-gray-400"
+                                                        disabled={loading}
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage className="text-cRed text-sm mt-1" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+
+                                <div className="form-field">
+                                    <FormField
+                                        control={form.control}
+                                        name="surname"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder={
+                                                            translations.surname
+                                                        }
+                                                        className="h-14 md:h-16 px-6 text-base md:text-lg bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 placeholder:text-gray-400"
+                                                        disabled={loading}
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage className="text-cRed text-sm mt-1" />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
                             </div>
 
                             <div className="form-field">
                                 <FormField
                                     control={form.control}
-                                    name="phone"
+                                    name="phoneNumber"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
@@ -202,6 +237,7 @@ export const FormClient = ({ translations }: FormClientProps) => {
                                                     }
                                                     type="tel"
                                                     className="h-14 md:h-16 px-6 text-base md:text-lg bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 placeholder:text-gray-400"
+                                                    disabled={loading}
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -224,6 +260,7 @@ export const FormClient = ({ translations }: FormClientProps) => {
                                                     }
                                                     type="email"
                                                     className="h-14 md:h-16 px-6 text-base md:text-lg bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 placeholder:text-gray-400"
+                                                    disabled={loading}
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -237,9 +274,9 @@ export const FormClient = ({ translations }: FormClientProps) => {
                                 <Button
                                     type="submit"
                                     className="w-full h-14 md:h-16 bg-cRed hover:bg-cRed/80 text-white text-base md:text-lg font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl mt-2"
-                                    disabled={form.formState.isSubmitting}
+                                    disabled={loading}
                                 >
-                                    {form.formState.isSubmitting
+                                    {loading
                                         ? translations.btn2
                                         : translations.btn1}
                                 </Button>

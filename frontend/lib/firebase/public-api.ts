@@ -2,15 +2,44 @@ import {
     collection,
     getDocs,
     getDoc,
+    addDoc,
     doc,
     query,
     where,
     orderBy,
     limit,
+    serverTimestamp,
     QueryConstraint,
 } from "firebase/firestore";
 import { db } from "./client";
 import { Product, Category } from "@/types";
+
+// ==========================================
+// ТИПЫ
+// ==========================================
+
+export interface Application {
+    id: string;
+    name: string;
+    surname: string;
+    phoneNumber: string;
+    email: string;
+    text?: string;
+    createdAt: Date;
+    status: "new" | "processing" | "completed";
+}
+
+export interface ApplicationFormData {
+    name: string;
+    surname: string;
+    phoneNumber: string;
+    email: string;
+    text?: string;
+}
+
+// ==========================================
+// КАТЕГОРИИ
+// ==========================================
 
 export const getCategories = async (): Promise<Category[]> => {
     try {
@@ -53,6 +82,10 @@ export const getCategoryById = async (id: string): Promise<Category | null> => {
     }
 };
 
+// ==========================================
+// ТОВАРЫ
+// ==========================================
+
 export const getProducts = async (options?: {
     categoryId?: string;
     limit?: number;
@@ -62,23 +95,18 @@ export const getProducts = async (options?: {
         const productsRef = collection(db, "products");
         const constraints: QueryConstraint[] = [];
 
-        // Фильтр по категории
         if (options?.categoryId) {
             constraints.push(where("categoryId", "==", options.categoryId));
         }
 
-        // Фильтр по рекомендуемым
         if (options?.featured) {
             constraints.push(where("featured", "==", true));
         }
 
-        // Сортировка только если НЕТ фильтров (чтобы избежать необходимости в индексе)
-        // Если есть фильтры - сортируем на клиенте
         if (!options?.categoryId && !options?.featured) {
             constraints.push(orderBy("createdAt", "desc"));
         }
 
-        // Лимит
         if (options?.limit) {
             constraints.push(limit(options.limit));
         }
@@ -101,7 +129,6 @@ export const getProducts = async (options?: {
             };
         });
 
-        // Если были фильтры - сортируем на клиенте
         if (options?.categoryId || options?.featured) {
             products = products.sort(
                 (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
@@ -159,23 +186,51 @@ export const searchProducts = async (
     searchQuery: string
 ): Promise<Product[]> => {
     try {
-        // Получаем все товары
         const allProducts = await getProducts();
-
-        // Фильтруем на клиенте
         const query = searchQuery.toLowerCase().trim();
 
         return allProducts.filter((product) => {
-            const titleMatch = product.title.toLowerCase().includes(query);
+            const nameMatch = product.title.toLowerCase().includes(query);
             const descMatch = product.description.toLowerCase().includes(query);
             const featuresMatch = product.features?.some((f) =>
                 f.toLowerCase().includes(query)
             );
 
-            return titleMatch || descMatch || featuresMatch;
+            return nameMatch || descMatch || featuresMatch;
         });
     } catch (error) {
         console.error("Error searching products:", error);
         return [];
+    }
+};
+
+// ==========================================
+// ЗАЯВКИ
+// ==========================================
+
+/**
+ * Создать новую заявку
+ */
+export const createApplication = async (
+    data: ApplicationFormData
+): Promise<string> => {
+    try {
+        const applicationsRef = collection(db, "applications");
+
+        const applicationData = {
+            name: data.name,
+            surname: data.surname,
+            phoneNumber: data.phoneNumber,
+            email: data.email,
+            text: data.text || "",
+            status: "new",
+            createdAt: serverTimestamp(),
+        };
+
+        const docRef = await addDoc(applicationsRef, applicationData);
+        return docRef.id;
+    } catch (error) {
+        console.error("Error creating application:", error);
+        throw error;
     }
 };

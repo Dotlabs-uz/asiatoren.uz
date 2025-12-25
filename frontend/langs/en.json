@@ -1,6 +1,7 @@
 {
     "header": {
         "nav": {
+            "main": "Home",
             "products": "Catalog",
             "about": "About Us",
             "contacts": "Contacts"
@@ -128,12 +129,14 @@
         "title": "Get a<br />consultation<br />with a specialist",
         "p": "We will contact you<br />within 2 business days",
         "name": "Your name",
+        "surname": "Your surname",
         "phone": "Phone number",
         "email": "Email",
         "btn1": "Submit",
         "btn2": "Sending...",
         "validation": {
             "name": "Name must be at least 2 characters",
+            "surname": "Surname must be at least 2 characters",
             "phone": "Please enter a valid phone number",
             "email": "Please enter a valid email"
         },
@@ -200,36 +203,41 @@
     "contacts-page": {
         "hero": {
             "title": "Contacts",
-            "subtitle": "Technologies that make things more efficient and reliable"
+            "subtitle": "Contact us in the way that's convenient for you"
         },
         "form": {
-            "title": "Get in Touch",
-            "firstName": "First Name",
-            "lastName": "Last Name",
-            "phone": "Phone number",
-            "message": "Drop Your Message...",
-            "agree": "I've read and agree with",
-            "terms": "terms",
-            "privacy": "privacy policy",
-            "submit": "Submit Request",
+            "title": "Write to us",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "phone": "Phone",
+            "email": "Email",
+            "message": "Message (optional)",
+            "submit": "Send",
             "sending": "Sending...",
-            "validation": {
-                "firstName": "Enter first name (minimum 2 characters)",
-                "lastName": "Enter last name (minimum 2 characters)",
-                "phone": "Enter valid phone number",
-                "message": "Message must contain at least 10 characters",
-                "agree": "You must agree to the terms"
-            },
-            "messages": {
-                "success": "Request submitted successfully!",
-                "error": "An error occurred. Please try again."
-            }
+            "successMessage": "Message sent successfully!",
+            "errorMessage": "Error sending message",
+            "firstNameError": "Minimum 2 characters",
+            "lastNameError": "Minimum 2 characters",
+            "phoneError": "Please enter a valid phone number",
+            "emailError": "Please enter a valid email",
+            "messageError": "Minimum 10 characters"
         },
         "contact": {
-            "phone": "+998 91 187 28 67",
+            "phone1": "+998 77 201 31 31",
+            "phone2": "+998 90 455 43 51",
             "email": "asiataren2017@gmail.com",
-            "address": "Uzbekistan, Tashkent, Navoi Street 123",
-            "connectTitle": "Connect with us"
+            "address1": {
+                "title": "Main Factory",
+                "address": "Dakhbed, Samarkand, Uzbekistan",
+                "mapUrl": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3717.993436340659!2d66.9142363728934!3d39.74099720233546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDQ0JzM0LjIiTiA2NsKwNTQnNTcuNiJF!5e0!3m2!1sru!2s!4v1766689874007!5m2!1sru!2s"
+            },
+            "address2": {
+                "title": "Tashkent Branch",
+                "address": "Sergeli District, Tashkent, Uzbekistan",
+                "mapUrl": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2999.5716820576195!2d69.29905007605282!3d41.25288697131727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDE1JzEwLjQiTiA2OcKwMTgnMDUuOSJF!5e0!3m2!1sru!2s!4v1766689970904!5m2!1sru!2s"
+            },
+            "connectTitle": "Call us",
+            "socialTitle": "Find us on social media"
         }
     }
 }

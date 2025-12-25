@@ -1,6 +1,7 @@
 // components/client/ContactsPageForm.tsx
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -14,9 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { ArrowRight } from "lucide-react";
+import { createApplication } from "@/lib/firebase/public-api";
 
 interface ContactsPageFormProps {
     translations: {
@@ -24,10 +25,8 @@ interface ContactsPageFormProps {
         firstName: string;
         lastName: string;
         phone: string;
+        email: string;
         message: string;
-        agree: string;
-        terms: string;
-        privacy: string;
         submit: string;
         sending: string;
         successMessage: string;
@@ -35,28 +34,33 @@ interface ContactsPageFormProps {
         firstNameError: string;
         lastNameError: string;
         phoneError: string;
+        emailError: string;
         messageError: string;
-        agreeError: string;
     };
 }
 
 export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
+    const [loading, setLoading] = useState(false);
+
     const formSchema = z.object({
-        firstName: z.string().min(2, {
+        name: z.string().min(2, {
             message: translations.firstNameError,
         }),
-        lastName: z.string().min(2, {
+        surname: z.string().min(2, {
             message: translations.lastNameError,
         }),
-        phone: z.string().min(10, {
+        phoneNumber: z.string().min(10, {
             message: translations.phoneError,
         }),
-        message: z.string().min(10, {
-            message: translations.messageError,
+        email: z.string().email({
+            message: translations.emailError,
         }),
-        agree: z.boolean().refine((val) => val === true, {
-            message: translations.agreeError,
-        }),
+        text: z
+            .string()
+            .min(10, {
+                message: translations.messageError,
+            })
+            .optional(),
     });
 
     type FormValues = z.infer<typeof formSchema>;
@@ -64,24 +68,26 @@ export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            firstName: "",
-            lastName: "",
-            phone: "",
-            message: "",
-            agree: false,
+            name: "",
+            surname: "",
+            phoneNumber: "",
+            email: "",
+            text: "",
         },
     });
 
     const onSubmit = async (values: FormValues) => {
         try {
-            console.log(values);
-            // Здесь отправка данных на сервер
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            setLoading(true);
+            await createApplication(values);
 
             toast.success(translations.successMessage);
             form.reset();
         } catch (error) {
+            console.error("Error submitting application:", error);
             toast.error(translations.errorMessage);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -100,13 +106,14 @@ export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
                     <div className="form-field grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
                             control={form.control}
-                            name="firstName"
+                            name="name"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
                                         <Input
                                             placeholder={translations.firstName}
                                             className="h-14 px-6 text-base bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300"
+                                            disabled={loading}
                                             {...field}
                                         />
                                     </FormControl>
@@ -117,13 +124,14 @@ export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
 
                         <FormField
                             control={form.control}
-                            name="lastName"
+                            name="surname"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
                                         <Input
                                             placeholder={translations.lastName}
                                             className="h-14 px-6 text-base bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300"
+                                            disabled={loading}
                                             {...field}
                                         />
                                     </FormControl>
@@ -133,11 +141,11 @@ export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
                         />
                     </div>
 
-                    {/* Phone */}
-                    <div className="form-field">
+                    {/* Phone & Email */}
+                    <div className="form-field grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
                             control={form.control}
-                            name="phone"
+                            name="phoneNumber"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
@@ -145,6 +153,26 @@ export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
                                             placeholder={translations.phone}
                                             type="tel"
                                             className="h-14 px-6 text-base bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300"
+                                            disabled={loading}
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage className="text-cRed text-sm mt-1" />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormControl>
+                                        <Input
+                                            placeholder={translations.email}
+                                            type="email"
+                                            className="h-14 px-6 text-base bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300"
+                                            disabled={loading}
                                             {...field}
                                         />
                                     </FormControl>
@@ -158,55 +186,18 @@ export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
                     <div className="form-field">
                         <FormField
                             control={form.control}
-                            name="message"
+                            name="text"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
                                         <Textarea
                                             placeholder={translations.message}
                                             className="min-h-40 px-6 py-4 text-base bg-white border-none rounded-2xl focus-visible:ring-2 focus-visible:ring-gray-300 resize-none"
+                                            disabled={loading}
                                             {...field}
                                         />
                                     </FormControl>
                                     <FormMessage className="text-cRed text-sm mt-1" />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-
-                    {/* Checkbox */}
-                    <div className="form-field">
-                        <FormField
-                            control={form.control}
-                            name="agree"
-                            render={({ field }) => (
-                                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={field.onChange}
-                                            className="mt-1"
-                                        />
-                                    </FormControl>
-                                    <div className="space-y-1 leading-none">
-                                        <p className="text-sm text-gray-600">
-                                            {translations.agree}{" "}
-                                            <a
-                                                href="/terms"
-                                                className="text-cRed hover:underline"
-                                            >
-                                                {translations.terms}
-                                            </a>{" "}
-                                            &{" "}
-                                            <a
-                                                href="/privacy"
-                                                className="text-cRed hover:underline"
-                                            >
-                                                {translations.privacy}
-                                            </a>
-                                        </p>
-                                        <FormMessage className="text-cRed text-sm" />
-                                    </div>
                                 </FormItem>
                             )}
                         />
@@ -217,9 +208,9 @@ export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
                         <Button
                             type="submit"
                             className="w-full h-14 bg-cRed hover:bg-cRed/90 text-white text-base font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl mt-2 group"
-                            disabled={form.formState.isSubmitting}
+                            disabled={loading}
                         >
-                            {form.formState.isSubmitting
+                            {loading
                                 ? translations.sending
                                 : translations.submit}
                             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

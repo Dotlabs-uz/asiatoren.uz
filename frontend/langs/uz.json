@@ -1,6 +1,7 @@
 {
     "header": {
         "nav": {
+            "main": "Bosh sahifa",
             "products": "Mahsulotlar",
             "about": "Biz haqimizda",
             "contacts": "Kontaktlar"
@@ -128,12 +129,14 @@
         "title": "Mutaxassisdan<br />konsultatsiya oling",
         "p": "Biz siz bilan<br />2 ish kuni ichida bog'lanamiz",
         "name": "Ismingiz",
+        "surname": "Familiyangiz",
         "phone": "Telefon raqami",
         "email": "Elektron pochta",
         "btn1": "Yuborish",
         "btn2": "Yuborilmoqda...",
         "validation": {
             "name": "Ism kamida 2 ta belgidan iborat bo'lishi kerak",
+            "surname": "Familiya kamida 2 ta belgidan iborat bo'lishi kerak",
             "phone": "To'g'ri telefon raqamini kiriting",
             "email": "To'g'ri elektron pochta manzilini kiriting"
         },
@@ -199,37 +202,42 @@
     },
     "contacts-page": {
         "hero": {
-            "title": "Aloqa",
-            "subtitle": "Samaraliroq va ishonchli qiladigan texnologiyalar"
+            "title": "Kontaktlar",
+            "subtitle": "Sizga qulay yo‘l bilan biz bilan bog‘laning"
         },
         "form": {
-            "title": "Aloqaga chiqing",
+            "title": "Bizga yozing",
             "firstName": "Ism",
             "lastName": "Familiya",
-            "phone": "Telefon raqam",
-            "message": "Xabaringizni qoldiring...",
-            "agree": "Men o'qidim va roziman",
-            "terms": "shartlar",
-            "privacy": "maxfiylik siyosati",
-            "submit": "Ariza qoldirish",
+            "phone": "Telefon",
+            "email": "Elektron pochta",
+            "message": "Xabar (ixtiyoriy)",
+            "submit": "Yuborish",
             "sending": "Yuborilmoqda...",
-            "validation": {
-                "firstName": "Ismni kiriting (kamida 2 ta belgi)",
-                "lastName": "Familiyani kiriting (kamida 2 ta belgi)",
-                "phone": "To'g'ri telefon raqamini kiriting",
-                "message": "Xabar kamida 10 ta belgidan iborat bo'lishi kerak",
-                "agree": "Shartlarga rozilik bildirish kerak"
-            },
-            "messages": {
-                "success": "Ariza muvaffaqiyatli yuborildi!",
-                "error": "Xatolik yuz berdi. Qayta urinib ko'ring."
-            }
+            "successMessage": "Xabaringiz muvaffaqiyatli yuborildi!",
+            "errorMessage": "Yuborishda xatolik yuz berdi",
+            "firstNameError": "Kamida 2 ta belgi",
+            "lastNameError": "Kamida 2 ta belgi",
+            "phoneError": "To'g'ri telefon raqamini kiriting",
+            "emailError": "To'g'ri elektron pochta manzilini kiriting",
+            "messageError": "Kamida 10 ta belgi"
         },
         "contact": {
-            "phone": "+998 91 187 28 67",
+            "phone1": "+998 77 201 31 31",
+            "phone2": "+998 90 455 43 51",
             "email": "asiataren2017@gmail.com",
-            "address": "O'zbekiston, Toshkent, Navoiy ko'chasi 123",
-            "connectTitle": "Biz bilan bog'laning"
+            "address1": {
+                "title": "Asosiy zavod",
+                "address": "Dahbed, Samarqand, O'zbekiston",
+                "mapUrl": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3717.993436340659!2d66.9142363728934!3d39.74099720233546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDQ0JzM0LjIiTiA2NsKwNTQnNTcuNiJF!5e0!3m2!1sru!2s!4v1766689874007!5m2!1sru!2s"
+            },
+            "address2": {
+                "title": "Toshkent filiali",
+                "address": "Sergeli tumani, Toshkent, O'zbekiston",
+                "mapUrl": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2999.5716820576195!2d69.29905007605282!3d41.25288697131727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDE1JzEwLjQiTiA2OcKwMTgnMDUuOSJF!5e0!3m2!1sru!2s!4v1766689970904!5m2!1sru!2s"
+            },
+            "connectTitle": "Bizga qo'ng'iroq qiling",
+            "socialTitle": "Ijtimoiy tarmoqlarda biz"
         }
     }
 }

@@ -11,7 +11,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 
@@ -30,13 +30,22 @@ interface HeaderClientProps {
 export default function HeaderClient({ text }: HeaderClientProps) {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
+    const pathname = usePathname(); // ← Добавлено
     const locale = useLocale();
 
     const changeLanguage = (locale: string) => {
         document.cookie = `locale=${locale}; path=/;`;
         router.refresh();
-
         window.scrollTo({ top: 0 });
+    };
+
+    // Функция для проверки активной страницы
+    const isActive = (href: string) => {
+        // Убираем локаль из pathname для сравнения
+        const currentPath = pathname.replace(/^\/(uz|ru|en)/, "") || "/";
+        const navPath = href.replace(/^\/(uz|ru|en)/, "") || "/";
+
+        return currentPath === navPath;
     };
 
     return (
@@ -66,16 +75,29 @@ export default function HeaderClient({ text }: HeaderClientProps) {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden lg:flex items-center space-x-8">
-                        {text.pages.map((item) => (
-                            <Link
-                                key={item.label}
-                                href={item.href}
-                                className="text-gray-700 hover:text-cRed transition-colors duration-200 text-sm font-medium relative group"
-                            >
-                                {item.label}
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cRed transition-all duration-300 group-hover:w-full" />
-                            </Link>
-                        ))}
+                        {text.pages.map((item) => {
+                            const active = isActive(item.href);
+                            return (
+                                <Link
+                                    key={item.label}
+                                    href={item.href}
+                                    className={`${
+                                        active
+                                            ? "text-cRed"
+                                            : "text-gray-700 hover:text-cRed"
+                                    } transition-colors duration-200 text-sm font-medium relative group`}
+                                >
+                                    {item.label}
+                                    <span
+                                        className={`absolute -bottom-1 left-0 h-0.5 bg-cRed transition-all duration-300 ${
+                                            active
+                                                ? "w-full"
+                                                : "w-0 group-hover:w-full"
+                                        }`}
+                                    />
+                                </Link>
+                            );
+                        })}
                     </nav>
 
                     {/* Language & CTA */}
@@ -166,16 +188,23 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                             </SheetHeader>
 
                             <nav className="flex flex-col gap-4 mt-8">
-                                {text.pages.map((item) => (
-                                    <Link
-                                        key={item.label}
-                                        href={item.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className="text-gray-700 hover:text-cRed hover:bg-red-50 px-4 rounded-lg transition-all duration-200 text-base font-medium"
-                                    >
-                                        {item.label}
-                                    </Link>
-                                ))}
+                                {text.pages.map((item) => {
+                                    const active = isActive(item.href);
+                                    return (
+                                        <Link
+                                            key={item.label}
+                                            href={item.href}
+                                            onClick={() => setIsOpen(false)}
+                                            className={`${
+                                                active
+                                                    ? "text-cRed bg-red-50"
+                                                    : "text-gray-700 hover:text-cRed hover:bg-red-50"
+                                            } px-4 py-2 rounded-lg transition-all duration-200 text-base font-medium`}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    );
+                                })}
                             </nav>
 
                             <div className="mt-8 px-4 pt-6 border-t space-y-4">
@@ -223,7 +252,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                                         </span>
                                     </Button>
                                 </div>
-                                <Button>{text.btn}</Button>
+                                <Button className="w-full">{text.btn}</Button>
                             </div>
                         </SheetContent>
                     </Sheet>
