@@ -196,5 +196,40 @@
                 "p2": "Our partners are trusted companies and manufacturers with whom we jointly implement effective poultry farming solutions."
             }
         }
+    },
+    "contacts-page": {
+        "hero": {
+            "title": "Contacts",
+            "subtitle": "Technologies that make things more efficient and reliable"
+        },
+        "form": {
+            "title": "Get in Touch",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "phone": "Phone number",
+            "message": "Drop Your Message...",
+            "agree": "I've read and agree with",
+            "terms": "terms",
+            "privacy": "privacy policy",
+            "submit": "Submit Request",
+            "sending": "Sending...",
+            "validation": {
+                "firstName": "Enter first name (minimum 2 characters)",
+                "lastName": "Enter last name (minimum 2 characters)",
+                "phone": "Enter valid phone number",
+                "message": "Message must contain at least 10 characters",
+                "agree": "You must agree to the terms"
+            },
+            "messages": {
+                "success": "Request submitted successfully!",
+                "error": "An error occurred. Please try again."
+            }
+        },
+        "contact": {
+            "phone": "+998 91 187 28 67",
+            "email": "asiataren2017@gmail.com",
+            "address": "Uzbekistan, Tashkent, Navoi Street 123",
+            "connectTitle": "Connect with us"
+        }
     }
 }

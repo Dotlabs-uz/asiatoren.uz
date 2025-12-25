@@ -196,5 +196,40 @@
                 "p2": "Bizning hamkorlarimiz — ishonchli kompaniyalar va ishlab chiqaruvchilar bo‘lib, ular bilan birgalikda parrandachilik uchun samarali yechimlarni amalga oshiramiz."
             }
         }
+    },
+    "contacts-page": {
+        "hero": {
+            "title": "Aloqa",
+            "subtitle": "Samaraliroq va ishonchli qiladigan texnologiyalar"
+        },
+        "form": {
+            "title": "Aloqaga chiqing",
+            "firstName": "Ism",
+            "lastName": "Familiya",
+            "phone": "Telefon raqam",
+            "message": "Xabaringizni qoldiring...",
+            "agree": "Men o'qidim va roziman",
+            "terms": "shartlar",
+            "privacy": "maxfiylik siyosati",
+            "submit": "Ariza qoldirish",
+            "sending": "Yuborilmoqda...",
+            "validation": {
+                "firstName": "Ismni kiriting (kamida 2 ta belgi)",
+                "lastName": "Familiyani kiriting (kamida 2 ta belgi)",
+                "phone": "To'g'ri telefon raqamini kiriting",
+                "message": "Xabar kamida 10 ta belgidan iborat bo'lishi kerak",
+                "agree": "Shartlarga rozilik bildirish kerak"
+            },
+            "messages": {
+                "success": "Ariza muvaffaqiyatli yuborildi!",
+                "error": "Xatolik yuz berdi. Qayta urinib ko'ring."
+            }
+        },
+        "contact": {
+            "phone": "+998 91 187 28 67",
+            "email": "asiataren2017@gmail.com",
+            "address": "O'zbekiston, Toshkent, Navoiy ko'chasi 123",
+            "connectTitle": "Biz bilan bog'laning"
+        }
     }
 }
