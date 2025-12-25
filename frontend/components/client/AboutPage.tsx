@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play } from "lucide-react";
 import AboutSection from "../server/About";
 import { AboutClient } from "./AboutClient";
+import { Media } from "@/types";
+import Image from "next/image";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -16,12 +18,16 @@ interface AboutPageClientProps {
     translations: any;
     aboutSectionTranslations?: any;
     videoUrl?: string;
+    certificates: Media[];
+    partners: Media[];
 }
 
 export const AboutPageClient = ({
     translations,
     aboutSectionTranslations,
     videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    certificates,
+    partners,
 }: AboutPageClientProps) => {
     const [showVideo, setShowVideo] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -353,12 +359,18 @@ export const AboutPageClient = ({
                     {/* Certificates Scroll */}
                     <div className="overflow-x-auto pb-4 -mx-5 sm:-mx-8 lg:-mx-16">
                         <div className="flex gap-4 lg:gap-6 px-5 sm:px-8 lg:px-16">
-                            {Array.from({ length: 5 }).map((_, i) => (
+                            {certificates.map((item, i) => (
                                 <div
                                     key={i}
                                     className="certificates-card w-[200px] aspect-3/4 bg-gray-100 rounded-2xl overflow-hidden shrink-0"
                                 >
-                                    {/* Placeholder for certificate image */}
+                                    <Image
+                                        src={item.imageUrl}
+                                        alt="certificate"
+                                        loading="lazy"
+                                        fill
+                                        className="object-cover"
+                                    />
                                 </div>
                             ))}
                         </div>
@@ -399,20 +411,17 @@ export const AboutPageClient = ({
                     {/* Partners Scroll */}
                     <div className="overflow-x-auto pb-4 -mx-5 sm:-mx-8 lg:-mx-16">
                         <div className="flex gap-4 lg:gap-6 px-5 sm:px-8 lg:px-16">
-                            {[
-                                "Alphaletz",
-                                "payper",
-                                "projul",
-                                "SUPPORTBENCH",
-                                "OCX Cognition",
-                            ].map((partner, i) => (
+                            {partners.map((partner, i) => (
                                 <div
                                     key={i}
                                     className="partners-card w-[200px] aspect-3/2 bg-gray-100 rounded-2xl flex items-center justify-center p-6 shrink-0"
                                 >
-                                    <span className="text-base font-semibold text-gray-700">
-                                        {partner}
-                                    </span>
+                                    <Image
+                                        src={partner.imageUrl}
+                                        alt="partner title"
+                                        loading="lazy"
+                                        fill
+                                    />
                                 </div>
                             ))}
                         </div>

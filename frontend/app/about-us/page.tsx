@@ -1,9 +1,12 @@
 import { AboutPageClient } from "@/components/client/AboutPage";
+import { getCertificatesServer, getPartnersServer } from "@/lib/firebase/server-api";
 import { getTranslations } from "next-intl/server";
 
 export default async function AboutPage() {
     const t = await getTranslations("about-page");
     const t1 = await getTranslations("about-us");
+    const certificates = await getCertificatesServer();
+    const partners = await getPartnersServer()
 
     const aboutTranslations = {
         subtitle: t1("subtitle"),
@@ -81,6 +84,8 @@ export default async function AboutPage() {
         <AboutPageClient
             translations={translations}
             aboutSectionTranslations={aboutTranslations}
+            certificates={certificates}
+            partners={partners}
         />
     );
 }
