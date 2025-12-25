@@ -11,6 +11,7 @@ import {
     Facebook,
     Twitter,
     Youtube,
+    Send,
 } from "lucide-react";
 import { ContactsPageForm } from "./ContactsPageForm";
 
@@ -25,10 +26,8 @@ interface ContactsPageClientProps {
             firstName: string;
             lastName: string;
             phone: string;
+            email: string;
             message: string;
-            agree: string;
-            terms: string;
-            privacy: string;
             submit: string;
             sending: string;
             successMessage: string;
@@ -36,14 +35,25 @@ interface ContactsPageClientProps {
             firstNameError: string;
             lastNameError: string;
             phoneError: string;
+            emailError: string;
             messageError: string;
-            agreeError: string;
         };
         contact: {
-            phone: string;
+            phone1: string;
+            phone2: string;
             email: string;
-            address: string;
+            address1: {
+                title: string;
+                address: string;
+                mapUrl: string;
+            };
+            address2: {
+                title: string;
+                address: string;
+                mapUrl: string;
+            };
             connectTitle: string;
+            socialTitle: string;
         };
     };
 }
@@ -57,7 +67,6 @@ export default function ContactsPageClient({
         const ctx = gsap.context(() => {
             const tl = gsap.timeline();
 
-            // Hero анимация
             tl.from(".hero-title", {
                 y: 50,
                 opacity: 0,
@@ -76,7 +85,6 @@ export default function ContactsPageClient({
                 "-=0.5"
             );
 
-            // Форма и контакты
             tl.from(
                 ".contact-form",
                 {
@@ -89,14 +97,26 @@ export default function ContactsPageClient({
             );
 
             tl.from(
-                ".contact-info",
+                ".location-card",
                 {
-                    x: 50,
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "power3.out",
+                },
+                "-=0.6"
+            );
+
+            tl.from(
+                ".contact-footer",
+                {
+                    y: 50,
                     opacity: 0,
                     duration: 0.8,
                     ease: "power3.out",
                 },
-                "-=0.6"
+                "-=0.3"
             );
         });
 
@@ -125,19 +145,25 @@ export default function ContactsPageClient({
             <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-12 md:py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                     {/* Left - Form */}
-                    <ContactsPageForm translations={translations.form} />
+                    <div className="lg:sticky lg:top-20 lg:self-start">
+                        <ContactsPageForm translations={translations.form} />
+                    </div>
 
-                    {/* Right - Map & Info */}
-                    <div className="contact-info flex flex-col gap-8">
-                        {/* Map */}
-                        <div className="bg-cRed rounded-3xl p-6 md:p-8 h-full flex flex-col">
-                            {/* Google Map */}
-                            <div className="bg-white rounded-2xl overflow-hidden mb-6 flex-1 min-h-[300px]">
+                    {/* Right - Locations */}
+                    <div className="flex flex-col gap-8">
+                        {/* Location 1 */}
+                        <div className="location-card bg-gray-100 rounded-3xl p-6 md:p-8">
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                                {translations.contact.address1.title}
+                            </h3>
+
+                            {/* Map 1 */}
+                            <div className="bg-white rounded-2xl overflow-hidden mb-6 h-[300px]">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.415479944409!2d69.24348087649344!3d41.31107899862142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2sAlisher%20Navoi%20National%20Library%20of%20Uzbekistan!5e0!3m2!1sen!2s!4v1703512345678!5m2!1sen!2s"
+                                    src={translations.contact.address1.mapUrl}
                                     width="100%"
                                     height="100%"
-                                    style={{ border: 0, minHeight: "300px" }}
+                                    style={{ border: 0 }}
                                     allowFullScreen
                                     loading="lazy"
                                     referrerPolicy="no-referrer-when-downgrade"
@@ -145,84 +171,138 @@ export default function ContactsPageClient({
                                 />
                             </div>
 
-                            {/* Contact Info */}
-                            <div className="space-y-4 text-white">
-                                {/* Phone */}
-                                <a
-                                    href="tel:+998901234567"
-                                    className="flex items-center gap-4 hover:opacity-80 transition-opacity"
-                                >
-                                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                                        <Phone className="w-6 h-6" />
-                                    </div>
-                                    <span className="text-lg font-medium">
-                                        {translations.contact.phone}
-                                    </span>
-                                </a>
-
-                                {/* Email */}
-                                <a
-                                    href="mailto:contact@example.com"
-                                    className="flex items-center gap-4 hover:opacity-80 transition-opacity"
-                                >
-                                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                                        <Mail className="w-6 h-6" />
-                                    </div>
-                                    <span className="text-lg font-medium">
-                                        {translations.contact.email}
-                                    </span>
-                                </a>
-
-                                {/* Address */}
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
-                                        <MapPin className="w-6 h-6" />
-                                    </div>
-                                    <span className="text-lg font-medium pt-2">
-                                        {translations.contact.address}
-                                    </span>
+                            {/* Address 1 */}
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 bg-cRed/10 rounded-xl flex items-center justify-center shrink-0">
+                                    <MapPin className="w-6 h-6 text-cRed" />
                                 </div>
+                                <p className="text-lg text-gray-700 pt-2">
+                                    {translations.contact.address1.address}
+                                </p>
+                            </div>
+                        </div>
 
-                                {/* Social Media */}
-                                <div className="pt-4 border-t border-white/20">
-                                    <p className="text-white/80 mb-4 text-sm">
-                                        {translations.contact.connectTitle}
-                                    </p>
-                                    <div className="flex gap-3">
-                                        <a
-                                            href="https://www.instagram.com/asiatarenuz?igsh=aWpwZjJ5eG9pbmE2"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-                                        >
-                                            <Instagram className="w-5 h-5 text-cRed" />
-                                        </a>
-                                        <a
-                                            href="https://facebook.com"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-                                        >
-                                            <Facebook className="w-5 h-5 text-cRed" />
-                                        </a>
-                                        <a
-                                            href="https://twitter.com"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-                                        >
-                                            <Twitter className="w-5 h-5 text-cRed" />
-                                        </a>
-                                        <a
-                                            href="https://youtube.com"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-                                        >
-                                            <Youtube className="w-5 h-5 text-cRed" />
-                                        </a>
-                                    </div>
+                        {/* Location 2 */}
+                        <div className="location-card bg-gray-100 rounded-3xl p-6 md:p-8">
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                                {translations.contact.address2.title}
+                            </h3>
+
+                            {/* Map 2 */}
+                            <div className="bg-white rounded-2xl overflow-hidden mb-6 h-[300px]">
+                                <iframe
+                                    src={translations.contact.address2.mapUrl}
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: 0 }}
+                                    allowFullScreen
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    className="w-full h-full"
+                                />
+                            </div>
+
+                            {/* Address 2 */}
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 bg-cRed/10 rounded-xl flex items-center justify-center shrink-0">
+                                    <MapPin className="w-6 h-6 text-cRed" />
                                 </div>
+                                <p className="text-lg text-gray-700 pt-2">
+                                    {translations.contact.address2.address}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Full Width Contact Footer */}
+            <div className="contact-footer bg-cRed py-12 md:py-16">
+                <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
+                        {/* Phone */}
+                        <a
+                            href={`tel:${translations.contact.phone1.replace(
+                                /\s/g,
+                                ""
+                            )}`}
+                            className="flex items-center gap-4 hover:opacity-80 transition-opacity group"
+                        >
+                            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <Phone className="w-8 h-8 text-cRed" />
+                            </div>
+                            <div>
+                                <p className="text-white/80 text-sm mb-1">
+                                    {translations.contact.connectTitle}
+                                </p>
+                                <span className="text-white text-xl font-semibold">
+                                    {translations.contact.phone1}
+                                </span>
+                            </div>
+                        </a>
+
+                        <a
+                            href={`tel:${translations.contact.phone2.replace(
+                                /\s/g,
+                                ""
+                            )}`}
+                            className="flex items-center gap-4 hover:opacity-80 transition-opacity group"
+                        >
+                            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <Phone className="w-8 h-8 text-cRed" />
+                            </div>
+                            <div>
+                                <p className="text-white/80 text-sm mb-1">
+                                    {translations.contact.connectTitle}
+                                </p>
+                                <span className="text-white text-xl font-semibold">
+                                    {translations.contact.phone2}
+                                </span>
+                            </div>
+                        </a>
+
+                        {/* Email */}
+                        <a
+                            href={`mailto:${translations.contact.email}`}
+                            className="flex items-center gap-4 hover:opacity-80 transition-opacity group"
+                        >
+                            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <Mail className="w-8 h-8 text-cRed" />
+                            </div>
+                            <div>
+                                <p className="text-white/80 text-sm mb-1">
+                                    Email
+                                </p>
+                                <span className="text-white text-xl font-semibold">
+                                    {translations.contact.email}
+                                </span>
+                            </div>
+                        </a>
+
+                        {/* Social Media */}
+                        <div className="col-span-full flex flex-col md:justify-start md:items-start">
+                            <p className="text-white/80 mb-4 text-sm">
+                                {translations.contact.socialTitle}
+                            </p>
+                            <div className="flex gap-3">
+                                <a
+                                    href="https://www.instagram.com/asiatarenuz?igsh=aWpwZjJ5eG9pbmE2"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                                    aria-label="Instagram"
+                                >
+                                    <Instagram className="w-6 h-6 text-cRed" />
+                                </a>
+                                <a
+                                    href="https://t.me/Asia_Taren_Poultry"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                                    aria-label="Telegram"
+                                >
+                                    <Send className="w-6 h-6 text-cRed" />
+                                </a>
                             </div>
                         </div>
                     </div>

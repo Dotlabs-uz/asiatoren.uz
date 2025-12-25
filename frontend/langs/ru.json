@@ -1,6 +1,7 @@
 {
     "header": {
         "nav": {
+            "main": "Главная",
             "products": "Каталог",
             "about": "О нас",
             "contacts": "Контакты"
@@ -128,12 +129,14 @@
         "title": "Получите<br />консультацию<br />специалиста",
         "p": "Мы свяжемся с вами<br />в течении 2 рабочих дней",
         "name": "Ваше имя",
+        "surname": "Ваша фамилия",
         "phone": "Номер телефона",
         "email": "Электронная почта",
         "btn1": "Отправить",
         "btn2": "Отправка...",
         "validation": {
             "name": "Имя должно содержать минимум 2 символа",
+            "surname": "Фамилия должна содержать минимум 2 символа",
             "phone": "Введите корректный номер телефона",
             "email": "Введите корректный email"
         },
@@ -200,36 +203,41 @@
     "contacts-page": {
         "hero": {
             "title": "Контакты",
-            "subtitle": "Технологии которые делают эффективнее и надежнее"
+            "subtitle": "Свяжитесь с нами удобным для вас способом"
         },
         "form": {
-            "title": "Get in Touch",
-            "firstName": "First Name",
-            "lastName": "Last Name",
-            "phone": "Phone number",
-            "message": "Drop Your Message...",
-            "agree": "Я прочитал и согласен с",
-            "terms": "terms",
-            "privacy": "privacy policy",
-            "submit": "Оставить заявку",
+            "title": "Напишите нам",
+            "firstName": "Имя",
+            "lastName": "Фамилия",
+            "phone": "Телефон",
+            "email": "Email",
+            "message": "Сообщение (необязательно)",
+            "submit": "Отправить",
             "sending": "Отправка...",
-            "validation": {
-                "firstName": "Введите имя (минимум 2 символа)",
-                "lastName": "Введите фамилию (минимум 2 символа)",
-                "phone": "Введите корректный номер телефона",
-                "message": "Сообщение должно содержать минимум 10 символов",
-                "agree": "Необходимо согласиться с условиями"
-            },
-            "messages": {
-                "success": "Заявка успешно отправлена!",
-                "error": "Произошла ошибка. Попробуйте снова."
-            }
+            "successMessage": "Сообщение успешно отправлено!",
+            "errorMessage": "Ошибка при отправке",
+            "firstNameError": "Минимум 2 символа",
+            "lastNameError": "Минимум 2 символа",
+            "phoneError": "Введите корректный номер",
+            "emailError": "Введите корректный email",
+            "messageError": "Минимум 10 символов"
         },
         "contact": {
-            "phone": "+998 91 187 28 67",
+            "phone1": "+998 77 201 31 31",
+            "phone2": "+998 90 455 43 51",
             "email": "asiataren2017@gmail.com",
-            "address": "Узбекистан, Ташкент, улица Навои 123",
-            "connectTitle": "Connect with us"
+            "address1": {
+                "title": "Главный завод",
+                "address": "Дахбед, Самарканд, Узбекистан",
+                "mapUrl": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3717.993436340659!2d66.9142363728934!3d39.74099720233546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDQ0JzM0LjIiTiA2NsKwNTQnNTcuNiJF!5e0!3m2!1sru!2s!4v1766689874007!5m2!1sru!2s"
+            },
+            "address2": {
+                "title": "Ташкентский филиал",
+                "address": "Сергелийский район, Ташкент, Узбекистан",
+                "mapUrl": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2999.5716820576195!2d69.29905007605282!3d41.25288697131727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDE1JzEwLjQiTiA2OcKwMTgnMDUuOSJF!5e0!3m2!1sru!2s!4v1766689970904!5m2!1sru!2s"
+            },
+            "connectTitle": "Позвоните нам",
+            "socialTitle": "Мы в социальных сетях"
         }
     }
 }

@@ -6,6 +6,7 @@ export default async function Header() {
 
     const text = {
         pages: [
+            { href: "/", label: t("nav.main") },
             { href: "/products", label: t("nav.products") },
             { href: "/about-us", label: t("nav.about") },
             { href: "/contacts", label: t("nav.contacts") },
