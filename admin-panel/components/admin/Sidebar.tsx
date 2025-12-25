@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Package, Folder, LogOut, Menu, X } from "lucide-react"
+import { LayoutDashboard, Package, Folder, LogOut, Menu, X, FileText } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { signOut } from "@/lib/firebase/auth"
@@ -28,6 +28,11 @@ const navigation = [
     name: "Категории",
     href: "/admin/categories",
     icon: Folder,
+  },
+  {
+  name: "Заявки",
+    href: "/admin/applications",
+    icon: FileText,
   },
 ]
 
