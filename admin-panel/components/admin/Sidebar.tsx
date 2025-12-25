@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Package, Folder, LogOut, Menu, X, FileText } from "lucide-react"
+import { LayoutDashboard, Package, Folder, LogOut, Menu, X, FileText, ImageIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { signOut } from "@/lib/firebase/auth"
@@ -34,6 +34,11 @@ const navigation = [
     href: "/admin/applications",
     icon: FileText,
   },
+  {
+    name: "Медия",
+    href: "/admin/media",
+    icon: ImageIcon,
+  }
 ]
 
 export function Sidebar() {
