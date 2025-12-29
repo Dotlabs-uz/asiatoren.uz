@@ -1,6 +1,7 @@
 import { ProductPageClient } from "@/components/client/ProductPage";
 import { getCategoryServer, getProductServer } from "@/lib/firebase/server-api";
-import { getTranslations } from "next-intl/server";
+import { Language } from "@/types";
+import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 export default async function ProductPage({
@@ -10,7 +11,7 @@ export default async function ProductPage({
 }) {
     const { id } = await params;
     const t = await getTranslations("product-page");
-    console.log(id);
+    const locale = (await getLocale()) as Language;
 
     const product = await getProductServer(id);
 
@@ -19,7 +20,7 @@ export default async function ProductPage({
     }
 
     const category = await getCategoryServer(product.categoryId);
-    const categoryName = category?.title || "Категория";
+    const categoryName = category?.title[locale] || "Категория";
 
     const translations = {
         home: t("breadcrumb.home"),
@@ -44,6 +45,7 @@ export default async function ProductPage({
             product={product}
             categoryName={categoryName}
             translations={translations}
+            locale={locale}
         />
     );
 }

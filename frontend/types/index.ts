@@ -1,64 +1,37 @@
+export type Language = "ru" | "en" | "uz";
+
+// Мультиязычный текст
+export type MultilingualText = {
+    ru: string;
+    en: string;
+    uz: string;
+};
+
 /**
  * Product/Item interface for catalog
  */
 export interface Product {
     id: string;
-    title: string;
-    description: string;
+    title: MultilingualText;
+    description: MultilingualText;
     price: number;
-    images: string[];
+    features: MultilingualText[];
     categoryId: string;
+    images: string[];
     createdAt: Date;
     updatedAt: Date;
-    features?: string[];
 }
 
 /**
  * Product data for forms (without id and timestamps)
  */
 export interface ProductFormData {
-    title: string;
-    description: string;
+    title: MultilingualText;
+    description: MultilingualText;
     price: number;
-    images: string[];
+    features: MultilingualText[];
     categoryId: string;
-    stock?: number;
-    isActive?: boolean;
-    tags?: string[];
-    features?: string[];
-}
-
-/**
- * Login form data
- */
-export interface LoginFormData {
-    email: string;
-    password: string;
-}
-
-/**
- * Category interface
- */
-export interface Category {
-    id: string;
-    title: string;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-/**
- * Categories enum
- */
-export enum ProductCategory {
-    ELECTRONICS = "electronics",
-    CLOTHING = "clothing",
-    FOOD = "food",
-    BOOKS = "books",
-    SPORTS = "sports",
-    HOME = "home",
-    BEAUTY = "beauty",
-    TOYS = "toys",
-    OTHER = "other",
+    images: string[];
 }
 
 export interface Application {
@@ -82,9 +55,33 @@ export interface ApplicationFormData {
 
 export interface Media {
     id: string;
-    title: string;
+    title: MultilingualText;
     imageUrl: string;
-    type: 'certificate' | 'partner';
+    type: "certificate" | "partner";
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface MediaFormData {
+    title: MultilingualText;
+    imageUrl: string;
+    type: "certificate" | "partner";
+}
+
+/**
+ * Login form data
+ */
+export interface LoginFormData {
+    email: string;
+    password: string;
+}
+
+/**
+ * Category interface
+ */
+export interface Category {
+    id: string;
+    title: MultilingualText;
     createdAt: Date;
     updatedAt: Date;
 }

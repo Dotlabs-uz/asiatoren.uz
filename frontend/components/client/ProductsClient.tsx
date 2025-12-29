@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
-import { Category, Product } from "@/types";
+import { Language, Product } from "@/types";
 import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,11 +17,13 @@ interface ProductsClientProps {
         title: string;
         btn: string;
     };
+    locale: Language;
 }
 
 export const ProductsClient = ({
     products,
     translations,
+    locale,
 }: ProductsClientProps) => {
     const sectionRef = useRef<HTMLElement>(null);
 
@@ -109,7 +111,7 @@ export const ProductsClient = ({
                                             <div className="flex-1 flex items-center justify-center mb-4">
                                                 <img
                                                     src={product.images[0]}
-                                                    alt={product.title}
+                                                    alt={product.title[locale]}
                                                     className="w-full h-32 md:h-40 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500"
                                                 />
                                             </div>
@@ -118,7 +120,7 @@ export const ProductsClient = ({
                                         {/* Product Name */}
                                         <div className="flex items-center justify-between gap-2">
                                             <h3 className="text-base md:text-lg lg:text-xl font-bold text-left line-clamp-2 text-gray-900 transition-colors duration-300">
-                                                {product.title}
+                                                {product.title[locale]}
                                             </h3>
                                             <ArrowRight className="w-5 h-5 md:w-6 md:h-6 shrink-0 group-hover:translate-x-2 transition-transform duration-300 text-gray-900" />
                                         </div>

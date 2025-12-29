@@ -6,7 +6,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ArrowRight, Shield, Truck, Home } from "lucide-react";
-import { Product } from "@/types";
+import { Language, Product } from "@/types";
 import { ProductImageCarousel } from "./ProductImageCarousel"; // Изменено здесь
 
 interface ProductPageClientProps {
@@ -28,12 +28,14 @@ interface ProductPageClientProps {
         priceLabel: string;
         currency: string;
     };
+    locale: Language;
 }
 
 export const ProductPageClient = ({
     product,
     categoryName,
     translations,
+    locale,
 }: ProductPageClientProps) => {
     const heroRef = useRef<HTMLDivElement>(null);
 
@@ -170,7 +172,7 @@ export const ProductPageClient = ({
                     {/* Left - Images Carousel */}
                     <ProductImageCarousel
                         images={product.images}
-                        title={product.title}
+                        title={product.title[locale]}
                     />
 
                     {/* Right - Info */}
@@ -178,29 +180,31 @@ export const ProductPageClient = ({
                         {/* Breadcrumbs */}
                         <div className="breadcrumb">
                             <div className="flex items-center gap-2 text-sm text-gray-500">
-                                <p
+                                <Link
+                                    href={"/"}
                                     className="hover:text-cRed transition-colors"
                                 >
                                     {translations.home}
-                                </p>
+                                </Link>
                                 <ChevronRight className="w-4 h-4" />
-                                <p
+                                <Link
+                                    href={"/products"}
                                     className="hover:text-cRed transition-colors"
                                 >
                                     {translations.catalog}
-                                </p>
+                                </Link>
                                 <ChevronRight className="w-4 h-4" />
                                 <span className="hover:text-cRed transition-colors">
                                     {categoryName}
                                 </span>
                                 <ChevronRight className="w-4 h-4" />
                                 <span className="text-cRed font-medium">
-                                    {product.title}
+                                    {product.title[locale]}
                                 </span>
                             </div>
                         </div>
                         <h1 className="product-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-                            {product.title}
+                            {product.title[locale]}
                         </h1>
 
                         {/* Price */}
@@ -217,7 +221,7 @@ export const ProductPageClient = ({
                         </div>
 
                         <p className="product-description text-base md:text-lg text-gray-600 mb-8 leading-relaxed">
-                            {product.description}
+                            {product.description[locale]}
                         </p>
 
                         {/* Features in 2 columns */}
@@ -231,7 +235,7 @@ export const ProductPageClient = ({
                                         >
                                             <div className="w-2 h-2 bg-cRed rounded-full mt-2 shrink-0" />
                                             <span className="text-gray-700">
-                                                {feature}
+                                                {feature[locale]}
                                             </span>
                                         </div>
                                     ))}
@@ -245,7 +249,7 @@ export const ProductPageClient = ({
                                         >
                                             <div className="w-2 h-2 bg-cRed rounded-full mt-2 shrink-0" />
                                             <span className="text-gray-700">
-                                                {feature}
+                                                {feature[locale]}
                                             </span>
                                         </div>
                                     ))}
@@ -310,7 +314,7 @@ export const ProductPageClient = ({
                 </h2>
                 <div className="prose max-w-none">
                     <p className="text-gray-700 text-lg leading-relaxed">
-                        {product.description}
+                        {product.description[locale]}
                     </p>
                 </div>
             </div>
@@ -331,7 +335,7 @@ export const ProductPageClient = ({
                                     <div className="w-2 h-2 bg-cRed rounded-full" />
                                 </div>
                                 <span className="text-gray-700 text-base">
-                                    {feature}
+                                    {feature[locale]}
                                 </span>
                             </div>
                         ))}

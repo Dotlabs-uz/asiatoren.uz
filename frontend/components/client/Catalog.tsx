@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Search, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Category, Product } from "@/types";
+import { Category, Language, Product } from "@/types";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -31,12 +31,14 @@ interface CatalogClientProps {
         notFound: string;
         tryAgain: string;
     };
+    locale: Language;
 }
 
 export const CatalogClient = ({
     initialCategories,
     initialProducts,
     translations,
+    locale,
 }: CatalogClientProps) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -231,7 +233,7 @@ export const CatalogClient = ({
                                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                 }`}
                             >
-                                {category.title}
+                                {category.title[locale]}
                             </Button>
                         ))}
                     </div>
@@ -259,7 +261,7 @@ export const CatalogClient = ({
                                         {product.images?.[0] ? (
                                             <Image
                                                 src={product.images[0]}
-                                                alt={product.title}
+                                                alt={product.title[locale]}
                                                 width={1000}
                                                 height={1000}
                                                 className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-500"
@@ -273,10 +275,10 @@ export const CatalogClient = ({
 
                                     <div className="p-6">
                                         <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-cRed transition-colors">
-                                            {product.title}
+                                            {product.title[locale]}
                                         </h3>
                                         <p className="text-sm text-gray-500 mb-4 line-clamp-2">
-                                            {product.description}
+                                            {product.description[locale]}
                                         </p>
 
                                         <Link href={"/products/" + product.id}>
