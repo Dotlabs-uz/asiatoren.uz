@@ -1,12 +1,13 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ProductsClient } from "../client/ProductsClient";
-import { getCategoriesServer, getProductsServer } from "@/lib/firebase/server-api";
+import { getProductsServer } from "@/lib/firebase/server-api";
+import { Language } from "@/types";
 
 
 export default async function ProductsSection() {
     const t = await getTranslations("our-products");
+    const locale = await getLocale() as Language
     const products = await getProductsServer();
-    const categories = await getCategoriesServer();
 
     const translations = {
         title: t("title"),
@@ -15,9 +16,9 @@ export default async function ProductsSection() {
 
     return (
         <ProductsClient
-            categories={categories}
             products={products}
             translations={translations}
+            locale={locale}
         />
     );
 }

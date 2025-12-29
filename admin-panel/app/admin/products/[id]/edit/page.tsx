@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { ProductForm } from "@/components/admin/ProductForm";
-import { getItem, updateItem } from "@/lib/firebase/db";
-import { Product } from "@/types";
+import { getProduct, updateProduct } from "@/lib/firebase/products";
+import { Product, ProductFormData } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EditProductPage() {
@@ -22,7 +22,7 @@ export default function EditProductPage() {
         const fetchProduct = async () => {
             try {
                 setLoading(true);
-                const data = await getItem("products", productId);
+                const data = await getProduct(productId);
 
                 if (!data) {
                     toast({
@@ -34,14 +34,7 @@ export default function EditProductPage() {
                     return;
                 }
 
-                // Преобразуем Timestamp в Date, если нужно
-                const productData = {
-                    ...data,
-                    createdAt: data.createdAt?.toDate?.() || data.createdAt,
-                    updatedAt: data.updatedAt?.toDate?.() || data.updatedAt,
-                } as Product;
-
-                setProduct(productData);
+                setProduct(data);
             } catch (error) {
                 console.error("Error fetching product:", error);
                 toast({
@@ -60,23 +53,11 @@ export default function EditProductPage() {
         }
     }, [productId, router, toast]);
 
-    const handleSubmit = async (data: {
-        title: string;
-        description: string;
-        price: number;
-        categoryId: string;
-        images: string[];
-        features?: string[];
-    }) => {
+    const handleSubmit = async (data: ProductFormData) => {
         try {
             setSaving(true);
 
-            const updateData = {
-                ...data,
-                updatedAt: new Date(),
-            };
-
-            await updateItem("products", productId, updateData);
+            await updateProduct(productId, data);
 
             toast({
                 title: "Успешно",
@@ -133,7 +114,7 @@ export default function EditProductPage() {
                     Редактировать товар
                 </h1>
                 <p className="text-sm md:text-base text-muted-foreground mt-2">
-                    Обновите информацию о товаре
+                    Обновите информацию о товаре на всех языках
                 </p>
             </div>
 
@@ -145,7 +126,7 @@ export default function EditProductPage() {
                         price: product.price,
                         categoryId: product.categoryId,
                         images: product.images || [],
-                        features: product.features,
+                        features: product.features || [],
                     }}
                     onSubmit={handleSubmit}
                     loading={saving}

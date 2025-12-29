@@ -12,9 +12,23 @@ import {
     serverTimestamp,
 } from "firebase/firestore";
 import { db } from "./config";
-import { Media } from "@/types";
+import { Media, MediaFormData } from "@/types";
 
 const COLLECTION_NAME = "media";
+
+/**
+ * Преобразовать данные из Firestore в Media
+ */
+const mapDocToMedia = (docId: string, data: any): Media => {
+    return {
+        id: docId,
+        title: data.title || { ru: "", en: "", uz: "" },
+        imageUrl: data.imageUrl || "",
+        type: data.type || "certificate",
+        createdAt: data.createdAt?.toDate() || new Date(),
+        updatedAt: data.updatedAt?.toDate() || new Date(),
+    };
+};
 
 /**
  * Получить все медиа (сертификаты и партнёры)
@@ -25,17 +39,7 @@ export const getAllMedia = async (): Promise<Media[]> => {
         const q = query(mediaRef, orderBy("createdAt", "desc"));
         const snapshot = await getDocs(q);
 
-        return snapshot.docs.map((doc) => {
-            const data = doc.data();
-            return {
-                id: doc.id,
-                title: data.title || "",
-                imageUrl: data.imageUrl || "",
-                type: data.type || "certificate",
-                createdAt: data.createdAt?.toDate() || new Date(),
-                updatedAt: data.updatedAt?.toDate() || new Date(),
-            } as Media;
-        });
+        return snapshot.docs.map((doc) => mapDocToMedia(doc.id, doc.data()));
     } catch (error) {
         console.error("Error getting media:", error);
         throw error;
@@ -57,17 +61,7 @@ export const getMediaByType = async (
         );
         const snapshot = await getDocs(q);
 
-        return snapshot.docs.map((doc) => {
-            const data = doc.data();
-            return {
-                id: doc.id,
-                title: data.title || "",
-                imageUrl: data.imageUrl || "",
-                type: data.type,
-                createdAt: data.createdAt?.toDate() || new Date(),
-                updatedAt: data.updatedAt?.toDate() || new Date(),
-            } as Media;
-        });
+        return snapshot.docs.map((doc) => mapDocToMedia(doc.id, doc.data()));
     } catch (error) {
         console.error("Error getting media by type:", error);
         throw error;
@@ -86,15 +80,7 @@ export const getMedia = async (id: string): Promise<Media | null> => {
             return null;
         }
 
-        const data = snapshot.data();
-        return {
-            id: snapshot.id,
-            title: data.title || "",
-            imageUrl: data.imageUrl || "",
-            type: data.type || "certificate",
-            createdAt: data.createdAt?.toDate() || new Date(),
-            updatedAt: data.updatedAt?.toDate() || new Date(),
-        } as Media;
+        return mapDocToMedia(snapshot.id, snapshot.data());
     } catch (error) {
         console.error("Error getting media:", error);
         throw error;
@@ -104,11 +90,7 @@ export const getMedia = async (id: string): Promise<Media | null> => {
 /**
  * Создать новое медиа
  */
-export const addMedia = async (data: {
-    title: string;
-    imageUrl: string;
-    type: "certificate" | "partner";
-}): Promise<string> => {
+export const addMedia = async (data: MediaFormData): Promise<string> => {
     try {
         const mediaRef = collection(db, COLLECTION_NAME);
 
@@ -133,19 +115,18 @@ export const addMedia = async (data: {
  */
 export const updateMedia = async (
     id: string,
-    data: Partial<{
-        title: string;
-        imageUrl: string;
-        type: "certificate" | "partner";
-    }>
+    data: Partial<MediaFormData>
 ): Promise<void> => {
     try {
         const mediaRef = doc(db, COLLECTION_NAME, id);
 
         const updateData: any = {
-            ...data,
             updatedAt: serverTimestamp(),
         };
+
+        if (data.title !== undefined) updateData.title = data.title;
+        if (data.imageUrl !== undefined) updateData.imageUrl = data.imageUrl;
+        if (data.type !== undefined) updateData.type = data.type;
 
         await updateDoc(mediaRef, updateData);
     } catch (error) {
