@@ -31,17 +31,6 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
 import {
     getAllMedia,
     addMedia,
@@ -53,17 +42,21 @@ import {
     getFileURL,
     deleteFileByURL,
 } from "@/lib/firebase/storage";
-import { Media } from "@/types";
+import { Media, MediaFormData, MultilingualText } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
+import { MultilingualInput } from "@/components/admin/MultilingualInput";
 
-const mediaSchema = z.object({
-    title: z.string().min(2, "Название должно содержать минимум 2 символа"),
-    type: z.enum(["certificate", "partner"]),
-    imageFile: z.any().optional(),
-});
-type MediaFormValues = z.infer<typeof mediaSchema>;
+const emptyMultilingualText: MultilingualText = { ru: "", en: "", uz: "" };
+
+const getLocalizedText = (
+    text: MultilingualText | string,
+    lang: "ru" | "en" | "uz" = "ru"
+): string => {
+    if (typeof text === "string") return text;
+    return text[lang] || text.ru || text.en || text.uz || "";
+};
 
 export default function MediaPage() {
     const [media, setMedia] = useState<Media[]>([]);
@@ -80,12 +73,12 @@ export default function MediaPage() {
     >("all");
     const { toast } = useToast();
 
-    const form = useForm<MediaFormValues>({
-        resolver: zodResolver(mediaSchema),
-        defaultValues: {
-            title: "",
-            type: "certificate",
-        },
+    const [formData, setFormData] = useState<{
+        title: MultilingualText;
+        type: "certificate" | "partner";
+    }>({
+        title: emptyMultilingualText,
+        type: "certificate",
     });
 
     useEffect(() => {
@@ -94,19 +87,19 @@ export default function MediaPage() {
 
     useEffect(() => {
         if (isDialogOpen && editingMedia) {
-            form.reset({
+            setFormData({
                 title: editingMedia.title,
                 type: editingMedia.type,
             });
             setImagePreview(editingMedia.imageUrl);
         } else if (isDialogOpen && !editingMedia) {
-            form.reset({
-                title: "",
+            setFormData({
+                title: emptyMultilingualText,
                 type: "certificate",
             });
             setImagePreview(null);
         }
-    }, [isDialogOpen, editingMedia, form]);
+    }, [isDialogOpen, editingMedia]);
 
     const fetchMedia = async () => {
         try {
@@ -138,7 +131,10 @@ export default function MediaPage() {
         setIsDialogOpen(false);
         setEditingMedia(null);
         setImagePreview(null);
-        form.reset();
+        setFormData({
+            title: emptyMultilingualText,
+            type: "certificate",
+        });
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,7 +148,19 @@ export default function MediaPage() {
         }
     };
 
-    const onSubmit = async (data: MediaFormValues) => {
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Валидация
+        if (!formData.title.ru || !formData.title.en || !formData.title.uz) {
+            toast({
+                title: "Ошибка",
+                description: "Заполните название на всех языках",
+                variant: "destructive",
+            });
+            return;
+        }
+
         try {
             setUploading(true);
             let imageUrl = editingMedia?.imageUrl || "";
@@ -176,7 +184,7 @@ export default function MediaPage() {
                 // Загружаем новое изображение
                 const timestamp = Date.now();
                 const fileName = `${timestamp}_${file.name}`;
-                const path = `media/${data.type}/${fileName}`;
+                const path = `media/${formData.type}/${fileName}`;
 
                 await uploadFile(file, path);
                 imageUrl = await getFileURL(path);
@@ -185,8 +193,8 @@ export default function MediaPage() {
             if (editingMedia) {
                 // Редактирование
                 await updateMedia(editingMedia.id, {
-                    title: data.title,
-                    type: data.type,
+                    title: formData.title,
+                    type: formData.type,
                     imageUrl,
                 });
                 toast({
@@ -205,8 +213,8 @@ export default function MediaPage() {
                 }
 
                 await addMedia({
-                    title: data.title,
-                    type: data.type,
+                    title: formData.title,
+                    type: formData.type,
                     imageUrl,
                 });
                 toast({
@@ -272,16 +280,6 @@ export default function MediaPage() {
         } finally {
             setDeleting(false);
         }
-    };
-
-    const formatDate = (date: Date) => {
-        if (!date) return "—";
-        const d = date instanceof Date ? date : new Date(date);
-        return d.toLocaleDateString("ru-RU", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        });
     };
 
     const filteredMedia =
@@ -355,7 +353,7 @@ export default function MediaPage() {
                             <div className="relative aspect-[3/4] bg-gray-100">
                                 <Image
                                     src={item.imageUrl}
-                                    alt={item.title}
+                                    alt={getLocalizedText(item.title, "ru")}
                                     fill
                                     className="object-cover"
                                     sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
@@ -363,9 +361,15 @@ export default function MediaPage() {
                             </div>
                             <div className="p-3">
                                 <p className="font-medium text-sm truncate">
-                                    {item.title}
+                                    {getLocalizedText(item.title, "ru")}
                                 </p>
-                                <p className="text-xs text-muted-foreground">
+                                <p className="text-xs text-muted-foreground truncate">
+                                    🇬🇧 {getLocalizedText(item.title, "en") || "—"}
+                                </p>
+                                <p className="text-xs text-muted-foreground truncate">
+                                    🇺🇿 {getLocalizedText(item.title, "uz") || "—"}
+                                </p>
+                                <p className="text-xs text-muted-foreground mt-1">
                                     {item.type === "certificate"
                                         ? "Сертификат"
                                         : "Партнёр"}
@@ -402,7 +406,7 @@ export default function MediaPage() {
                     if (!open) handleCloseDialog();
                 }}
             >
-                <DialogContent>
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle>
                             {editingMedia
@@ -411,98 +415,91 @@ export default function MediaPage() {
                         </DialogTitle>
                         <DialogDescription>
                             {editingMedia
-                                ? "Обновите информацию о медиа"
-                                : "Загрузите изображение и укажите тип"}
+                                ? "Обновите информацию о медиа на всех языках"
+                                : "Загрузите изображение и укажите название на всех языках"}
                         </DialogDescription>
                     </DialogHeader>
-                    <Form {...form}>
-                        <form
-                            onSubmit={form.handleSubmit(onSubmit)}
-                            className="space-y-4"
-                        >
-                            <FormField
-                                control={form.control}
-                                name="title"
-                                render={({ field }: { field: any }) => (
-                                    <FormItem>
-                                        <FormLabel>Название</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Название сертификата или партнёра"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Мультиязычное название */}
+                        <MultilingualInput
+                            label="Название"
+                            value={formData.title}
+                            onChange={(title) =>
+                                setFormData({ ...formData, title })
+                            }
+                            required
+                            placeholder={{
+                                ru: "Введите название",
+                                en: "Enter title",
+                                uz: "Nomini kiriting",
+                            }}
+                        />
+
+                        {/* Тип */}
+                        <div className="space-y-2">
+                            <Label>
+                                Тип <span className="text-red-500">*</span>
+                            </Label>
+                            <Select
+                                value={formData.type}
+                                onValueChange={(value: "certificate" | "partner") =>
+                                    setFormData({ ...formData, type: value })
+                                }
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Выберите тип" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="certificate">
+                                        Сертификат
+                                    </SelectItem>
+                                    <SelectItem value="partner">
+                                        Партнёр
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        {/* Изображение */}
+                        <div className="space-y-2">
+                            <Label htmlFor="image-upload">
+                                Изображение
+                                {!editingMedia && (
+                                    <span className="text-red-500 ml-1">*</span>
                                 )}
+                            </Label>
+                            <Input
+                                id="image-upload"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
                             />
+                            {imagePreview && (
+                                <div className="relative w-full h-48 mt-2 rounded-lg overflow-hidden border">
+                                    <Image
+                                        src={imagePreview}
+                                        alt="Preview"
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+                            )}
+                        </div>
 
-                            <FormField
-                                control={form.control}
-                                name="type"
-                                render={({ field }: { field: any }) => (
-                                    <FormItem>
-                                        <FormLabel>Тип</FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Выберите тип" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="certificate">
-                                                    Сертификат
-                                                </SelectItem>
-                                                <SelectItem value="partner">
-                                                    Партнёр
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-
-                            <div className="space-y-2">
-                                <Label htmlFor="image-upload">
-                                    Изображение
-                                </Label>
-                                <Input
-                                    id="image-upload"
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                />
-                                {imagePreview && (
-                                    <div className="relative w-full h-48 mt-2 rounded-lg overflow-hidden border">
-                                        <Image
-                                            src={imagePreview}
-                                            alt="Preview"
-                                            fill
-                                            className="object-contain"
-                                        />
-                                    </div>
-                                )}
-                            </div>
-
-                            <DialogFooter>
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={handleCloseDialog}
-                                    disabled={uploading}
-                                >
-                                    Отмена
-                                </Button>
-                                <Button type="submit" disabled={uploading}>
-                                    {uploading ? "Сохранение..." : "Сохранить"}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
+                        <DialogFooter>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={handleCloseDialog}
+                                disabled={uploading}
+                            >
+                                Отмена
+                            </Button>
+                            <Button type="submit" disabled={uploading}>
+                                {uploading ? "Сохранение..." : "Сохранить"}
+                            </Button>
+                        </DialogFooter>
+                    </form>
                 </DialogContent>
             </Dialog>
 
@@ -518,8 +515,10 @@ export default function MediaPage() {
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             Вы уверены, что хотите удалить &quot;
-                            {mediaToDelete?.title}&quot;? Это действие нельзя
-                            отменить.
+                            {mediaToDelete
+                                ? getLocalizedText(mediaToDelete.title, "ru")
+                                : ""}
+                            &quot;? Это действие нельзя отменить.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

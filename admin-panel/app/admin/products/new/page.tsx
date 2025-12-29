@@ -4,31 +4,19 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { ProductForm } from "@/components/admin/ProductForm";
-import { addItem } from "@/lib/firebase/db";
+import { addProduct } from "@/lib/firebase/products";
+import { ProductFormData } from "@/types";
 
 export default function NewProductPage() {
     const router = useRouter();
     const { toast } = useToast();
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (data: {
-        title: string;
-        description: string;
-        price: number;
-        categoryId: string;
-        images: string[];
-        features?: string[];
-    }) => {
+    const handleSubmit = async (data: ProductFormData) => {
         try {
             setLoading(true);
 
-            const productData = {
-                ...data,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-            };
-
-            await addItem("products", productData);
+            await addProduct(data);
 
             toast({
                 title: "Успешно",
@@ -56,7 +44,7 @@ export default function NewProductPage() {
                     Добавить товар
                 </h1>
                 <p className="text-sm md:text-base text-muted-foreground mt-2">
-                    Заполните форму для добавления нового товара
+                    Заполните форму для добавления нового товара на всех языках
                 </p>
             </div>
 

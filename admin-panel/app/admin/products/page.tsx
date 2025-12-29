@@ -25,15 +25,22 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
-import { getItems, deleteItem } from "@/lib/firebase/db";
 import { deleteFile } from "@/lib/firebase/storage";
-import { Product } from "@/types";
+import { Product, Category, MultilingualText } from "@/types";
 import { ProductsTableSkeleton } from "@/components/admin/ProductsTableSkeleton";
 import { getCategories } from "@/lib/firebase/categories";
-import { Category } from "@/types";
-import { getProducts } from "@/lib/firebase/products";
+import { getProducts, deleteProduct } from "@/lib/firebase/products";
 
 const ITEMS_PER_PAGE = 10;
+
+// Утилита для получения текста на определенном языке
+const getLocalizedText = (
+    text: MultilingualText | string,
+    lang: "ru" | "en" | "uz" = "ru"
+): string => {
+    if (typeof text === "string") return text;
+    return text[lang] || text.ru || text.en || text.uz || "";
+};
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -53,13 +60,45 @@ export default function ProductsPage() {
         if (!searchQuery) return products;
 
         const query = searchQuery.toLowerCase();
-        return products.filter(
-            (product) =>
-                product.title.toLowerCase().includes(query) ||
-                product.description.toLowerCase().includes(query) ||
-                product.categoryId.toLowerCase().includes(query)
-        );
-    }, [products, searchQuery]);
+        return products.filter((product) => {
+            // Поиск по всем языкам в названии
+            const titleRu = getLocalizedText(product.title, "ru").toLowerCase();
+            const titleEn = getLocalizedText(product.title, "en").toLowerCase();
+            const titleUz = getLocalizedText(product.title, "uz").toLowerCase();
+
+            // Поиск по всем языкам в описании
+            const descRu = getLocalizedText(
+                product.description,
+                "ru"
+            ).toLowerCase();
+            const descEn = getLocalizedText(
+                product.description,
+                "en"
+            ).toLowerCase();
+            const descUz = getLocalizedText(
+                product.description,
+                "uz"
+            ).toLowerCase();
+
+            // Поиск по категории
+            const category = categories.find(
+                (c) => c.id === product.categoryId
+            );
+            const categoryName = category
+                ? getLocalizedText(category.title, "ru").toLowerCase()
+                : "";
+
+            return (
+                titleRu.includes(query) ||
+                titleEn.includes(query) ||
+                titleUz.includes(query) ||
+                descRu.includes(query) ||
+                descEn.includes(query) ||
+                descUz.includes(query) ||
+                categoryName.includes(query)
+            );
+        });
+    }, [products, searchQuery, categories]);
 
     const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
     const paginatedProducts = useMemo(() => {
@@ -99,11 +138,13 @@ export default function ProductsPage() {
         };
 
         fetchData();
-    }, []);
+    }, [toast]);
 
     const getCategoryName = (categoryId: string) => {
         const category = categories.find((c) => c.id === categoryId);
-        return category?.title || "Без категории";
+        return category
+            ? getLocalizedText(category.title, "ru")
+            : "Без категории";
     };
 
     const handleDeleteClick = (product: Product) => {
@@ -113,8 +154,6 @@ export default function ProductsPage() {
 
     const extractStoragePath = (url: string): string | null => {
         try {
-            // Извлекаем путь из Firebase Storage URL
-            // Формат: https://firebasestorage.googleapis.com/v0/b/[bucket]/o/[path]?alt=media
             const urlObj = new URL(url);
             if (urlObj.hostname.includes("firebasestorage.googleapis.com")) {
                 const pathMatch = urlObj.pathname.match(/\/o\/(.+)\?/)?.[1];
@@ -122,7 +161,6 @@ export default function ProductsPage() {
                     return decodeURIComponent(pathMatch);
                 }
             }
-            // Если это обычный путь, возвращаем как есть
             return url;
         } catch {
             return null;
@@ -146,7 +184,6 @@ export default function ProductsPage() {
                                     `Error deleting image ${path}:`,
                                     error
                                 );
-                                // Продолжаем даже если удаление изображения не удалось
                             });
                         }
                         return Promise.resolve();
@@ -156,7 +193,7 @@ export default function ProductsPage() {
             }
 
             // Удаляем товар из Firestore
-            await deleteItem("products", productToDelete.id);
+            await deleteProduct(productToDelete.id);
 
             // Обновляем список
             setProducts(products.filter((p) => p.id !== productToDelete.id));
@@ -194,8 +231,6 @@ export default function ProductsPage() {
             </div>
         );
     }
-
-    console.log({ products });
 
     return (
         <div className="p-4 md:p-6 lg:p-8">
@@ -283,7 +318,10 @@ export default function ProductsPage() {
                                             <div className="relative w-16 h-16 rounded-md overflow-hidden border">
                                                 <Image
                                                     src={product.images[0]}
-                                                    alt={product.title}
+                                                    alt={getLocalizedText(
+                                                        product.title,
+                                                        "ru"
+                                                    )}
                                                     fill
                                                     className="object-cover"
                                                     sizes="64px"
@@ -296,7 +334,28 @@ export default function ProductsPage() {
                                         )}
                                     </TableCell>
                                     <TableCell className="font-medium">
-                                        {product.title}
+                                        <div className="space-y-1">
+                                            <div>
+                                                {getLocalizedText(
+                                                    product.title,
+                                                    "ru"
+                                                )}
+                                            </div>
+                                            <div className="text-xs text-muted-foreground">
+                                                🇬🇧{" "}
+                                                {getLocalizedText(
+                                                    product.title,
+                                                    "en"
+                                                ) || "—"}
+                                            </div>
+                                            <div className="text-xs text-muted-foreground">
+                                                🇺🇿{" "}
+                                                {getLocalizedText(
+                                                    product.title,
+                                                    "uz"
+                                                ) || "—"}
+                                            </div>
+                                        </div>
                                     </TableCell>
                                     <TableCell className="hidden sm:table-cell">
                                         {product.price
@@ -392,9 +451,11 @@ export default function ProductsPage() {
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             Вы уверены, что хотите удалить товар &quot;
-                            {productToDelete?.title}&quot;? Это действие нельзя
-                            отменить. Все изображения товара также будут
-                            удалены.
+                            {productToDelete
+                                ? getLocalizedText(productToDelete.title, "ru")
+                                : ""}
+                            &quot;? Это действие нельзя отменить. Все
+                            изображения товара также будут удалены.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

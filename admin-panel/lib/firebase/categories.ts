@@ -1,5 +1,5 @@
-import { getItems, addItem, updateItem, deleteItem, getItem } from "./db";
-import { Category } from "@/types";
+import { getItems, addItem, updateItem, deleteItem } from "./db";
+import { Category, MultilingualText } from "@/types";
 
 /**
  * Get all categories
@@ -8,7 +8,8 @@ export const getCategories = async (): Promise<Category[]> => {
     try {
         const data = await getItems("categories");
         return data.map((item: any) => ({
-            ...item,
+            id: item.id,
+            title: item.title || { ru: "", en: "", uz: "" },
             createdAt: item.createdAt?.toDate?.() || item.createdAt,
             updatedAt: item.updatedAt?.toDate?.() || item.updatedAt,
         })) as Category[];
@@ -20,7 +21,7 @@ export const getCategories = async (): Promise<Category[]> => {
 /**
  * Add a new category
  */
-export const addCategory = async (title: string): Promise<string> => {
+export const addCategory = async (title: MultilingualText): Promise<string> => {
     try {
         const data = {
             title,
@@ -38,7 +39,7 @@ export const addCategory = async (title: string): Promise<string> => {
  */
 export const updateCategory = async (
     id: string,
-    title: string
+    title: MultilingualText
 ): Promise<void> => {
     try {
         const data = {
@@ -66,12 +67,12 @@ export const deleteCategory = async (id: string): Promise<void> => {
  * Check if category can be deleted (no products using this category)
  */
 export const canDeleteCategory = async (
-    categoryTitle: string
+    categoryId: string
 ): Promise<boolean> => {
     try {
         const products = await getItems("products");
         const hasProducts = products.some(
-            (product: any) => product.category === categoryTitle
+            (product: any) => product.categoryId === categoryId
         );
         return !hasProducts;
     } catch (error) {

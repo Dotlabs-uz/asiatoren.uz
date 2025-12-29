@@ -1,25 +1,10 @@
 "use client";
 
-import { getCategories } from "@/lib/firebase/categories";
-import { Category } from "@/types";
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { X, Upload, ImageIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import {
     Select,
     SelectContent,
@@ -27,457 +12,406 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { uploadFile, getFileURL } from "@/lib/firebase/storage";
-import Image from "next/image";
-import { Skeleton } from "../ui/skeleton";
-
-const productSchema = z.object({
-    title: z
-        .string()
-        .min(1, "Название обязательно")
-        .max(200, "Слишком длинное название"),
-    description: z.string().min(1, "Описание обязательно"),
-    price: z.number().min(0, "Цена должна быть положительной"),
-    categoryId: z.string().min(1, "Категория обязательна"),
-    stock: z.number().min(0, "Количество должно быть положительным").optional(),
-    isActive: z.boolean().optional(),
-    features: z.array(z.string()).optional(),
-});
-
-type ProductFormValues = z.infer<typeof productSchema>;
+import { Card, CardContent } from "@/components/ui/card";
+import { X, Upload, Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { uploadFile } from "@/lib/firebase/storage";
+import { getCategories } from "@/lib/firebase/categories";
+import { Category, ProductFormData, MultilingualText } from "@/types";
+import { MultilingualInput } from "@/components/admin/MultilingualInput";
+import { MultilingualArrayInput } from "@/components/admin/MultilingualArrayInput";
 
 interface ProductFormProps {
-    initialData?: {
-        title: string;
-        description: string;
-        price: number;
-        categoryId: string;
-        images: string[];
-        features?: string[];
-    };
-    onSubmit: (data: ProductFormValues & { images: string[] }) => Promise<void>;
+    initialData?: ProductFormData;
+    onSubmit: (data: ProductFormData) => Promise<void>;
     loading?: boolean;
 }
+
+const emptyMultilingualText: MultilingualText = { ru: "", en: "", uz: "" };
 
 export function ProductForm({
     initialData,
     onSubmit,
     loading = false,
 }: ProductFormProps) {
-    const [uploadedImages, setUploadedImages] = useState<string[]>(
-        initialData?.images || []
-    );
-    const [imageFiles, setImageFiles] = useState<File[]>([]);
-    const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-    const [uploading, setUploading] = useState(false);
+    const router = useRouter();
+    const { toast } = useToast();
     const [categories, setCategories] = useState<Category[]>([]);
-    const [loadingCategories, setLoadingCategories] = useState(true);
+    const [uploading, setUploading] = useState(false);
 
-    const form = useForm<ProductFormValues>({
-        resolver: zodResolver(productSchema),
-        defaultValues: {
-            title: initialData?.title || "",
-            description: initialData?.description || "",
-            price: initialData?.price || 0,
-            categoryId: initialData?.categoryId || "",
-            features: initialData?.features ?? [""],
-        },
+    const [formData, setFormData] = useState<ProductFormData>({
+        title: initialData?.title || emptyMultilingualText,
+        description: initialData?.description || emptyMultilingualText,
+        price: initialData?.price || 0,
+        categoryId: initialData?.categoryId || "",
+        images: initialData?.images || [],
+        features: initialData?.features || [],
     });
 
     useEffect(() => {
-        if (imageFiles.length > 0) {
-            const newPreviews = imageFiles.map((file) =>
-                URL.createObjectURL(file)
-            );
-            setImagePreviews(newPreviews);
-
-            return () => {
-                newPreviews.forEach((url) => URL.revokeObjectURL(url));
-            };
-        } else {
-            setImagePreviews([]);
-        }
-    }, [imageFiles]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
+        const loadCategories = async () => {
             try {
-                setLoadingCategories(true);
                 const data = await getCategories();
                 setCategories(data);
             } catch (error) {
                 console.error("Error loading categories:", error);
-            } finally {
-                setLoadingCategories(false);
+                toast({
+                    title: "Ошибка",
+                    description: "Не удалось загрузить категории",
+                    variant: "destructive",
+                });
             }
         };
 
-        fetchCategories();
-    }, []);
+        loadCategories();
+    }, [toast]);
 
-    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = Array.from(e.target.files || []);
-        const imageFiles = files.filter((file) =>
-            file.type.startsWith("image/")
-        );
+    const handleImageUpload = async (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const files = e.target.files;
+        if (!files || files.length === 0) return;
 
-        if (imageFiles.length === 0) {
-            return;
-        }
-
-        // Ограничение на количество изображений
-        const maxImages = 10;
-        const totalImages = uploadedImages.length + imageFiles.length;
-
-        if (totalImages > maxImages) {
-            alert(`Можно загрузить максимум ${maxImages} изображений`);
-            return;
-        }
-
-        setImageFiles((prev) => [...prev, ...imageFiles]);
-        e.target.value = ""; // Сбрасываем input
-    };
-
-    const removeImagePreview = (index: number) => {
-        setImageFiles((prev) => prev.filter((_, i) => i !== index));
-        URL.revokeObjectURL(imagePreviews[index]);
-    };
-
-    const removeUploadedImage = (index: number) => {
-        setUploadedImages((prev) => prev.filter((_, i) => i !== index));
-    };
-
-    const handleSubmit = async (data: ProductFormValues) => {
         try {
             setUploading(true);
 
-            // Загружаем новые изображения в Storage
-            const newImageUrls: string[] = [];
+            const uploadPromises = Array.from(files).map(async (file) => {
+                // Валидация
+                if (!file.type.startsWith("image/")) {
+                    throw new Error(
+                        `Файл ${file.name} не является изображением`
+                    );
+                }
 
-            for (const file of imageFiles) {
+                if (file.size > 5 * 1024 * 1024) {
+                    throw new Error(
+                        `Файл ${file.name} слишком большой (максимум 5MB)`
+                    );
+                }
+
+                // Генерируем уникальное имя файла
                 const timestamp = Date.now();
-                const fileName = `${timestamp}_${file.name}`;
-                const path = `products/${fileName}`;
+                const randomStr = Math.random().toString(36).substring(7);
+                const extension = file.name.split(".").pop();
+                const fileName = `products/${timestamp}_${randomStr}.${extension}`;
 
-                await uploadFile(file, path);
-                const url = await getFileURL(path);
-                newImageUrls.push(url);
-            }
+                // Загружаем файл и получаем URL
+                const url = await uploadFile(file, fileName);
+                return url;
+            });
 
-            // Объединяем существующие и новые изображения
-            const allImages = [...uploadedImages, ...newImageUrls];
+            const uploadedUrls = await Promise.all(uploadPromises);
 
-            // Вызываем onSubmit с данными формы и изображениями
-            await onSubmit({
-                title: data.title,
-                description: data.description,
-                price: data.price,
-                categoryId: data.categoryId,
-                features: data.features,
-                images: allImages,
+            setFormData({
+                ...formData,
+                images: [...formData.images, ...uploadedUrls],
+            });
+
+            toast({
+                title: "Успешно",
+                description: `Загружено ${uploadedUrls.length} изображений`,
             });
         } catch (error) {
-            console.error("Error submitting form:", error);
-            throw error;
+            console.error("Error uploading images:", error);
+            toast({
+                title: "Ошибка",
+                description:
+                    error instanceof Error
+                        ? error.message
+                        : "Не удалось загрузить изображения",
+                variant: "destructive",
+            });
         } finally {
             setUploading(false);
+            // Очищаем input
+            e.target.value = "";
         }
     };
 
-    const allImages = [...uploadedImages, ...imagePreviews];
-    const isSubmitting = loading || uploading;
+    const removeImage = (index: number) => {
+        setFormData({
+            ...formData,
+            images: formData.images.filter((_, i) => i !== index),
+        });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Валидация
+        if (!formData.title.ru || !formData.title.en || !formData.title.uz) {
+            toast({
+                title: "Ошибка",
+                description: "Заполните название на всех языках",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        if (
+            !formData.description.ru ||
+            !formData.description.en ||
+            !formData.description.uz
+        ) {
+            toast({
+                title: "Ошибка",
+                description: "Заполните описание на всех языках",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        if (!formData.categoryId) {
+            toast({
+                title: "Ошибка",
+                description: "Выберите категорию",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        if (formData.price <= 0) {
+            toast({
+                title: "Ошибка",
+                description: "Укажите корректную цену",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        // Убедимся, что features - это массив (может быть пустым)
+        const cleanedData: ProductFormData = {
+            title: formData.title,
+            description: formData.description,
+            price: formData.price,
+            categoryId: formData.categoryId,
+            images: formData.images,
+            features: formData.features || [], // Всегда массив, даже если пустой
+        };
+
+        try {
+            await onSubmit(cleanedData);
+        } catch (error) {
+            // Ошибка обрабатывается в родительском компоненте
+        }
+    };
+
+    const getLocalizedText = (
+        text: MultilingualText | string,
+        lang: "ru" | "en" | "uz" = "ru"
+    ): string => {
+        if (typeof text === "string") return text;
+        return text[lang] || text.ru || text.en || text.uz || "";
+    };
 
     return (
-        <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(handleSubmit)}
-                className="space-y-6"
-            >
-                <FormField
-                    control={form.control}
-                    name="title"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Название</FormLabel>
-                            <FormControl>
-                                <Input
-                                    placeholder="Введите название товара"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+        <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Название */}
+            <MultilingualInput
+                label="Название товара"
+                value={formData.title}
+                onChange={(title) => setFormData({ ...formData, title })}
+                required
+                placeholder={{
+                    ru: "Введите название товара",
+                    en: "Enter product name",
+                    uz: "Mahsulot nomini kiriting",
+                }}
+            />
 
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Описание</FormLabel>
-                            <FormControl>
-                                <Textarea
-                                    placeholder="Введите описание товара"
-                                    className="min-h-[120px]"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+            {/* Описание */}
+            <MultilingualInput
+                label="Описание"
+                value={formData.description}
+                onChange={(description) =>
+                    setFormData({ ...formData, description })
+                }
+                type="textarea"
+                required
+                placeholder={{
+                    ru: "Введите описание товара",
+                    en: "Enter product description",
+                    uz: "Mahsulot tavsifini kiriting",
+                }}
+            />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField
-                        control={form.control}
-                        name="price"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Цена (Sum)</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="number"
-                                        step="0.01"
-                                        placeholder="0.00"
-                                        {...field}
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseFloat(e.target.value) || 0
-                                            )
-                                        }
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
+            {/* Цена и категория */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Цена */}
+                <div className="space-y-2">
+                    <Label htmlFor="price">
+                        Цена (сум) <span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                        id="price"
+                        type="number"
+                        min="0"
+                        step="1"
+                        value={formData.price || ""}
+                        onChange={(e) =>
+                            setFormData({
+                                ...formData,
+                                price: Number(e.target.value),
+                            })
+                        }
+                        placeholder="0"
+                        required
                     />
-
-                    {!loadingCategories ? (
-                        <FormField
-                            control={form.control}
-                            name="categoryId"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Категория</FormLabel>
-                                    <Select
-                                        onValueChange={field.onChange}
-                                        value={field.value}
-                                        disabled={
-                                            loadingCategories ||
-                                            categories.length === 0
-                                        }
-                                    >
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Выберите категорию" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            {loadingCategories ? (
-                                                <SelectItem value="" disabled>
-                                                    Загрузка категорий...
-                                                </SelectItem>
-                                            ) : categories.length === 0 ? (
-                                                <SelectItem value="" disabled>
-                                                    Категории не найдены
-                                                </SelectItem>
-                                            ) : (
-                                                categories.map((category) => (
-                                                    <SelectItem
-                                                        key={category.id}
-                                                        value={category.id}
-                                                    >
-                                                        {category.title}
-                                                    </SelectItem>
-                                                ))
-                                            )}
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    ) : (
-                        <Skeleton className="w-full h-16" />
-                    )}
-                    {!loadingCategories && categories.length === 0 && (
-                        <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-                            <p className="text-sm text-yellow-800">
-                                Категории не найдены.{" "}
-                                <a
-                                    href="/admin/categories"
-                                    className="font-medium underline hover:no-underline"
-                                >
-                                    Создайте первую категорию
-                                </a>
-                            </p>
-                        </div>
-                    )}
                 </div>
 
-                {/* Загрузка изображений */}
-                <div className="space-y-4">
-                    <p className="text-sm font-medium">Изображения</p>
+                {/* Категория */}
+                <div className="space-y-2">
+                    <Label htmlFor="category">
+                        Категория <span className="text-red-500">*</span>
+                    </Label>
+                    <Select
+                        value={formData.categoryId}
+                        onValueChange={(value) =>
+                            setFormData({ ...formData, categoryId: value })
+                        }
+                    >
+                        <SelectTrigger id="category">
+                            <SelectValue placeholder="Выберите категорию" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {categories.map((category) => (
+                                <SelectItem
+                                    key={category.id}
+                                    value={category.id}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <span>
+                                            🇷🇺{" "}
+                                            {getLocalizedText(
+                                                category.title,
+                                                "ru"
+                                            )}
+                                        </span>
+                                        <span className="text-xs text-muted-foreground">
+                                            / 🇬🇧{" "}
+                                            {getLocalizedText(
+                                                category.title,
+                                                "en"
+                                            )}
+                                            / 🇺🇿{" "}
+                                            {getLocalizedText(
+                                                category.title,
+                                                "uz"
+                                            )}
+                                        </span>
+                                    </div>
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
 
-                    <div className="flex items-center gap-2">
-                        <label htmlFor="image-upload">
-                            <Button type="button" variant="outline" asChild>
-                                <span className="cursor-pointer">
-                                    <Upload className="h-4 w-4 mr-2" />
-                                    Загрузить изображения
-                                </span>
-                            </Button>
-                        </label>
-                        <input
-                            id="image-upload"
+            {/* Характеристики */}
+            <MultilingualArrayInput
+                label="Характеристики товара"
+                value={formData.features}
+                onChange={(features) => setFormData({ ...formData, features })}
+                placeholder="Введите характеристику"
+            />
+
+            {/* Изображения */}
+            <div className="space-y-2">
+                <Label>Изображения товара</Label>
+                <div className="space-y-4">
+                    {/* Загруженные изображения */}
+                    {formData.images.length > 0 && (
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {formData.images.map((url, index) => (
+                                <Card key={index} className="relative group">
+                                    <CardContent className="p-2">
+                                        <div className="aspect-square relative rounded-md overflow-hidden">
+                                            <img
+                                                src={url}
+                                                alt={`Изображение ${index + 1}`}
+                                                className="object-cover w-full h-full"
+                                            />
+                                            <Button
+                                                type="button"
+                                                variant="destructive"
+                                                size="icon"
+                                                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                onClick={() =>
+                                                    removeImage(index)
+                                                }
+                                            >
+                                                <X className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Кнопка загрузки */}
+                    <div>
+                        <Input
                             type="file"
                             accept="image/*"
                             multiple
+                            onChange={handleImageUpload}
+                            disabled={uploading}
                             className="hidden"
-                            onChange={handleFileSelect}
+                            id="image-upload"
                         />
-                        <p className="text-sm text-muted-foreground">
-                            Можно загрузить до 10 изображений
+                        <Label htmlFor="image-upload">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                disabled={uploading}
+                                className="w-full cursor-pointer"
+                                asChild
+                            >
+                                <span>
+                                    {uploading ? (
+                                        <>
+                                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                            Загрузка...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Upload className="h-4 w-4 mr-2" />
+                                            Загрузить изображения
+                                        </>
+                                    )}
+                                </span>
+                            </Button>
+                        </Label>
+                        <p className="text-xs text-muted-foreground mt-2">
+                            Максимальный размер файла: 5MB. Форматы: JPG, PNG,
+                            GIF, WEBP
                         </p>
                     </div>
+                </div>
+            </div>
 
-                    {/* Preview изображений */}
-                    {allImages.length > 0 && (
-                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                            {uploadedImages.map((url, index) => (
-                                <div
-                                    key={`uploaded-${index}`}
-                                    className="relative group"
-                                >
-                                    <div className="relative aspect-square rounded-lg overflow-hidden border">
-                                        <Image
-                                            src={url}
-                                            alt={`Preview ${index + 1}`}
-                                            fill
-                                            className="object-cover"
-                                            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                                        />
-                                    </div>
-                                    <Button
-                                        type="button"
-                                        variant="destructive"
-                                        size="icon"
-                                        className="absolute top-2 right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                                        onClick={() =>
-                                            removeUploadedImage(index)
-                                        }
-                                    >
-                                        <X className="h-3 w-3" />
-                                    </Button>
-                                    <p className="text-xs text-muted-foreground mt-1">
-                                        Загружено
-                                    </p>
-                                </div>
-                            ))}
-                            {imagePreviews.map((preview, index) => (
-                                <div
-                                    key={`preview-${index}`}
-                                    className="relative group"
-                                >
-                                    <div className="relative aspect-square rounded-lg overflow-hidden border">
-                                        <Image
-                                            src={preview}
-                                            alt={`Preview ${index + 1}`}
-                                            fill
-                                            className="object-cover"
-                                            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                                        />
-                                    </div>
-                                    <Button
-                                        type="button"
-                                        variant="destructive"
-                                        size="icon"
-                                        className="absolute top-2 right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                                        onClick={() =>
-                                            removeImagePreview(index)
-                                        }
-                                    >
-                                        <X className="h-3 w-3" />
-                                    </Button>
-                                    <p className="text-xs text-muted-foreground mt-1">
-                                        Новое
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
+            {/* Кнопки */}
+            <div className="flex justify-end gap-4 pt-6 border-t">
+                <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => router.back()}
+                    disabled={loading || uploading}
+                >
+                    Отмена
+                </Button>
+                <Button type="submit" disabled={loading || uploading}>
+                    {loading ? (
+                        <>
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            Сохранение...
+                        </>
+                    ) : (
+                        "Сохранить"
                     )}
-
-                    {allImages.length === 0 && (
-                        <div className="flex items-center justify-center border-2 border-dashed rounded-lg p-12 text-center">
-                            <div className="space-y-2">
-                                <ImageIcon className="h-12 w-12 mx-auto text-muted-foreground" />
-                                <p className="text-sm text-muted-foreground">
-                                    Изображения не загружены
-                                </p>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                <div className="space-y-4">
-                    <FormField
-                        control={form.control}
-                        name="features"
-                        render={({ field }) => {
-                            return (
-                                <FormItem>
-                                    <FormLabel>Характеристики</FormLabel>
-                                    <FormControl>
-                                        <Textarea
-                                            placeholder="Введите характеристики"
-                                            className="min-h-[120px]"
-                                            defaultValue={
-                                                Array.isArray(field.value)
-                                                    ? field.value.join(", ")
-                                                    : ""
-                                            }
-                                            onBlur={(e) => {
-                                                const raw = e.target.value;
-                                                const parsed = raw
-                                                    .split(",")
-                                                    .map((s) => s.trim())
-                                                    .filter(
-                                                        (s) => s.length > 0
-                                                    );
-
-                                                field.onChange(parsed);
-                                            }}
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Введите характеристики через запятую,
-                                        например: практично, дешево, красиво
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            );
-                        }}
-                    />
-                </div>
-
-                <div className="flex justify-end gap-4 pt-4">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        asChild
-                        disabled={isSubmitting}
-                    >
-                        <a href="/admin/products">Отмена</a>
-                    </Button>
-                    <Button
-                        type="submit"
-                        disabled={isSubmitting || !form.formState.isValid}
-                    >
-                        {isSubmitting ? "Сохранение..." : "Сохранить"}
-                    </Button>
-                </div>
-            </form>
-        </Form>
+                </Button>
+            </div>
+        </form>
     );
 }

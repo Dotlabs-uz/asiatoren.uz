@@ -9,17 +9,36 @@ import {
 import { storage } from "./config";
 
 /**
- * Upload a file to Firebase Storage
+ * Upload a file to Firebase Storage and return its download URL
  */
-export const uploadFile = async (
+export const uploadFile = async (file: File, path: string): Promise<string> => {
+    try {
+        const storageRef: StorageReference = ref(storage, path);
+        await uploadBytes(storageRef, file);
+        // Получаем URL файла после загрузки
+        const url = await getDownloadURL(storageRef);
+        return url;
+    } catch (error) {
+        console.error("Error uploading file:", error);
+        throw error;
+    }
+};
+
+/**
+ * Upload a file and return both result and URL
+ * (если нужен результат загрузки)
+ */
+export const uploadFileWithResult = async (
     file: File,
     path: string
-): Promise<UploadResult> => {
+): Promise<{ result: UploadResult; url: string }> => {
     try {
         const storageRef: StorageReference = ref(storage, path);
         const result = await uploadBytes(storageRef, file);
-        return result;
+        const url = await getDownloadURL(storageRef);
+        return { result, url };
     } catch (error) {
+        console.error("Error uploading file:", error);
         throw error;
     }
 };
@@ -32,6 +51,7 @@ export const deleteFile = async (path: string): Promise<void> => {
         const storageRef: StorageReference = ref(storage, path);
         await deleteObject(storageRef);
     } catch (error) {
+        console.error("Error deleting file:", error);
         throw error;
     }
 };
@@ -69,6 +89,7 @@ export const getFileURL = async (path: string): Promise<string> => {
         const url = await getDownloadURL(storageRef);
         return url;
     } catch (error) {
+        console.error("Error getting file URL:", error);
         throw error;
     }
 };
