@@ -12,7 +12,14 @@ import {
     QueryConstraint,
 } from "firebase/firestore";
 import { db } from "./client";
-import { Product, Category, ApplicationFormData, Media } from "@/types";
+import {
+    Product,
+    Category,
+    ApplicationFormData,
+    Media,
+    Language,
+} from "@/types";
+import { getLocale } from "next-intl/server";
 
 export const getCategories = async (): Promise<Category[]> => {
     try {
@@ -159,14 +166,19 @@ export const searchProducts = async (
     searchQuery: string
 ): Promise<Product[]> => {
     try {
+        const locale = (await getLocale()) as Language;
         const allProducts = await getProducts();
         const query = searchQuery.toLowerCase().trim();
 
         return allProducts.filter((product) => {
-            const nameMatch = product.title.toLowerCase().includes(query);
-            const descMatch = product.description.toLowerCase().includes(query);
+            const nameMatch = product.title[locale]
+                ?.toLowerCase()
+                .includes(query);
+            const descMatch = product.description[locale]
+                ?.toLowerCase()
+                .includes(query);
             const featuresMatch = product.features?.some((f) =>
-                f.toLowerCase().includes(query)
+                f[locale]?.toLowerCase().includes(query)
             );
 
             return nameMatch || descMatch || featuresMatch;
@@ -267,4 +279,3 @@ export const getPartners = async (): Promise<Media[]> => {
         return [];
     }
 };
-
