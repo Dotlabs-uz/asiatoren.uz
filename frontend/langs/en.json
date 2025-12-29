@@ -239,5 +239,31 @@
             "connectTitle": "Call us",
             "socialTitle": "Find us on social media"
         }
+    },
+    "product-page": {
+        "breadcrumb": {
+            "home": "Home",
+            "catalog": "Catalog"
+        },
+        "priceLabel": "Price",
+        "currency": "UZS",
+        "requestButton": "Request Quote",
+        "benefits": {
+            "warranty": {
+                "title": "12 Month Warranty",
+                "text": "Full warranty on all equipment"
+            },
+            "delivery": {
+                "title": "Delivery",
+                "text": "throughout Uzbekistan and CIS"
+            },
+            "selection": {
+                "title": "Configuration Selection",
+                "text": "for your farm"
+            }
+        },
+        "descriptionTitle": "Description",
+        "characteristicsTitle": "Characteristics",
+        "notFound": "Product not found"
     }
 }

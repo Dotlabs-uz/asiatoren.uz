@@ -252,7 +252,11 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                                         </span>
                                     </Button>
                                 </div>
-                                <Button className="w-full">{text.btn}</Button>
+                                <Link href={"/contacts"}>
+                                    <Button className="w-full">
+                                        {text.btn}
+                                    </Button>
+                                </Link>
                             </div>
                         </SheetContent>
                     </Sheet>

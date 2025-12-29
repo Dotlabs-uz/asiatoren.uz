@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Search, Heart, ArrowRight } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Category, Product } from "@/types";
@@ -13,6 +13,7 @@ import {
     getProductsByCategory,
     searchProducts,
 } from "@/lib/firebase/public-api";
+import Link from "next/link";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -259,8 +260,8 @@ export const CatalogClient = ({
                                             <Image
                                                 src={product.images[0]}
                                                 alt={product.title}
-                                                width={400}
-                                                height={400}
+                                                width={1000}
+                                                height={1000}
                                                 className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-500"
                                             />
                                         ) : (
@@ -278,12 +279,14 @@ export const CatalogClient = ({
                                             {product.description}
                                         </p>
 
-                                        <Button className="w-full bg-cRed hover:bg-cRed/90 text-white rounded-xl py-6 font-semibold group/btn transition-all">
-                                            <span>
-                                                {translations.viewButton}
-                                            </span>
-                                            <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                                        </Button>
+                                        <Link href={"/products/" + product.id}>
+                                            <Button className="w-full bg-cRed hover:bg-cRed/90 text-white rounded-xl py-6 font-semibold group/btn transition-all">
+                                                <span>
+                                                    {translations.viewButton}
+                                                </span>
+                                                <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                                            </Button>
+                                        </Link>
                                     </div>
                                 </div>
                             ))}

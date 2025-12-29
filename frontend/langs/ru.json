@@ -239,5 +239,31 @@
             "connectTitle": "Позвоните нам",
             "socialTitle": "Мы в социальных сетях"
         }
+    },
+    "product-page": {
+        "breadcrumb": {
+            "home": "Главная",
+            "catalog": "Каталог"
+        },
+        "priceLabel": "Цена",
+        "currency": "сум",
+        "requestButton": "Оставить заявку",
+        "benefits": {
+            "warranty": {
+                "title": "Гарантия 12 месяцев",
+                "text": "Полная гарантия на все оборудование"
+            },
+            "delivery": {
+                "title": "Доставка",
+                "text": "по всему Узбекистану и СНГ"
+            },
+            "selection": {
+                "title": "Подбор комплектации",
+                "text": "под ферму"
+            }
+        },
+        "descriptionTitle": "Описание",
+        "characteristicsTitle": "Характеристики",
+        "notFound": "Товар не найден"
     }
 }

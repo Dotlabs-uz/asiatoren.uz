@@ -7,11 +7,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { Category, Product } from "@/types";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface ProductsClientProps {
-    categories: Category[];
     products: Product[];
     translations: {
         title: string;
@@ -20,7 +20,6 @@ interface ProductsClientProps {
 }
 
 export const ProductsClient = ({
-    categories,
     products,
     translations,
 }: ProductsClientProps) => {
@@ -59,19 +58,6 @@ export const ProductsClient = ({
                 "-=0.6"
             );
 
-            // 3. Категории
-            tl.from(
-                ".category-item",
-                {
-                    x: -30,
-                    opacity: 0,
-                    duration: 0.6,
-                    stagger: 0.05,
-                    ease: "power3.out",
-                },
-                "-=0.4"
-            );
-
             // 4. Карточки продуктов - ОБЕРНУТЫЕ В DIV
             tl.from(
                 ".product-card-wrapper",
@@ -102,34 +88,19 @@ export const ProductsClient = ({
                     </h2>
 
                     <div className="products-button w-full md:w-auto">
-                        <Button className="group flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 w-full md:w-60 justify-center transition-all duration-300">
-                            {translations.btn}
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </Button>
+                        <Link href={"/products"}>
+                            <Button className="group flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 w-full md:w-60 justify-center transition-all duration-300">
+                                {translations.btn}
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                        </Link>
                     </div>
                 </div>
-
-                {/* Categories Horizontal Scroll */}
-                <div className="mb-8 md:mb-12">
-                    <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                        {categories.map((category) => (
-                            <div key={category.id} className="category-item">
-                                <Button
-                                    variant={"default"}
-                                    className="whitespace-nowrap transition-all duration-500 px-6 py-3 rounded-xl font-semibold text-base md:text-lg bg-gray-100 text-gray-600 hover:bg-cRed hover:text-white"
-                                >
-                                    {category.title}
-                                </Button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
                 {/* Products Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
                     {products.map((product) => (
                         <div key={product.id} className="product-card-wrapper">
-                            <button className="group relative overflow-hidden rounded-xl md:rounded-2xl transition-all duration-500 hover:scale-[1.02] bg-gray-100 text-gray-900 hover:bg-cRed w-full h-full">
+                            <button className="group relative overflow-hidden rounded-xl md:rounded-2xl transition-all duration-500 hover:scale-[1.02] bg-gray-100 text-gray-900 hover:shadow-2xl w-full h-full">
                                 {/* Card Content */}
                                 <div className="relative z-10 p-4 md:p-6 flex flex-col justify-between min-h-[280px] md:min-h-80">
                                     {/* Product Image */}
@@ -145,15 +116,12 @@ export const ProductsClient = ({
 
                                     {/* Product Name */}
                                     <div className="flex items-center justify-between gap-2">
-                                        <h3 className="text-base md:text-lg lg:text-xl font-bold text-left line-clamp-2 text-gray-900 group-hover:text-white transition-colors duration-300">
+                                        <h3 className="text-base md:text-lg lg:text-xl font-bold text-left line-clamp-2 text-gray-900 transition-colors duration-300">
                                             {product.title}
                                         </h3>
-                                        <ArrowRight className="w-5 h-5 md:w-6 md:h-6 shrink-0 group-hover:translate-x-2 transition-transform duration-300 text-gray-900 group-hover:text-white" />
+                                        <ArrowRight className="w-5 h-5 md:w-6 md:h-6 shrink-0 group-hover:translate-x-2 transition-transform duration-300 text-gray-900" />
                                     </div>
                                 </div>
-
-                                {/* Hover Effect Overlay */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-linear-to-br from-cRed to-cRed/80" />
                             </button>
                         </div>
                     ))}

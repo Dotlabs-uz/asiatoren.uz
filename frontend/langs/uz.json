@@ -239,5 +239,31 @@
             "connectTitle": "Bizga qo'ng'iroq qiling",
             "socialTitle": "Ijtimoiy tarmoqlarda biz"
         }
+    },
+    "product-page": {
+        "breadcrumb": {
+            "home": "Bosh sahifa",
+            "catalog": "Katalog"
+        },
+        "priceLabel": "Narxi",
+        "currency": "so'm",
+        "requestButton": "Ariza qoldirish",
+        "benefits": {
+            "warranty": {
+                "title": "12 oylik kafolat",
+                "text": "Barcha uskunalar uchun to'liq kafolat"
+            },
+            "delivery": {
+                "title": "Yetkazib berish",
+                "text": "O'zbekiston va MDH bo'ylab"
+            },
+            "selection": {
+                "title": "Komplektatsiya tanlash",
+                "text": "ferma uchun"
+            }
+        },
+        "descriptionTitle": "Tavsif",
+        "characteristicsTitle": "Xususiyatlar",
+        "notFound": "Mahsulot topilmadi"
     }
 }
