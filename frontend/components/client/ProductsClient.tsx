@@ -100,29 +100,31 @@ export const ProductsClient = ({
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
                     {products.map((product) => (
                         <div key={product.id} className="product-card-wrapper">
-                            <button className="group relative overflow-hidden rounded-xl md:rounded-2xl transition-all duration-500 hover:scale-[1.02] bg-gray-100 text-gray-900 hover:shadow-2xl w-full h-full">
-                                {/* Card Content */}
-                                <div className="relative z-10 p-4 md:p-6 flex flex-col justify-between min-h-[280px] md:min-h-80">
-                                    {/* Product Image */}
-                                    {product.images?.[0] && (
-                                        <div className="flex-1 flex items-center justify-center mb-4">
-                                            <img
-                                                src={product.images[0]}
-                                                alt={product.title}
-                                                className="w-full h-32 md:h-40 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500"
-                                            />
-                                        </div>
-                                    )}
+                            <Link href={"/products/" + product.id}>
+                                <div className="group relative overflow-hidden rounded-xl md:rounded-2xl transition-all duration-500 hover:scale-[1.02] bg-gray-100 text-gray-900 hover:shadow-2xl w-full h-full">
+                                    {/* Card Content */}
+                                    <div className="relative z-10 p-4 md:p-6 flex flex-col justify-between min-h-[280px] md:min-h-80">
+                                        {/* Product Image */}
+                                        {product.images?.[0] && (
+                                            <div className="flex-1 flex items-center justify-center mb-4">
+                                                <img
+                                                    src={product.images[0]}
+                                                    alt={product.title}
+                                                    className="w-full h-32 md:h-40 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500"
+                                                />
+                                            </div>
+                                        )}
 
-                                    {/* Product Name */}
-                                    <div className="flex items-center justify-between gap-2">
-                                        <h3 className="text-base md:text-lg lg:text-xl font-bold text-left line-clamp-2 text-gray-900 transition-colors duration-300">
-                                            {product.title}
-                                        </h3>
-                                        <ArrowRight className="w-5 h-5 md:w-6 md:h-6 shrink-0 group-hover:translate-x-2 transition-transform duration-300 text-gray-900" />
+                                        {/* Product Name */}
+                                        <div className="flex items-center justify-between gap-2">
+                                            <h3 className="text-base md:text-lg lg:text-xl font-bold text-left line-clamp-2 text-gray-900 transition-colors duration-300">
+                                                {product.title}
+                                            </h3>
+                                            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 shrink-0 group-hover:translate-x-2 transition-transform duration-300 text-gray-900" />
+                                        </div>
                                     </div>
                                 </div>
-                            </button>
+                            </Link>
                         </div>
                     ))}
                 </div>

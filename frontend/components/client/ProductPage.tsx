@@ -160,34 +160,7 @@ export const ProductPageClient = ({
     const rightFeatures = features.slice(halfLength);
 
     return (
-        <div className="min-h-screen bg-white">
-            {/* Breadcrumbs */}
-            <div className="breadcrumb max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-6">
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <Link
-                        href="/"
-                        className="hover:text-cRed transition-colors"
-                    >
-                        {translations.home}
-                    </Link>
-                    <ChevronRight className="w-4 h-4" />
-                    <Link
-                        href="/catalog"
-                        className="hover:text-cRed transition-colors"
-                    >
-                        {translations.catalog}
-                    </Link>
-                    <ChevronRight className="w-4 h-4" />
-                    <span className="hover:text-cRed transition-colors">
-                        {categoryName}
-                    </span>
-                    <ChevronRight className="w-4 h-4" />
-                    <span className="text-cRed font-medium">
-                        {product.title}
-                    </span>
-                </div>
-            </div>
-
+        <div className="min-h-screen bg-white pt-10">
             {/* Hero Section */}
             <div
                 ref={heroRef}
@@ -202,6 +175,30 @@ export const ProductPageClient = ({
 
                     {/* Right - Info */}
                     <div className="flex flex-col">
+                        {/* Breadcrumbs */}
+                        <div className="breadcrumb">
+                            <div className="flex items-center gap-2 text-sm text-gray-500">
+                                <p
+                                    className="hover:text-cRed transition-colors"
+                                >
+                                    {translations.home}
+                                </p>
+                                <ChevronRight className="w-4 h-4" />
+                                <p
+                                    className="hover:text-cRed transition-colors"
+                                >
+                                    {translations.catalog}
+                                </p>
+                                <ChevronRight className="w-4 h-4" />
+                                <span className="hover:text-cRed transition-colors">
+                                    {categoryName}
+                                </span>
+                                <ChevronRight className="w-4 h-4" />
+                                <span className="text-cRed font-medium">
+                                    {product.title}
+                                </span>
+                            </div>
+                        </div>
                         <h1 className="product-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
                             {product.title}
                         </h1>
