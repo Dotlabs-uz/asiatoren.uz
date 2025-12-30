@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import { MarqueeText } from "./MarqueeText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -116,19 +117,24 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                             )}
 
                             {item.type === "video" && (
-                                <div className="relative w-full max-w-4xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-cGray">
-                                    <iframe
-                                        className="w-full h-full"
-                                        src={
-                                            item.videoUrl ||
-                                            "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE"
-                                        }
-                                        title="YouTube video player"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerPolicy="strict-origin-when-cross-origin"
-                                        allowFullScreen
-                                    />
+                                <div className="relative flex justify-center items-center w-full">
+                                    <div className="relative w-full max-w-4xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-cGray">
+                                        <iframe
+                                            className="w-full h-full"
+                                            src={
+                                                item.videoUrl ||
+                                                "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE"
+                                            }
+                                            title="YouTube video player"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerPolicy="strict-origin-when-cross-origin"
+                                            allowFullScreen
+                                        />
+                                    </div>
+                                    <div className="absolute top-1/2 left-1/2 -translate-1/2 w-full -z-10">
+                                        <MarqueeText text="ASIA TAREN POULTRY" />
+                                    </div>
                                 </div>
                             )}
                         </div>

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface HeroClientProps {
     translations: {
@@ -71,10 +72,10 @@ export const HeroClient = ({ translations }: HeroClientProps) => {
     }, []);
 
     return (
-        <div className="w-full lg:w-[40%] md:w-[50%] h-screen flex flex-col justify-end items-start gap-8 md:gap-12 lg:gap-20 px-5 sm:px-8 md:mx-10 pb-8 md:pb-12">
+        <div className="w-full lg:w-[40%] md:w-[60%] h-screen flex flex-col justify-end items-start gap-12 md:gap-16 lg:gap-28 px-5 sm:px-8 md:mx-10 pb-8 md:pb-12">
             <h1
                 ref={titleRef}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white font-bold"
             >
                 {translations.title}
             </h1>
@@ -87,17 +88,24 @@ export const HeroClient = ({ translations }: HeroClientProps) => {
                 </p>
                 <div className="flex flex-col sm:flex-row justify-start items-stretch sm:items-start gap-3 w-full sm:w-auto">
                     <div ref={button1Ref}>
-                        <Button
-                            className="w-full sm:w-52 md:w-60 px-6 sm:px-8 md:px-10 py-4 md:py-5 text-sm md:text-base"
-                            variant={"custom"}
-                        >
-                            {translations.btn1}
-                        </Button>
+                        <Link href="/contacts" className="w-full">
+                            <Button
+                                className="w-full sm:w-52 md:w-60 px-6 sm:px-8 md:px-10 py-4 md:py-5 text-sm md:text-base cursor-pointer"
+                                variant={"custom"}
+                            >
+                                {translations.btn1}
+                            </Button>
+                        </Link>
                     </div>
                     <div ref={button2Ref}>
-                        <Button className="w-full sm:w-52 md:w-60 px-6 sm:px-8 md:px-10 py-4 md:py-5 text-sm md:text-base bg-transparent hover:bg-transparent/80 border border-white">
-                            {translations.btn2}
-                        </Button>
+                        <Link
+                            href="/files/catalog.pdf"
+                            download={"Asia-Taren-Catalog.pdf"}
+                        >
+                            <Button className="w-full sm:w-52 md:w-60 px-6 sm:px-8 md:px-10 py-4 md:py-5 text-sm md:text-base bg-transparent hover:bg-white/10 border border-white cursor-pointer">
+                                {translations.btn2}
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

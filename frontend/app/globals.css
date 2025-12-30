@@ -121,7 +121,6 @@
     }
 }
 
-
 /* Стили для всех горизонтальных и вертикальных скроллбаров */
 ::-webkit-scrollbar {
     width: 5px; /* Ширина вертикального скроллбара */
@@ -144,4 +143,26 @@
 
 ::-webkit-scrollbar-track-piece {
     background: transparent;
+}
+
+.marquee-wrapper {
+    @apply relative overflow-hidden py-6;
+}
+
+.marquee-content {
+    @apply flex whitespace-nowrap;
+    animation: marquee var(--marquee-speed, 30s) linear infinite;
+}
+
+.marquee-item {
+    @apply text-2xl md:text-4xl lg:text-6xl font-bold px-8;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }

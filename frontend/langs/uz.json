@@ -27,7 +27,7 @@
         "items": [
             {
                 "type": "text",
-                "content": "Broyler tovuqlarini samarali <span class='text-cRed'>yetishtirish</span> uchun zamonaviy yechimlar"
+                "content": "Broiler tovuqlarni samarali <span class='relative inline-block'>yetishtirish<img src='/images/circle.svg' alt='circle' class='absolute top-0 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> uchun <span class='relative inline-block'>zamonaviy<img src='/images/circle.svg' alt='circle' class='absolute top-0 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> yechimlar"
             },
             {
                 "type": "image",
@@ -45,7 +45,7 @@
             },
             {
                 "type": "text",
-                "content": "Biz g'oyadan to'liq ishlaydigan ishlab chiqarishgacha bo'lgan barcha bosqichlarda yordam beramiz."
+                "content": "<span class='text-cRed'>Biz g'oyadan to'liq ishlaydigan ishlab chiqarishgacha bo'lgan barcha bosqichlarda yordam beramiz.</span>"
             }
         ]
     },

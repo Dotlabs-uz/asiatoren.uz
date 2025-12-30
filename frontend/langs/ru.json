@@ -27,7 +27,7 @@
         "items": [
             {
                 "type": "text",
-                "content": "Современные решения для эффективного <span class='text-cRed'>выращивания</span> бройлерных кур"
+                "content": "<span class='relative inline-block'>Современные<img src='/images/circle.svg' alt='circle' class='absolute top-0 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> решения для эффективного <span class='relative inline-block'>выращивания<img src='/images/circle.svg' alt='circle' class='absolute top-0 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> бройлерных кур"
             },
             {
                 "type": "image",
@@ -45,7 +45,7 @@
             },
             {
                 "type": "text",
-                "content": "Мы поможем пройти весь путь — от идеи до полностью работающего производства."
+                "content": "<span class='text-cRed'>Мы поможем пройти весь путь — от идеи до полностью работающего производства.</span>"
             }
         ]
     },
