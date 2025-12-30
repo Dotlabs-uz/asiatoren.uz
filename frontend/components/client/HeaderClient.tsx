@@ -1,3 +1,4 @@
+// components/client/HeaderClient.tsx
 "use client";
 
 import { useState } from "react";
@@ -11,9 +12,9 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { useRouter, usePathname } from "next/navigation";
-import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface NavItem {
     label: string;
@@ -29,22 +30,11 @@ interface HeaderClientProps {
 
 export default function HeaderClient({ text }: HeaderClientProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const router = useRouter();
-    const pathname = usePathname(); // ← Добавлено
-    const locale = useLocale();
+    const pathname = usePathname();
 
-    const changeLanguage = (locale: string) => {
-        document.cookie = `locale=${locale}; path=/;`;
-        router.refresh();
-        window.scrollTo({ top: 0 });
-    };
-
-    // Функция для проверки активной страницы
     const isActive = (href: string) => {
-        // Убираем локаль из pathname для сравнения
         const currentPath = pathname.replace(/^\/(uz|ru|en)/, "") || "/";
         const navPath = href.replace(/^\/(uz|ru|en)/, "") || "/";
-
         return currentPath === navPath;
     };
 
@@ -102,54 +92,13 @@ export default function HeaderClient({ text }: HeaderClientProps) {
 
                     {/* Language & CTA */}
                     <div className="hidden lg:flex items-center gap-4">
-                        <div className="flex max-md:hidden gap-2">
-                            <Button
-                                variant={"link"}
-                                onClick={() => changeLanguage("uz")}
-                                className="p-0 cursor-pointer"
-                            >
-                                <span
-                                    className={`${
-                                        locale === "uz" &&
-                                        "text-cRed transition-all"
-                                    }`}
-                                >
-                                    UZB
-                                </span>
-                            </Button>
-                            <Button
-                                variant={"link"}
-                                onClick={() => changeLanguage("ru")}
-                                className="p-0 cursor-pointer"
-                            >
-                                <span
-                                    className={`${
-                                        locale === "ru" &&
-                                        "text-cRed transition-all"
-                                    }`}
-                                >
-                                    РУС
-                                </span>
-                            </Button>
-                            <Button
-                                variant={"link"}
-                                onClick={() => changeLanguage("en")}
-                                className="p-0 cursor-pointer"
-                            >
-                                <span
-                                    className={`${
-                                        locale === "en" &&
-                                        "text-cRed transition-all"
-                                    }`}
-                                >
-                                    ENG
-                                </span>
-                            </Button>
-                        </div>
-                        <Button>{text.btn}</Button>
+                        <LanguageSwitcher />
+                        <Link href="/contacts">
+                            <Button className="cursor-pointer">{text.btn}</Button>
+                        </Link>
                     </div>
 
-                    {/* Mobile Menu - shadcn Sheet */}
+                    {/* Mobile Menu */}
                     <Sheet open={isOpen} onOpenChange={setIsOpen}>
                         <SheetTrigger asChild className="lg:hidden">
                             <Button
@@ -208,52 +157,9 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                             </nav>
 
                             <div className="mt-8 px-4 pt-6 border-t space-y-4">
-                                <div className="flex gap-2">
-                                    <Button
-                                        variant={"link"}
-                                        onClick={() => changeLanguage("uz")}
-                                        className="p-0 cursor-pointer"
-                                    >
-                                        <span
-                                            className={`${
-                                                locale === "uz" &&
-                                                "text-cRed transition-all"
-                                            }`}
-                                        >
-                                            UZB
-                                        </span>
-                                    </Button>
-                                    <Button
-                                        variant={"link"}
-                                        onClick={() => changeLanguage("ru")}
-                                        className="p-0 cursor-pointer"
-                                    >
-                                        <span
-                                            className={`${
-                                                locale === "ru" &&
-                                                "text-cRed transition-all"
-                                            }`}
-                                        >
-                                            РУС
-                                        </span>
-                                    </Button>
-                                    <Button
-                                        variant={"link"}
-                                        onClick={() => changeLanguage("en")}
-                                        className="p-0 cursor-pointer"
-                                    >
-                                        <span
-                                            className={`${
-                                                locale === "en" &&
-                                                "text-cRed transition-all"
-                                            }`}
-                                        >
-                                            ENG
-                                        </span>
-                                    </Button>
-                                </div>
-                                <Link href={"/contacts"}>
-                                    <Button className="w-full">
+                                <LanguageSwitcher />
+                                <Link href="/contacts">
+                                    <Button className="w-full cursor-pointer">
                                         {text.btn}
                                     </Button>
                                 </Link>
