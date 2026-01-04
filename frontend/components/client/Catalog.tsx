@@ -1,3 +1,4 @@
+// components/client/CatalogClient.tsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -14,8 +15,8 @@ import {
     searchProducts,
 } from "@/lib/firebase/public-api";
 import Link from "next/link";
+import { Pagination } from "./Pagination";
 
-// Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
@@ -30,9 +31,14 @@ interface CatalogClientProps {
         viewButton: string;
         notFound: string;
         tryAgain: string;
+        showing: string;
+        of: string;
+        products: string;
     };
     locale: Language;
 }
+
+const PRODUCTS_PER_PAGE = 16;
 
 export const CatalogClient = ({
     initialCategories,
@@ -44,16 +50,22 @@ export const CatalogClient = ({
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
     const [products, setProducts] = useState<Product[]>(initialProducts);
     const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const productsGridRef = useRef<HTMLDivElement>(null);
+
+    // Вычисляем пагинацию
+    const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+    const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    const endIndex = startIndex + PRODUCTS_PER_PAGE;
+    const currentProducts = products.slice(startIndex, endIndex);
 
     // Начальная анимация
     useEffect(() => {
         if (!containerRef.current) return;
 
         const ctx = gsap.context(() => {
-            // Hero секция
             gsap.from(".hero-title", {
                 y: 100,
                 opacity: 0,
@@ -62,7 +74,6 @@ export const CatalogClient = ({
                 delay: 0.2,
             });
 
-            // Поиск и фильтры
             gsap.from(".search-bar", {
                 y: 60,
                 opacity: 0,
@@ -72,7 +83,6 @@ export const CatalogClient = ({
                 delay: 0.5,
             });
 
-            // Категории
             gsap.from(".category-tab", {
                 x: 0,
                 duration: 0.5,
@@ -81,7 +91,6 @@ export const CatalogClient = ({
                 delay: 0.8,
             });
 
-            // Начальные карточки продуктов
             gsap.from(".product-card", {
                 y: 80,
                 opacity: 0,
@@ -103,32 +112,20 @@ export const CatalogClient = ({
                 try {
                     let newProducts: Product[];
                     if (selectedCategory === "all") {
-                        newProducts = await getProducts();
+                        newProducts = await getProducts({
+                            limit: PRODUCTS_PER_PAGE,
+                        });
                     } else {
                         newProducts = await getProductsByCategory(
-                            selectedCategory
+                            selectedCategory,
+                            PRODUCTS_PER_PAGE
                         );
                     }
                     setProducts(newProducts);
+                    setCurrentPage(1);
 
-                    // Анимация для новых продуктов
                     setTimeout(() => {
-                        gsap.fromTo(
-                            ".product-card",
-                            {
-                                y: 60,
-                                opacity: 0,
-                                scale: 0.9,
-                            },
-                            {
-                                y: 0,
-                                opacity: 1,
-                                scale: 1,
-                                duration: 0.6,
-                                stagger: 0.08,
-                                ease: "power3.out",
-                            }
-                        );
+                        animateProducts();
                     }, 100);
                 } catch (error) {
                     console.error("Error loading products:", error);
@@ -147,38 +144,62 @@ export const CatalogClient = ({
             const timeoutId = setTimeout(async () => {
                 setLoading(true);
                 try {
-                    const results = await searchProducts(searchQuery);
+                    const results = await searchProducts(searchQuery, locale);
                     setProducts(results);
+                    setCurrentPage(1);
 
-                    // Анимация результатов поиска
                     setTimeout(() => {
-                        gsap.fromTo(
-                            ".product-card",
-                            {
-                                y: 60,
-                                opacity: 0,
-                                scale: 0.9,
-                            },
-                            {
-                                y: 0,
-                                opacity: 1,
-                                scale: 1,
-                                duration: 0.6,
-                                stagger: 0.08,
-                                ease: "power3.out",
-                            }
-                        );
+                        animateProducts();
                     }, 100);
                 } catch (error) {
                     console.error("Error searching products:", error);
                 } finally {
                     setLoading(false);
                 }
-            }, 500); // debounce 500ms
+            }, 500);
 
             return () => clearTimeout(timeoutId);
         }
-    }, [searchQuery]);
+    }, [searchQuery, locale]);
+
+    // Анимация при смене страницы
+    useEffect(() => {
+        if (currentPage > 1) {
+            productsGridRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+
+            setTimeout(() => {
+                animateProducts();
+            }, 300);
+        }
+    }, [currentPage]);
+
+    // Функция анимации продуктов
+    const animateProducts = () => {
+        gsap.fromTo(
+            ".product-card",
+            {
+                y: 60,
+                opacity: 0,
+                scale: 0.9,
+            },
+            {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                stagger: 0.08,
+                ease: "power3.out",
+            }
+        );
+    };
+
+    // Обработчик смены страницы
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     return (
         <div ref={containerRef} className="min-h-screen bg-white">
@@ -191,7 +212,7 @@ export const CatalogClient = ({
             </div>
 
             {/* Search and Filters */}
-            <div className="max-w-[1400px] mx-auto px-2 sm:px-8 lg:px-16 -mt-12 relative z-20">
+            <div className="max-w-[1400px] mx-auto px-2 sm:px-8 lg:px-16 -mt-20 relative z-20">
                 <div className="search-bar bg-white rounded-3xl shadow-2xl p-4 md:p-6 mb-8">
                     {/* Search Input */}
                     <div className="relative mb-4">
@@ -206,7 +227,7 @@ export const CatalogClient = ({
                     </div>
 
                     {/* Categories */}
-                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
                         <Button
                             onClick={() => {
                                 setSelectedCategory("all");
@@ -241,30 +262,30 @@ export const CatalogClient = ({
             </div>
 
             {/* Products Grid */}
-            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-12">
+            <div
+                ref={productsGridRef}
+                className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-12"
+            >
                 {loading ? (
                     <div className="flex justify-center items-center py-20">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cRed"></div>
                     </div>
                 ) : (
                     <>
-                        <div
-                            ref={productsGridRef}
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-                        >
-                            {products.map((product) => (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+                            {currentProducts.map((product) => (
                                 <div
                                     key={product.id}
-                                    className="product-card group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+                                    className="product-card group relative bg-white rounded-3xl overflow-hidden hover:shadow-lg transition-all duration-500 border border-gray-200"
                                 >
-                                    <div className="relative h-64 bg-gray-50 flex items-center justify-center overflow-hidden">
+                                    <div className="relative h-64 flex items-center justify-center overflow-hidden">
                                         {product.images?.[0] ? (
                                             <Image
                                                 src={product.images[0]}
                                                 alt={product.title[locale]}
                                                 width={1000}
                                                 height={1000}
-                                                className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-500"
+                                                className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                                             />
                                         ) : (
                                             <div className="text-gray-300 text-4xl">
@@ -293,6 +314,21 @@ export const CatalogClient = ({
                                 </div>
                             ))}
                         </div>
+
+                        {/* Pagination Component */}
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                            showInfo={true}
+                            infoText={{
+                                showing: translations.showing,
+                                of: translations.of,
+                                items: translations.products,
+                            }}
+                            totalItems={products.length}
+                            itemsPerPage={PRODUCTS_PER_PAGE}
+                        />
 
                         {/* Empty State */}
                         {products.length === 0 && !loading && (

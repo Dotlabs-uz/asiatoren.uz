@@ -76,7 +76,8 @@
         }
     },
     "our-products": {
-        "title": "Our Products",
+        "subtitle": "Products",
+        "title": "Our Technologies",
         "btn": "Open Catalog"
     },
     "about-us": {
@@ -112,16 +113,16 @@
                 "answer": "We provide a full range of services: designing the poultry farm according to your requirements, supplying and installing all necessary equipment (ventilation, feeding, watering, lighting systems), commissioning, staff training, and ongoing technical support. You receive a ready-to-operate production facility optimized for maximum efficiency."
             },
             {
+                "question": "Do you provide warranty and after-sales service?",
+                "answer": "Yes, all supplied equipment comes with a warranty of 12 to 24 months depending on the type. We provide full technical support: scheduled maintenance, prompt repairs, spare parts supply, and expert consultations 24/7. We also conduct regular training for your staff on equipment operation and maintenance."
+            },
+            {
                 "question": "What equipment do you manufacture and supply?",
                 "answer": "We specialize in a full range of equipment for poultry farms: modern ventilation and climate-control systems, automatic feeders and drinkers of various types, high-efficiency air purification filters, LED lighting for poultry farming, and climate control systems. All equipment meets international quality standards and is adapted to the conditions of Central Asia."
             },
             {
                 "question": "How long does it take to launch a poultry farm?",
                 "answer": "Timelines depend on the project scale. For a small farm (up to 10,000 birds) the full cycle from design to launch takes 2–3 months. Medium farms (up to 50,000 birds) require 3–5 months. Large projects can take 6–9 months. We prepare a detailed work schedule during the design phase and adhere to it strictly."
-            },
-            {
-                "question": "Do you provide warranty and after-sales service?",
-                "answer": "Yes, all supplied equipment comes with a warranty of 12 to 24 months depending on the type. We provide full technical support: scheduled maintenance, prompt repairs, spare parts supply, and expert consultations 24/7. We also conduct regular training for your staff on equipment operation and maintenance."
             }
         ]
     },
@@ -151,7 +152,10 @@
         "all": "All",
         "viewButton": "View",
         "notFound": "Products not found",
-        "tryAgain": "Try changing the search parameters"
+        "tryAgain": "Try changing the search parameters",
+        "showing": "Showing",
+        "of": "of",
+        "items": "items"
     },
     "about-page": {
         "hero": {

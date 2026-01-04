@@ -8,6 +8,7 @@ import AboutSection from "../server/About";
 import { AboutClient } from "./AboutClient";
 import { Media } from "@/types";
 import Image from "next/image";
+import { Separator } from "../ui/separator";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -25,7 +26,7 @@ interface AboutPageClientProps {
 export const AboutPageClient = ({
     translations,
     aboutSectionTranslations,
-    videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl = "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE",
     certificates,
     partners,
 }: AboutPageClientProps) => {
@@ -185,21 +186,19 @@ export const AboutPageClient = ({
 
             {/* About Company Section */}
             <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-16 md:py-24">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-                    {/* Left Column - Title */}
-                    <div className="about-section">
-                        <div className="flex items-start gap-4 mb-8">
-                            <div className="text-sm font-semibold text-gray-500 pt-2">
-                                {translations.sections.aboutCompany}
-                            </div>
-                        </div>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                            {translations.sections.equipment.title}
-                        </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 items-start">
+                    {/* About Label */}
+                    <div className="about-section md:col-span-1 lg:col-span-1 text-sm font-semibold text-gray-500 pt-2">
+                        {translations.sections.aboutCompany}
                     </div>
 
-                    {/* Right Column - Description */}
-                    <div className="about-section space-y-6">
+                    {/* Title */}
+                    <h2 className="about-section md:col-span-2 lg:col-span-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cGray leading-tight">
+                        {translations.sections.equipment.title}
+                    </h2>
+
+                    {/* Description */}
+                    <div className="about-section space-y-6 md:col-span-3 lg:col-span-2">
                         <p className="text-lg text-gray-700 font-semibold">
                             {translations.sections.equipment.production}
                         </p>
@@ -239,21 +238,16 @@ export const AboutPageClient = ({
             {/* Stages Section */}
             <div className="bg-gray-50 py-16 md:py-24">
                 <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-                        {/* Left - Title */}
-                        <div className="stages-section">
-                            <div className="flex items-start gap-4 mb-8">
-                                <div className="text-sm font-semibold text-gray-500 pt-2">
-                                    Этапы
-                                </div>
-                            </div>
-                            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                                {translations.sections.stages.title}
-                            </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-16">
+                        <div className="stages-section md:col-span-1 text-sm font-semibold text-gray-500 pt-2">
+                            Этапы
                         </div>
 
-                        {/* Right - Description */}
-                        <div className="stages-section space-y-6">
+                        <h2 className="stages-section md:col-span-2 text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                            {translations.sections.stages.title}
+                        </h2>
+
+                        <div className="stages-section space-y-6 md:col-span-3 lg:col-span-2">
                             <p className="text-base text-gray-600 leading-relaxed">
                                 {
                                     translations.sections.stages
@@ -267,55 +261,55 @@ export const AboutPageClient = ({
                     </div>
 
                     {/* Steps Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 lg:divide-x lg:divide-dashed lg:divide-gray-300">
                         {/* Step 01 */}
-                        <div className="stage-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="text-6xl font-bold text-cRed mb-6">
+                        <div className="stage-card px-0 lg:pr-8 py-8 lg:py-0">
+                            <div className="text-7xl md:text-8xl font-bold text-cRed mb-4 leading-none">
                                 01
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
                                 {translations.sections.stages.step1.title}
                             </h3>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-sm md:text-base text-gray-500 leading-relaxed">
                                 {translations.sections.stages.step1.description}
                             </p>
                         </div>
 
                         {/* Step 02 */}
-                        <div className="stage-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="text-6xl font-bold text-cRed mb-6">
+                        <div className="stage-card px-0 lg:px-8 py-8 pt-14">
+                            <div className="text-7xl md:text-8xl font-bold text-cRed mb-4 leading-none">
                                 02
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
                                 {translations.sections.stages.step2.title}
                             </h3>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-sm md:text-base text-gray-500 leading-relaxed">
                                 {translations.sections.stages.step2.description}
                             </p>
                         </div>
 
                         {/* Step 03 */}
-                        <div className="stage-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="text-6xl font-bold text-cRed mb-6">
+                        <div className="stage-card px-0 lg:px-8 py-8 pt-28">
+                            <div className="text-7xl md:text-8xl font-bold text-cRed mb-4 leading-none">
                                 03
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
                                 {translations.sections.stages.step3.title}
                             </h3>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-sm md:text-base text-gray-500 leading-relaxed">
                                 {translations.sections.stages.step3.description}
                             </p>
                         </div>
 
                         {/* Step 04 */}
-                        <div className="stage-card bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                            <div className="text-6xl font-bold text-cRed mb-6">
+                        <div className="stage-card px-0 lg:pl-8 py-8 pt-40">
+                            <div className="text-7xl md:text-8xl font-bold text-cRed mb-4 leading-none">
                                 04
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
                                 {translations.sections.stages.step4.title}
                             </h3>
-                            <p className="text-gray-600 leading-relaxed">
+                            <p className="text-sm md:text-base text-gray-500 leading-relaxed">
                                 {translations.sections.stages.step4.description}
                             </p>
                         </div>

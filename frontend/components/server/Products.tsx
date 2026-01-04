@@ -10,6 +10,7 @@ export default async function ProductsSection() {
     const products = await getProductsServer();
 
     const translations = {
+        subtitle: t("subtitle"),
         title: t("title"),
         btn: t("btn"),
     };

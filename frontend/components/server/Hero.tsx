@@ -12,7 +12,7 @@ export default async function HeroSection() {
     };
 
     return (
-        <div className="w-full h-screen bg-[url('/images/hero-bg.png')] bg-cover bg-center relative">
+        <div className="w-full h-[120vh] bg-[url('/images/hero-bg.png')] bg-cover bg-center relative">
             {/* Темный оверлей для лучшей читаемости (опционально) */}
             <div className="absolute inset-0 bg-black/20"></div>
 
