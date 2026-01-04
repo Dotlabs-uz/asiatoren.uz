@@ -162,8 +162,9 @@ export const ProductPageClient = ({
     const rightFeatures = features.slice(halfLength);
 
     return (
-        <div className="min-h-screen bg-white pt-10">
+        <div className="min-h-screen bg-white">
             {/* Hero Section */}
+            <div className="w-full bg-gray-400 h-20" />
             <div
                 ref={heroRef}
                 className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-8 md:py-12"
@@ -256,12 +257,6 @@ export const ProductPageClient = ({
                                 </div>
                             </div>
                         )}
-
-                        {/* Request Button */}
-                        <Button className="request-button w-full md:w-auto bg-cRed hover:bg-cRed/90 text-white px-10 py-6 text-lg font-semibold rounded-2xl group">
-                            {translations.requestButton}
-                            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Button>
                     </div>
                 </div>
             </div>

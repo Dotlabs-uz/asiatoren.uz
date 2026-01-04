@@ -1,6 +1,7 @@
 // components/Form.tsx
 import { getTranslations } from "next-intl/server";
 import { FormClient } from "../client/FormClient";
+import { MarqueeText } from "../client/MarqueeText";
 
 export default async function Form() {
     const t = await getTranslations("form");
@@ -10,7 +11,7 @@ export default async function Form() {
         title: t.raw("title"),
         p: t.raw("p"),
         name: t("name"),
-        surname: t('surname'),
+        surname: t("surname"),
         phone: t("phone"),
         email: t("email"),
         btn1: t("btn1"),
@@ -27,8 +28,11 @@ export default async function Form() {
     return (
         <section className="relative w-full py-12 md:py-20 px-5 sm:px-8 lg:px-16 bg-white overflow-hidden">
             {/* Content */}
-            <div className="relative z-10 max-w-[1400px] mx-auto">
+            <div className="relative z-10 max-w-[900px] mx-auto">
                 <FormClient translations={translations} />
+            </div>
+            <div className="absolute top-1/2 left-1/2 -translate-1/2 w-full">
+                <MarqueeText text="ASIA TAREN POULTRY" />
             </div>
         </section>
     );

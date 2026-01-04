@@ -1,7 +1,7 @@
 // components/client/HeaderClient.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import {
@@ -30,7 +30,21 @@ interface HeaderClientProps {
 
 export default function HeaderClient({ text }: HeaderClientProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     const pathname = usePathname();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const isActive = (href: string) => {
         const currentPath = pathname.replace(/^\/(uz|ru|en)/, "") || "/";
@@ -39,7 +53,12 @@ export default function HeaderClient({ text }: HeaderClientProps) {
     };
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-white/30 backdrop-blur-md border-b border-white/20">
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 transition-all border-b border-transparent duration-300 ${
+                isScrolled &&
+                "bg-white/20 backdrop-blur-md border-white/20 shadow-sm"
+            }`}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
@@ -74,7 +93,9 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                                     className={`${
                                         active
                                             ? "text-cRed"
-                                            : "text-gray-700 hover:text-cRed"
+                                            : isScrolled
+                                            ? "text-cGray hover:text-cRed"
+                                            : "text-white hover:text-cRed"
                                     } transition-colors duration-200 text-sm font-medium relative group`}
                                 >
                                     {item.label}
@@ -94,7 +115,9 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                     <div className="hidden lg:flex items-center gap-4">
                         <LanguageSwitcher />
                         <Link href="/contacts">
-                            <Button className="cursor-pointer">{text.btn}</Button>
+                            <Button className="cursor-pointer">
+                                {text.btn}
+                            </Button>
                         </Link>
                     </div>
 

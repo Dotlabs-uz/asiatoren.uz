@@ -163,10 +163,10 @@ export const getProductsByCategory = async (
 };
 
 export const searchProducts = async (
-    searchQuery: string
+    searchQuery: string,
+    locale: Language
 ): Promise<Product[]> => {
     try {
-        const locale = (await getLocale()) as Language;
         const allProducts = await getProducts();
         const query = searchQuery.toLowerCase().trim();
 

@@ -8,12 +8,14 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { Language, Product } from "@/types";
 import Link from "next/link";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface ProductsClientProps {
     products: Product[];
     translations: {
+        subtitle: string;
         title: string;
         btn: string;
     };
@@ -40,7 +42,13 @@ export const ProductsClient = ({
                 },
             });
 
-            // 1. Заголовок
+            tl.from(".about-label", {
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                ease: "power3.out",
+            });
+
             tl.from(".products-title", {
                 y: 50,
                 opacity: 0,
@@ -48,7 +56,6 @@ export const ProductsClient = ({
                 ease: "power3.out",
             });
 
-            // 2. Кнопка
             tl.from(
                 ".products-button",
                 {
@@ -60,7 +67,6 @@ export const ProductsClient = ({
                 "-=0.6"
             );
 
-            // 4. Карточки продуктов - ОБЕРНУТЫЕ В DIV
             tl.from(
                 ".product-card-wrapper",
                 {
@@ -84,12 +90,18 @@ export const ProductsClient = ({
         >
             <div className="max-w-[1400px] mx-auto">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center lg:items-center gap-8 mb-8 md:mb-12">
-                    <h2 className="products-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cGray">
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 mb-12 md:mb-16">
+                    <div className="lg:col-span-1">
+                        <span className="about-label text-base md:text-lg text-gray-500 font-medium">
+                            {translations.subtitle}
+                        </span>
+                    </div>
+
+                    <h2 className="products-title lg:col-span-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cGray">
                         {translations.title}
                     </h2>
 
-                    <div className="products-button w-full md:w-auto">
+                    <div className="products-button lg:col-span-2 flex justify-end md:w-auto">
                         <Link href={"/products"}>
                             <Button className="group flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 w-full md:w-60 justify-center transition-all duration-300">
                                 {translations.btn}
@@ -98,37 +110,44 @@ export const ProductsClient = ({
                         </Link>
                     </div>
                 </div>
-                {/* Products Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
-                    {products.map((product) => (
-                        <div key={product.id} className="product-card-wrapper">
-                            <Link href={"/products/" + product.id}>
-                                <div className="group relative overflow-hidden rounded-xl md:rounded-2xl transition-all duration-500 hover:scale-[1.02] bg-gray-100 text-gray-900 hover:shadow-2xl w-full h-full">
-                                    {/* Card Content */}
-                                    <div className="relative z-10 p-4 md:p-6 flex flex-col justify-between min-h-[280px] md:min-h-80">
-                                        {/* Product Image */}
-                                        {product.images?.[0] && (
-                                            <div className="flex-1 flex items-center justify-center mb-4">
-                                                <img
-                                                    src={product.images[0]}
-                                                    alt={product.title[locale]}
-                                                    className="w-full h-32 md:h-40 object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500"
-                                                />
-                                            </div>
-                                        )}
 
-                                        {/* Product Name */}
-                                        <div className="flex items-center justify-between gap-2">
-                                            <h3 className="text-base md:text-lg lg:text-xl font-bold text-left line-clamp-2 text-gray-900 transition-colors duration-300">
-                                                {product.title[locale]}
-                                            </h3>
-                                            <ArrowRight className="w-5 h-5 md:w-6 md:h-6 shrink-0 group-hover:translate-x-2 transition-transform duration-300 text-gray-900" />
+                {/* Products Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-32">
+                    {products &&
+                        products.map((product) => (
+                            <div
+                                key={product.id}
+                                className="product-card-wrapper self-end relative"
+                            >
+                                <Link href={`/products/${product.id}`}>
+                                    <div className="group h-40 md:h-48 bg-gray-200 rounded-2xl overflow-hidden transition-all duration-700 ease-out hover:bg-cRed hover:h-64 md:hover:h-80 hover:-mt-8 md:hover:-mt-16 cursor-pointer shadow-lg hover:shadow-2xl">
+                                        {/* Image Container */}
+                                        <div className="absolute -top-12 md:-top-20 left-1/2 -translate-x-1/2 w-full flex items-center justify-center transition-all duration-700 group-hover:scale-105 group-hover:-top-8">
+                                            <Image
+                                                src={product.images[0]}
+                                                alt={product.title[locale]}
+                                                width={1000}
+                                                height={1000}
+                                                className="size-52 object-contain"
+                                                priority
+                                            />
+                                        </div>
+
+                                        {/* Content */}
+                                        <div className="absolute bottom-0 left-0 right-0 p-2 md:p-4">
+                                            <div className="flex items-center justify-between gap-4">
+                                                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-cGray transition-colors duration-500 group-hover:text-white line-clamp-2">
+                                                    {product.title[locale]}
+                                                </h3>
+
+                                                {/* Arrow Button */}
+                                                <ArrowRight className="w-6 h-6 md:w-7 md:h-7 text-cGray group-hover:text-white transition-transform duration-500 group-hover:translate-x-0.5" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
+                                </Link>
+                            </div>
+                        ))}
                 </div>
 
                 {/* Empty State */}

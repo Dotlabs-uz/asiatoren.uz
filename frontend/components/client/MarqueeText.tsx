@@ -17,10 +17,11 @@ export const MarqueeText = ({ text, speed = 10 }: MarqueeTextProps) => {
                 {Array(20)
                     .fill(text)
                     .map((item, index) => (
-                        <div className="flex justify-center items-center">
-                            <span key={index} className="marquee-item">
-                                {item}
-                            </span>
+                        <div
+                            key={index}
+                            className="flex justify-center items-center"
+                        >
+                            <span className="marquee-item">{item}</span>
                             <img
                                 src={"/images/star.svg"}
                                 alt="star"

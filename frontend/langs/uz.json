@@ -76,7 +76,8 @@
         }
     },
     "our-products": {
-        "title": "Mahsulotlarimiz",
+        "subtitle": "Mahsulotlar",
+        "title": "Bizning Texnologiyalarimiz",
         "btn": "Katalogni ochish"
     },
     "about-us": {
@@ -112,16 +113,16 @@
                 "answer": "Biz to'liq xizmat ko'rsatamiz: talablaringizni hisobga olgan holda parranda fabrikasini loyihalash, barcha zarur uskunalarni (ventilyatsiya, oziqlantirish, sug'orish tizimlari, yoritish) yetkazib berish va o'rnatish, ishga tushirish, xodimlarni tayyorlash va keyingi texnik qo'llab-quvvatlash. Siz samaradorlik uchun optimallashtirilgan tayyor ishlab chiqarishni olasiz."
             },
             {
+                "question": "Kafolat va sotishdan keyingi xizmat ko'rsatishni taqdim etasizmi?",
+                "answer": "Ha, barcha yetkazib beriladigan uskunalarga turiga qarab 12 dan 24 oygacha kafolat beriladi. Biz to'liq texnik xizmat ko'rsatamiz: rejalashtirilgan servis, tezkor ta'mirlash, ehtiyot qismlar etkazib berish va mutaxassislar bilan 24/7 maslahat. Shuningdek, uskunalardan foydalanish va texnik xizmat bo'yicha muntazam treninglar o'tkazamiz."
+            },
+            {
                 "question": "Qanday uskunalarni ishlab chiqarasiz va yetkazib berasiz?",
                 "answer": "Biz parranda fermalari uchun to'liq turdagi uskunalarga ixtisoslashganmiz: zamonaviy ventilyatsiya va iqlim nazorati tizimlari, turli turdagi avtomatik oziqlantiruvchilar va sug'oruvchilar, yuqori samarali havoni tozalash filtrlari, parranda uchun LED-yoritish, mikroklimatni boshqarish tizimlari. Barcha uskunalar xalqaro sifat standartlariga javob beradi va Markaziy Osiyo sharoitlariga moslashtirilgan."
             },
             {
                 "question": "Parranda fabrikasini ishga tushirish qancha vaqt oladi?",
                 "answer": "Muddatlar loyiha hajmiga bog'liq. Kichik ferma (10 000 boshgacha) uchun loyihadan ishga tushirishgacha 2–3 oy. O'rtacha fabrikalar (50 000 boshgacha) — 3–5 oy. Katta loyihalar 6–9 oyni olishi mumkin. Loyihalash bosqichida batafsil ish jadvali tuziladi va biz unga qat'iy rioya qilamiz."
-            },
-            {
-                "question": "Kafolat va sotishdan keyingi xizmat ko'rsatishni taqdim etasizmi?",
-                "answer": "Ha, barcha yetkazib beriladigan uskunalarga turiga qarab 12 dan 24 oygacha kafolat beriladi. Biz to'liq texnik xizmat ko'rsatamiz: rejalashtirilgan servis, tezkor ta'mirlash, ehtiyot qismlar etkazib berish va mutaxassislar bilan 24/7 maslahat. Shuningdek, uskunalardan foydalanish va texnik xizmat bo'yicha muntazam treninglar o'tkazamiz."
             }
         ]
     },
@@ -151,7 +152,10 @@
         "all": "Barchasi",
         "viewButton": "Ko'rish",
         "notFound": "Tovarlar topilmadi",
-        "tryAgain": "Qidiruv parametrlarini o'zgartirib ko'ring"
+        "tryAgain": "Qidiruv parametrlarini o'zgartirib ko'ring",
+        "showing": "Ko'rsatilmoqda",
+        "of": "dan",
+        "items": "tovarlar"
     },
     "about-page": {
         "hero": {
