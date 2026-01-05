@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
             description: t("description"),
             images: [
                 {
-                    url: "/logo.svg",
+                    url: "/og-image.png",
                     width: 1200,
                     height: 630,
                     alt: "О компании Asia Toren",
@@ -48,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
             card: "summary_large_image",
             title: t("title"),
             description: t("description"),
-            images: ["/logo.svg"],
+            images: ["/og-image.png"],
         },
         robots: {
             index: true,
