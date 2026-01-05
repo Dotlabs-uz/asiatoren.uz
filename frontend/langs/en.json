@@ -27,7 +27,7 @@
         "items": [
             {
                 "type": "text",
-                "content": "<span class='relative inline-block'>Modern<img src='/images/circle.svg' alt='circle' class='absolute top-0 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> solutions for efficient <span class='relative inline-block'>raising<img src='/images/circle.svg' alt='circle' class='absolute top-0 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> broiler chickens"
+                "content": "<span class='relative inline-block'>Modern<img src='/images/circle.svg' alt='circle' class='absolute top-5 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> solutions for efficient <span class='relative inline-block'>raising<img src='/images/circle.svg' alt='circle' class='absolute top-5 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> broiler chickens"
             },
             {
                 "type": "image",
@@ -170,6 +170,7 @@
                 "description": "We are engaged in the production of equipment that meets modern quality standards and the requirements of poultry farms."
             },
             "stages": {
+                "subtitle": "Stages",
                 "title": "Project Stages",
                 "projectDescription": "The project is implemented in stages with control of each step and compliance with technical standards. All decisions are made accurately and thoughtfully.",
                 "clientTasks": "We take into account the client's tasks and operating conditions, ensure stable and reliable operation of the equipment.",

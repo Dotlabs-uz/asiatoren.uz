@@ -115,7 +115,7 @@ export const HeroClient = ({ translations }: HeroClientProps) => {
                 </div>
             </div>
 
-            <div className="absolute -bottom-40 left-0 right-0 w-full z-0">
+            <div className="absolute -bottom-60 left-0 right-0 w-full z-0">
                 <Image
                     src="/images/scroll-bg.png"
                     alt="wave"

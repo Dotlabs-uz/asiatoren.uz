@@ -240,7 +240,7 @@ export const AboutPageClient = ({
                 <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-16">
                         <div className="stages-section md:col-span-1 text-sm font-semibold text-gray-500 pt-2">
-                            Этапы
+                            {translations.sections.stages.subtitle}
                         </div>
 
                         <h2 className="stages-section md:col-span-2 text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">

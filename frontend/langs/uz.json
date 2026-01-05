@@ -170,6 +170,7 @@
                 "description": "Biz zamonaviy sifat standartlariga va parrandachilik xo'jaliklarining talablariga javob beradigan uskunalar ishlab chiqarish bilan shug'ullanamiz."
             },
             "stages": {
+                "subtitle": "Bosqichlar",
                 "title": "Loyiha bosqichlari",
                 "projectDescription": "Loyiha har bir bosqichni nazorat qilish va texnik standartlarga rioya qilish bilan bosqichma-bosqich amalga oshiriladi. Barcha qarorlar aniq va o'ylangan holda qabul qilinadi.",
                 "clientTasks": "Biz mijozning vazifalarini va foydalanish sharoitlarini hisobga olamiz, uskunalarning barqaror va ishonchli ishlashini ta'minlaymiz.",
