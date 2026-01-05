@@ -1,12 +1,15 @@
 import { AboutPageClient } from "@/components/client/AboutPage";
-import { getCertificatesServer, getPartnersServer } from "@/lib/firebase/server-api";
+import {
+    getCertificatesServer,
+    getPartnersServer,
+} from "@/lib/firebase/server-api";
 import { getTranslations } from "next-intl/server";
 
 export default async function AboutPage() {
     const t = await getTranslations("about-page");
     const t1 = await getTranslations("about-us");
     const certificates = await getCertificatesServer();
-    const partners = await getPartnersServer()
+    const partners = await getPartnersServer();
 
     const aboutTranslations = {
         subtitle: t1("subtitle"),
@@ -46,6 +49,7 @@ export default async function AboutPage() {
                 description: t("sections.equipment.description"),
             },
             stages: {
+                subtitle: t("sections.stages.subtitle"),
                 title: t("sections.stages.title"),
                 clientTasks: t("sections.stages.clientTasks"),
                 step1: {

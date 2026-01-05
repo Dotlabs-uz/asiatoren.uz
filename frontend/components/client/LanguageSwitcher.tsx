@@ -1,3 +1,4 @@
+// components/client/LanguageSwitcher.tsx
 "use client";
 
 import { useState } from "react";
@@ -7,9 +8,8 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { ChevronDown } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+import { Loader2 } from "lucide-react";
 
 interface Language {
     code: string;
@@ -18,35 +18,30 @@ interface Language {
 }
 
 const languages: Language[] = [
-    {
-        code: "uz",
-        name: "Uzb",
-        flag: "🇺🇿",
-    },
-    {
-        code: "ru",
-        name: "Рус",
-        flag: "🇷🇺",
-    },
-    {
-        code: "en",
-        name: "Eng",
-        flag: "🇬🇧",
-    },
+    { code: "uz", name: "Uzb", flag: "🇺🇿" },
+    { code: "ru", name: "Рус", flag: "🇷🇺" },
+    { code: "en", name: "Eng", flag: "🇬🇧" },
 ];
 
 export const LanguageSwitcher = () => {
     const [open, setOpen] = useState(false);
-    const router = useRouter();
+    const [isChanging, setIsChanging] = useState(false);
     const locale = useLocale();
 
     const currentLanguage = languages.find((lang) => lang.code === locale);
 
     const changeLanguage = (newLocale: string) => {
-        document.cookie = `locale=${newLocale}; path=/;`;
+        if (newLocale === locale) return;
+
+        setIsChanging(true);
         setOpen(false);
-        router.refresh();
-        window.scrollTo({ top: 0 });
+
+        document.cookie = `locale=${newLocale}; path=/; max-age=31536000`;
+
+        setTimeout(() => {
+            window.scrollTo({ top: 0 });
+            window.location.reload();
+        }, 200);
     };
 
     return (
@@ -54,13 +49,26 @@ export const LanguageSwitcher = () => {
             <PopoverTrigger asChild>
                 <Button
                     variant="outline"
-                    className="flex items-center gap-2 px-4 py-2 bg-white/50 hover:bg-white/60 border-white/30 hover:border-white/50 transition-all duration-100 cursor-pointer"
+                    disabled={isChanging}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/50 hover:bg-white/60 border-white/30 hover:border-white/50 transition-all duration-100 cursor-pointer disabled:opacity-50"
                 >
-                    <span className="text-2xl">{currentLanguage?.flag}</span>
-                    <span className="font-medium text-gray-700">
-                        {currentLanguage?.name}
-                    </span>
-                    {/* <ChevronDown className="w-4 h-4 text-gray-500" /> */}
+                    {isChanging ? (
+                        <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span className="font-medium text-gray-700">
+                                Loading...
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            <span className="text-2xl">
+                                {currentLanguage?.flag}
+                            </span>
+                            <span className="font-medium text-gray-700">
+                                {currentLanguage?.name}
+                            </span>
+                        </>
+                    )}
                 </Button>
             </PopoverTrigger>
             <PopoverContent
@@ -72,7 +80,8 @@ export const LanguageSwitcher = () => {
                         <button
                             key={language.code}
                             onClick={() => changeLanguage(language.code)}
-                            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all hover:bg-gray-100 ${
+                            disabled={isChanging || locale === language.code}
+                            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all hover:bg-gray-100 disabled:cursor-not-allowed ${
                                 locale === language.code
                                     ? "bg-red-50 text-cRed"
                                     : "text-gray-700"
