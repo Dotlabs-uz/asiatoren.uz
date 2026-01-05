@@ -197,8 +197,9 @@ export const AboutClient = ({ translations }: AboutClientProps) => {
                 </div>
 
                 {/* Map */}
-                <div className=" dark:bg-black bg-white w-full">
+                <div className="dark:bg-black bg-white w-full">
                     <WorldMap
+                        lineColor="#de2b1c"
                         dots={[
                             {
                                 start: {
