@@ -3,9 +3,67 @@ import {
     getCertificatesServer,
     getPartnersServer,
 } from "@/lib/firebase/server-api";
-import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
+import { getLocale, getTranslations } from "next-intl/server";
+
+// ============ ПОЛНЫЕ SEO МЕТАДАННЫЕ ============
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = await getLocale();
+    const t = await getTranslations({ locale, namespace: "about" });
+
+    return {
+        title: t("title"),
+        description: t("description"),
+        keywords: [
+            "Asia Toren о компании",
+            "производитель оборудования для птицеводства",
+            "история компании",
+            "наша команда",
+        ],
+        alternates: {
+            canonical: "https://asiatoren.uz/about-us",
+            languages: {
+                ru: "https://asiatoren.uz/about-us?lang=ru",
+                uz: "https://asiatoren.uz/about-us?lang=uz",
+                en: "https://asiatoren.uz/about-us?lang=en",
+            },
+        },
+        openGraph: {
+            type: "website",
+            locale: locale,
+            url: "https://asiatoren.uz/about-us",
+            siteName: "Asia Toren",
+            title: t("title"),
+            description: t("description"),
+            images: [
+                {
+                    url: "/logo.svg",
+                    width: 1200,
+                    height: 630,
+                    alt: "О компании Asia Toren",
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: t("title"),
+            description: t("description"),
+            images: ["/logo.svg"],
+        },
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+            },
+        },
+        authors: [{ name: "Asia Toren" }],
+    };
+}
 
 export default async function AboutPage() {
+    const locale = await getLocale();
     const t = await getTranslations("about-page");
     const t1 = await getTranslations("about-us");
     const certificates = await getCertificatesServer();
@@ -84,12 +142,87 @@ export default async function AboutPage() {
         },
     };
 
+    const jsonLdAboutPage = {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        name: t("hero.title"),
+        description: t("hero.subtitle"),
+        url: "https://asiatoren.uz/about-us",
+        inLanguage: locale,
+    };
+
+    const jsonLdOrganization = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Asia Toren",
+        url: "https://asiatoren.uz",
+        logo: "https://asiatoren.uz/logo.png",
+        description: t1("p1"),
+
+        address: {
+            "@type": "PostalAddress",
+            addressCountry: "UZ",
+            addressLocality: "Samarkand",
+            streetAddress: "Dahbed",
+        },
+
+        contactPoint: {
+            "@type": "ContactPoint",
+            telephone: "+998-77-201-3131",
+            contactType: "customer service",
+            availableLanguage: ["Russian", "Uzbek", "English"],
+        },
+
+        sameAs: [
+            "https://www.instagram.com/asiatarenuz",
+            "https://t.me/Asia_Taren_Poultry",
+        ],
+    };
+
+    const jsonLdCertifications =
+        certificates.length > 0
+            ? {
+                  "@context": "https://schema.org",
+                  "@type": "Organization",
+                  name: "Asia Toren",
+                  hasCredential: certificates.map((cert) => ({
+                      "@type": "EducationalOccupationalCredential",
+                      name: cert.title || "Certificate",
+                      credentialCategory: "certification",
+                      ...(cert.imageUrl && { image: cert.imageUrl }),
+                  })),
+              }
+            : null;
+
     return (
-        <AboutPageClient
-            translations={translations}
-            aboutSectionTranslations={aboutTranslations}
-            certificates={certificates}
-            partners={partners}
-        />
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(jsonLdAboutPage),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(jsonLdOrganization),
+                }}
+            />
+            {jsonLdCertifications && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(jsonLdCertifications),
+                    }}
+                />
+            )}
+
+            <AboutPageClient
+                translations={translations}
+                aboutSectionTranslations={aboutTranslations}
+                certificates={certificates}
+                partners={partners}
+            />
+        </>
     );
 }

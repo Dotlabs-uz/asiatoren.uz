@@ -1,4 +1,25 @@
 {
+    "metadata": {
+        "title": "Asia Taren - Bosh sahifa",
+        "description": "Yuqori texnologiyali uskunalar ishlab chiqarish — biz zamonaviy sifat standartlariga va parranda xo'jaliklari talablariga javob beradigan uskunalarni ishlab chiqaramiz.",
+        "keywords": "parrandachilik, parranda fabrikasi uchun uskunalar, parrandachilik uskunalari, O'zbekiston"
+    },
+    "home": {
+        "title": "Bosh sahifa",
+        "description": "Xush kelibsiz"
+    },
+    "about": {
+        "title": "Asia Toren kompaniyasi haqida",
+        "description": "Asia Toren kompaniyasi haqida ko'proq bilib oling - parrandachilik uskunalari ishlab chiqarishda yetakchi. Bizning tariximiz, yutuqlarimiz, jamoa va hamkorlarimiz."
+    },
+    "contacts": {
+        "title": "Asia Toren aloqa ma'lumotlari",
+        "description": "Asia Toren bilan bog'laning - parrandachilik uskunalari ishlab chiqaruvchisi. Bizning manzillar, telefonlar, email. Toshkent, O'zbekistonda ofislar."
+    },
+    "products": {
+        "title": "Parrandachilik uskunalari katalogi",
+        "description": "Asia Toren uskunalarining to'liq katalogi: oziqlanish, sug'orish, ventilyatsiya tizimlari va parranda fabrikalari uchun boshqa uskunalar. Yuqori sifat, zamonaviy texnologiyalar."
+    },
     "header": {
         "nav": {
             "main": "Bosh sahifa",

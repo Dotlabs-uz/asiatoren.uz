@@ -1,4 +1,25 @@
 {
+    "metadata": {
+        "title": "Asia Toren - Home Page",
+        "description": "Manufacture of high-tech equipment — we produce equipment that meets modern quality standards and the requirements of poultry farms.",
+        "keywords": "poultry farming, poultry farm equipment, poultry equipment, Uzbekistan"
+    },
+    "home": {
+        "title": "Home",
+        "description": "Welcome"
+    },
+    "about": {
+        "title": "About Asia Toren",
+        "description": "Learn more about Asia Toren - a leader in poultry equipment manufacturing. Our history, achievements, team and partners."
+    },
+    "contacts": {
+        "title": "Asia Toren Contacts",
+        "description": "Contact Asia Toren - manufacturer of poultry equipment. Our addresses, phones, email. Offices in Tashkent, Uzbekistan."
+    },
+    "products": {
+        "title": "Poultry Equipment Catalog",
+        "description": "Complete catalog of Asia Toren equipment: feeding, watering, ventilation systems and other equipment for poultry farms. High quality, modern technologies."
+    },
     "header": {
         "nav": {
             "main": "Home",
