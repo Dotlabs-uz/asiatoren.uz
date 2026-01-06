@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
             description: t("description"),
             images: [
                 {
-                    url: "/images/og-image.png",
+                    url: "/images/og-image.webp",
                     width: 1200,
                     height: 630,
                 },

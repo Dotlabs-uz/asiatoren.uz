@@ -204,7 +204,7 @@ export const CatalogClient = ({
     return (
         <div ref={containerRef} className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="relative bg-[url('/images/farm.png')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex items-center justify-center">
+            <div className="relative bg-[url('/images/farm.webp')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex items-center justify-center">
                 <div className="absolute inset-0 bg-black/30" />
                 <h1 className="hero-title relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
                     {translations.title}

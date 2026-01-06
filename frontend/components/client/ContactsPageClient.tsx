@@ -128,7 +128,7 @@ export default function ContactsPageClient({
             {/* Hero Section */}
             <div
                 ref={heroRef}
-                className="relative bg-[url('/images/farm.png')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex flex-col items-center justify-center"
+                className="relative bg-[url('/images/farm.webp')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex flex-col items-center justify-center"
             >
                 <div className="absolute inset-0 bg-black/30" />
                 <div className="relative z-10 text-center px-4">

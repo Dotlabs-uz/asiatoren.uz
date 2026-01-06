@@ -52,13 +52,13 @@
             },
             {
                 "type": "image",
-                "src": "/images/chicken.png",
+                "src": "/images/chicken.webp",
                 "alt": "Chicken"
             },
             {
                 "type": "video",
                 "src": "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE",
-                "poster": "/images/farm.png"
+                "poster": "/images/farm.webp"
             },
             {
                 "type": "text",
