@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
     const t = await getTranslations({ locale, namespace: "metadata" });
 
-    const baseUrl = "https://asiatoren.uz";
+    const baseUrl = "https://asiataren.uz";
 
     return {
         title: t("title"),
@@ -78,8 +78,8 @@ export default async function Home() {
         "@context": "https://schema.org",
         "@type": "Organization",
         name: "Asia Toren",
-        url: "https://asiatoren.uz",
-        logo: "https://asiatoren.uz/logo.png",
+        url: "https://asiataren.uz",
+        logo: "https://asiataren.uz/logo.png",
         description: t("description"),
 
         contactPoint: {
@@ -107,25 +107,9 @@ export default async function Home() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         name: "Asia Toren",
-        url: "https://asiatoren.uz",
+        url: "https://asiataren.uz",
         description: t("description"),
         inLanguage: locale,
-    };
-
-    const jsonLdFAQ = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: [
-            // Добавьте вопросы-ответы, если есть
-            // {
-            //   '@type': 'Question',
-            //   name: 'Какое оборудование вы производите?',
-            //   acceptedAnswer: {
-            //     '@type': 'Answer',
-            //     text: 'Мы производим...'
-            //   }
-            // }
-        ],
     };
 
     return (
@@ -141,10 +125,6 @@ export default async function Home() {
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(jsonLdWebSite),
                 }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFAQ) }}
             />
 
             <div>

@@ -23,17 +23,17 @@ export async function generateMetadata(): Promise<Metadata> {
             "Asia Toren каталог",
         ],
         alternates: {
-            canonical: "https://asiatoren.uz/products",
+            canonical: "https://asiataren.uz/products",
             languages: {
-                ru: "https://asiatoren.uz/products?lang=ru",
-                uz: "https://asiatoren.uz/products?lang=uz",
-                en: "https://asiatoren.uz/products?lang=en",
+                ru: "https://asiataren.uz/products?lang=ru",
+                uz: "https://asiataren.uz/products?lang=uz",
+                en: "https://asiataren.uz/products?lang=en",
             },
         },
         openGraph: {
             type: "website",
             locale: locale,
-            url: "https://asiatoren.uz/products",
+            url: "https://asiataren.uz/products",
             siteName: "Asia Toren",
             title: t("title"),
             description: t("description"),
@@ -92,7 +92,7 @@ export default async function CatalogPage() {
         "@type": "CollectionPage",
         name: t("title"),
         description: t("searchPlaceholder"),
-        url: "https://asiatoren.uz/products",
+        url: "https://asiataren.uz/products",
         inLanguage: locale,
     };
 
@@ -112,7 +112,7 @@ export default async function CatalogPage() {
                 description:
                     product.description?.[locale] || product.description?.ru,
                 image: product.images?.[0],
-                url: `https://asiatoren.uz/products/${product.id}`,
+                url: `https://asiataren.uz/products/${product.id}`,
                 ...(product.price && {
                     offers: {
                         "@type": "Offer",
@@ -134,13 +134,13 @@ export default async function CatalogPage() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Главная",
-                item: "https://asiatoren.uz",
+                item: "https://asiataren.uz",
             },
             {
                 "@type": "ListItem",
                 position: 2,
                 name: t("title"),
-                item: "https://asiatoren.uz/products",
+                item: "https://asiataren.uz/products",
             },
         ],
     };
@@ -158,7 +158,7 @@ export default async function CatalogPage() {
                       item: {
                           "@type": "Thing",
                           name: category.title?.[locale] || category.title?.ru,
-                          url: `https://asiatoren.uz/products?category=${category.id}`,
+                          url: `https://asiataren.uz/products?category=${category.id}`,
                       },
                   })),
               }
