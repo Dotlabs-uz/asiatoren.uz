@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
     const t = await getTranslations({ locale, namespace: "metadata" });
 
-    const baseUrl = "https://asiatoren.uz";
+    const baseUrl = "https://asiataren.uz";
 
     return {
         metadataBase: new URL(baseUrl),
@@ -75,22 +75,22 @@ export default async function RootLayout({
                 <link
                     rel="alternate"
                     hrefLang="ru"
-                    href="https://asiatoren.uz?lang=ru"
+                    href="https://asiataren.uz?lang=ru"
                 />
                 <link
                     rel="alternate"
                     hrefLang="uz"
-                    href="https://asiatoren.uz?lang=uz"
+                    href="https://asiataren.uz?lang=uz"
                 />
                 <link
                     rel="alternate"
                     hrefLang="en"
-                    href="https://asiatoren.uz?lang=en"
+                    href="https://asiataren.uz?lang=en"
                 />
                 <link
                     rel="alternate"
                     hrefLang="x-default"
-                    href="https://asiatoren.uz"
+                    href="https://asiataren.uz"
                 />
             </head>
             <body

@@ -21,17 +21,17 @@ export async function generateMetadata(): Promise<Metadata> {
             "наша команда",
         ],
         alternates: {
-            canonical: "https://asiatoren.uz/about-us",
+            canonical: "https://asiataren.uz/about-us",
             languages: {
-                ru: "https://asiatoren.uz/about-us?lang=ru",
-                uz: "https://asiatoren.uz/about-us?lang=uz",
-                en: "https://asiatoren.uz/about-us?lang=en",
+                ru: "https://asiataren.uz/about-us?lang=ru",
+                uz: "https://asiataren.uz/about-us?lang=uz",
+                en: "https://asiataren.uz/about-us?lang=en",
             },
         },
         openGraph: {
             type: "website",
             locale: locale,
-            url: "https://asiatoren.uz/about-us",
+            url: "https://asiataren.uz/about-us",
             siteName: "Asia Toren",
             title: t("title"),
             description: t("description"),
@@ -147,7 +147,7 @@ export default async function AboutPage() {
         "@type": "AboutPage",
         name: t("hero.title"),
         description: t("hero.subtitle"),
-        url: "https://asiatoren.uz/about-us",
+        url: "https://asiataren.uz/about-us",
         inLanguage: locale,
     };
 
@@ -155,8 +155,8 @@ export default async function AboutPage() {
         "@context": "https://schema.org",
         "@type": "Organization",
         name: "Asia Toren",
-        url: "https://asiatoren.uz",
-        logo: "https://asiatoren.uz/logo.png",
+        url: "https://asiataren.uz",
+        logo: "https://asiataren.uz/logo.png",
         description: t1("p1"),
 
         address: {

@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
         // Canonical и языковые версии
         alternates: {
-            canonical: "https://asiatoren.uz/contacts",
+            canonical: "https://asiataren.uz/contacts",
             languages: {
-                ru: "https://asiatoren.uz/contacts?lang=ru",
-                uz: "https://asiatoren.uz/contacts?lang=uz",
-                en: "https://asiatoren.uz/contacts?lang=en",
+                ru: "https://asiataren.uz/contacts?lang=ru",
+                uz: "https://asiataren.uz/contacts?lang=uz",
+                en: "https://asiataren.uz/contacts?lang=en",
             },
         },
 
@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
         openGraph: {
             type: "website",
             locale: locale,
-            url: "https://asiatoren.uz/contacts",
+            url: "https://asiataren.uz/contacts",
             siteName: "Asia Toren",
             title: t("title"),
             description: t("description"),
@@ -128,7 +128,7 @@ export default async function ContactsPage() {
         "@type": "ContactPage",
         name: t("hero.title"),
         description: t("hero.subtitle"),
-        url: "https://asiatoren.uz/contacts",
+        url: "https://asiataren.uz/contacts",
         inLanguage: locale,
     };
 
@@ -137,8 +137,8 @@ export default async function ContactsPage() {
         "@context": "https://schema.org",
         "@type": "Organization",
         name: "Asia Toren",
-        url: "https://asiatoren.uz",
-        logo: "https://asiatoren.uz/logo.png",
+        url: "https://asiataren.uz",
+        logo: "https://asiataren.uz/logo.png",
 
         // Контактные данные
         contactPoint: [
@@ -173,7 +173,7 @@ export default async function ContactsPage() {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         name: "Asia Toren - " + translations.contact.address1.title,
-        image: "https://asiatoren.uz/office1.jpg",
+        image: "https://asiataren.uz/office1.jpg",
 
         // Адрес
         address: {
@@ -192,7 +192,7 @@ export default async function ContactsPage() {
         // Контакты
         telephone: translations.contact.phone1,
         email: translations.contact.email,
-        url: "https://asiatoren.uz",
+        url: "https://asiataren.uz",
 
         // Время работы (добавьте если есть)
         openingHoursSpecification: [
@@ -232,7 +232,7 @@ export default async function ContactsPage() {
               },
               telephone: translations.contact.phone2,
               email: translations.contact.email,
-              url: "https://asiatoren.uz",
+              url: "https://asiataren.uz",
           }
         : null;
 
@@ -245,13 +245,13 @@ export default async function ContactsPage() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Главная",
-                item: "https://asiatoren.uz",
+                item: "https://asiataren.uz",
             },
             {
                 "@type": "ListItem",
                 position: 2,
                 name: t("hero.title"),
-                item: "https://asiatoren.uz/contacts",
+                item: "https://asiataren.uz/contacts",
             },
         ],
     };
