@@ -244,7 +244,7 @@ export default function ProductsPage() {
                     </p>
                 </div>
                 <Button asChild className="w-full md:w-auto">
-                    <Link href="/admin/products/new">
+                    <Link href="/products/new">
                         <Plus className="h-4 w-4 mr-2" />
                         Добавить товар
                     </Link>
@@ -282,7 +282,7 @@ export default function ProductsPage() {
                     </p>
                     {!searchQuery && (
                         <Button asChild>
-                            <Link href="/admin/products/new">
+                            <Link href="/products/new">
                                 <Plus className="h-4 w-4 mr-2" />
                                 Добавить товар
                             </Link>
@@ -376,7 +376,7 @@ export default function ProductsPage() {
                                                 aria-label="Редактировать товар"
                                             >
                                                 <Link
-                                                    href={`/admin/products/${product.id}/edit`}
+                                                    href={`/products/${product.id}/edit`}
                                                 >
                                                     <Pencil className="h-4 w-4" />
                                                     <span className="sr-only">

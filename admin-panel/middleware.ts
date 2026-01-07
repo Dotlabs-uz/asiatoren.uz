@@ -8,30 +8,41 @@ export async function middleware(request: NextRequest) {
     console.log("[Middleware]", { pathname, hasToken: !!authToken });
 
     // Если это страница логина
-    if (pathname === "/admin/login") {
-        // Если уже авторизован - редирект на dashboard
+    if (pathname === "/login") {
+        // Если уже авторизован - редирект на главную (dashboard)
         if (authToken) {
-            console.log(
-                "[Middleware] Redirecting to dashboard (already has token)"
-            );
-            return NextResponse.redirect(
-                new URL("/admin/dashboard", request.url)
-            );
+            console.log("[Middleware] Redirecting to dashboard");
+            return NextResponse.redirect(new URL("/", request.url));
         }
-        console.log("[Middleware] Allowing access to login page");
+        console.log("[Middleware] Allowing access to login");
         return NextResponse.next();
     }
 
-    // Для всех остальных админских страниц проверяем токен
-    if (!authToken) {
-        console.log("[Middleware] No token, redirecting to login");
-        return NextResponse.redirect(new URL("/admin/login", request.url));
+    // Список админ путей (все кроме главной страницы фронта)
+    const adminPaths = [
+        "/applications",
+        "/categories",
+        "/products",
+        "/media",
+    ];
+
+    // Если это админ путь ИЛИ главная страница (/)
+    // проверяем токен
+    const isAdminPath = adminPaths.some((path) => pathname.startsWith(path));
+    const isRootPath = pathname === "/";
+
+    if (isAdminPath || isRootPath) {
+        // Для админских путей проверяем токен
+        if (!authToken) {
+            console.log("[Middleware] No token, redirecting to login");
+            return NextResponse.redirect(new URL("/login", request.url));
+        }
     }
 
-    console.log("[Middleware] Token found, allowing access");
+    console.log("[Middleware] Token found or public path, allowing access");
     return NextResponse.next();
 }
 
 export const config = {
-    matcher: "/admin/:path*",
+    matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

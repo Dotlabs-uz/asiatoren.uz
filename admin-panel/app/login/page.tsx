@@ -37,7 +37,7 @@ export default function LoginPage() {
 
             // Небольшая задержка чтобы cookie успел установиться
             setTimeout(() => {
-                router.push("/admin/dashboard");
+                router.push("/");
             }, 100);
         } catch (error: any) {
             console.error("Login error:", error);

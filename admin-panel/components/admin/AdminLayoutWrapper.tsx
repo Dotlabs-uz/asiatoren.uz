@@ -6,17 +6,29 @@ import { Sidebar } from "@/components/admin/Sidebar";
 import { Header } from "@/components/admin/Header";
 import { ErrorBoundary } from "@/components/admin/ErrorBoundary";
 
-export default function AdminLayout({
+export function AdminLayoutWrapper({
     children,
 }: {
     children: React.ReactNode;
 }) {
     const pathname = usePathname();
+
+    // // Проверяем домен
+    // const isAdminDomain =
+    //     typeof window !== "undefined" &&
+    //     window.location.hostname.startsWith("admin.");
+
+    // // Если это НЕ админ домен - рендерим без обёртки (фронт)
+    // if (!isAdminDomain) {
+    //     return <>{children}</>;
+    // }
+
     // Если это страница логина - показываем без layout
-    if (pathname === "/admin/login") {
+    if (pathname === "/login") {
         return <>{children}</>;
     }
-    // Для всех остальных страниц - показываем с layout и AuthProvider
+
+    // Для всех остальных страниц админки (включая главную)
     return (
         <AuthProvider>
             <ErrorBoundary>

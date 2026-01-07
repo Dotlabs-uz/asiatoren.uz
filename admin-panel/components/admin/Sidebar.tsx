@@ -16,27 +16,27 @@ import {
 const navigation = [
   {
     name: "Дэшборд",
-    href: "/admin/dashboard",
+    href: "/",
     icon: LayoutDashboard,
   },
   {
     name: "Товары",
-    href: "/admin/products",
+    href: "/products",
     icon: Package,
   },
   {
     name: "Категории",
-    href: "/admin/categories",
+    href: "/categories",
     icon: Folder,
   },
   {
   name: "Заявки",
-    href: "/admin/applications",
+    href: "/applications",
     icon: FileText,
   },
   {
     name: "Медия",
-    href: "/admin/media",
+    href: "/media",
     icon: ImageIcon,
   }
 ]
@@ -49,7 +49,7 @@ export function Sidebar() {
   const handleSignOut = async () => {
     try {
       await signOut()
-      router.push("/admin/login")
+      router.push("/login")
     } catch (error) {
       console.error("Error signing out:", error)
     }
