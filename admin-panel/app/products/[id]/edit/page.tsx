@@ -30,7 +30,7 @@ export default function EditProductPage() {
                         description: "Товар не найден",
                         variant: "destructive",
                     });
-                    router.push("/admin/products");
+                    router.push("/products");
                     return;
                 }
 
@@ -42,7 +42,7 @@ export default function EditProductPage() {
                     description: "Не удалось загрузить товар",
                     variant: "destructive",
                 });
-                router.push("/admin/products");
+                router.push("/products");
             } finally {
                 setLoading(false);
             }
@@ -64,7 +64,7 @@ export default function EditProductPage() {
                 description: "Товар успешно обновлен",
             });
 
-            router.push("/admin/products");
+            router.push("/products");
         } catch (error) {
             console.error("Error updating product:", error);
             toast({

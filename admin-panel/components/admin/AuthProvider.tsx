@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         // Если нет пользователя - редирект на логин
         if (!user) {
-            router.replace("/admin/login");
+            router.replace("/login");
         }
     }, [user, loading, router]);
 
