@@ -6,8 +6,6 @@ import { getTranslations } from "next-intl/server";
 export default async function Footer() {
     const t = await getTranslations("footer");
 
-    const currentYear = new Date().getFullYear();
-
     const navigation = [
         { label: t("nav.products"), href: "/products" },
         { label: t("nav.about"), href: "/about-us" },
@@ -28,7 +26,7 @@ export default async function Footer() {
     ];
 
     const contact = {
-        phone: "+998 91 187 28 67",
+        phone: "+998 77 201 31 31",
         tg: "@Asiatarenpoultry1",
     };
 
@@ -138,7 +136,7 @@ export default async function Footer() {
                             Asia Taren Poultry
                         </p>
                         <p className="text-sm md:text-base text-gray-400">
-                            {currentYear}
+                            2014
                         </p>
                     </div>
                 </div>
