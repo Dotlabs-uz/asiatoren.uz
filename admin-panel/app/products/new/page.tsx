@@ -23,7 +23,7 @@ export default function NewProductPage() {
                 description: "Товар успешно создан",
             });
 
-            router.push("/admin/products");
+            router.push("/products");
         } catch (error) {
             console.error("Error creating product:", error);
             toast({
