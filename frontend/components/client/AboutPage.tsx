@@ -26,7 +26,7 @@ interface AboutPageClientProps {
 export const AboutPageClient = ({
     translations,
     aboutSectionTranslations,
-    videoUrl = "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE",
+    videoUrl,
     certificates,
     partners,
 }: AboutPageClientProps) => {

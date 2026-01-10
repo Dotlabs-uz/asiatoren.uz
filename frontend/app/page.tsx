@@ -111,6 +111,17 @@ export default async function Home() {
         description: t("description"),
         inLanguage: locale,
     };
+    const videoData = {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        name: "Asia Taren",
+        description: "Asia Taren",
+        thumbnailUrl: "/images/og-image.webp",
+        uploadDate: new Date().toISOString(),
+        contentUrl: `https://www.youtube.com/watch?v=Riv1FdyvFxs`,
+        embedUrl: `https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE`,
+        duration: "PT2M30S",
+    };
 
     return (
         <>
@@ -124,6 +135,12 @@ export default async function Home() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(jsonLdWebSite),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(videoData),
                 }}
             />
 
