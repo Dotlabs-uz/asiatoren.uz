@@ -3,7 +3,7 @@ import { Product } from "@/types";
 import { MetadataRoute } from "next";
 
 const locales = ["ru", "uz", "en"];
-const baseUrl = "https://asiatoren.uz";
+const baseUrl = "https://www.asiataren.uz";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const routes: MetadataRoute.Sitemap = [];
