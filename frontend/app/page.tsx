@@ -12,12 +12,21 @@ export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
     const t = await getTranslations({ locale, namespace: "metadata" });
 
-    const baseUrl = "https://asiataren.uz";
+    const baseUrl = "https://www.asiataren.uz";
 
     return {
         title: t("title"),
         description: t("description"),
         keywords: t("keywords"),
+
+        icons: {
+            icon: [
+                { url: "/favicon.ico" },
+                { url: "/icon.png", sizes: "512x512", type: "image/png" },
+            ],
+            shortcut: "/favicon.ico",
+            apple: "/apple-icon.png",
+        },
 
         alternates: {
             canonical: baseUrl,
@@ -32,15 +41,15 @@ export async function generateMetadata(): Promise<Metadata> {
             type: "website",
             locale: locale,
             url: baseUrl,
-            siteName: "Asia Toren",
+            siteName: "Asia Taren",
             title: t("title"),
             description: t("description"),
             images: [
                 {
-                    url: "/images/og-image.webp",
+                    url: `${baseUrl}/images/og-image.webp`,
                     width: 1200,
                     height: 630,
-                    alt: "Asia Toren - Производство оборудования для птицеводства",
+                    alt: "Asia Taren - Производство оборудования для птицеводства",
                 },
             ],
         },
@@ -49,7 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
             card: "summary_large_image",
             title: t("title"),
             description: t("description"),
-            images: ["/images/og-image.webp"],
+            images: [`${baseUrl}/images/og-image.webp`],
         },
 
         robots: {
@@ -64,9 +73,9 @@ export async function generateMetadata(): Promise<Metadata> {
             },
         },
 
-        authors: [{ name: "Asia Toren" }],
-        creator: "Asia Toren",
-        publisher: "Asia Toren",
+        authors: [{ name: "Asia Taren" }],
+        creator: "Asia Taren",
+        publisher: "Asia Taren",
     };
 }
 
@@ -74,12 +83,14 @@ export default async function Home() {
     const locale = await getLocale();
     const t = await getTranslations({ locale, namespace: "home" });
 
+    const baseUrl = "https://www.asiataren.uz";
+
     const jsonLdOrganization = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        name: "Asia Toren",
-        url: "https://asiataren.uz",
-        logo: "https://asiataren.uz/logo.png",
+        name: "Asia Taren",
+        url: baseUrl,
+        logo: `${baseUrl}/icon.png`,
         description: t("description"),
 
         contactPoint: {
@@ -103,24 +114,38 @@ export default async function Home() {
 
         inLanguage: locale,
     };
+
     const jsonLdWebSite = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "Asia Toren",
-        url: "https://asiataren.uz",
+        name: "Asia Taren",
+        url: baseUrl,
         description: t("description"),
         inLanguage: locale,
     };
+
     const videoData = {
         "@context": "https://schema.org",
         "@type": "VideoObject",
-        name: "Asia Taren",
-        description: "Asia Taren",
-        thumbnailUrl: "/images/og-image.webp",
-        uploadDate: new Date().toISOString(),
-        contentUrl: `https://www.youtube.com/watch?v=Riv1FdyvFxs`,
-        embedUrl: `https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE`,
+        name: "Asia Taren - Оборудование для птицеводства",
+        description:
+            "Обзор оборудования и производства Asia Taren для птицеводческих хозяйств",
+        thumbnailUrl: [
+            "https://i.ytimg.com/vi/Riv1FdyvFxs/maxresdefault.jpg",
+            "https://i.ytimg.com/vi/Riv1FdyvFxs/hqdefault.jpg",
+        ],
+        uploadDate: "2025-12-24T00:00:00Z",
+        contentUrl: "https://www.youtube.com/watch?v=Riv1FdyvFxs",
+        embedUrl: "https://www.youtube.com/embed/Riv1FdyvFxs",
         duration: "PT2M30S",
+        publisher: {
+            "@type": "Organization",
+            name: "Asia Taren",
+            logo: {
+                "@type": "ImageObject",
+                url: `${baseUrl}/icon.png`,
+            },
+        },
     };
 
     return (
