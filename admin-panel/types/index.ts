@@ -86,6 +86,125 @@ export interface Category {
     updatedAt: Date;
 }
 
+export interface Banner {
+    id: string;
+    imageUrl: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface BannerFormData {
+    imageUrl: string;
+}
+
+export interface Catalog {
+    id: string;
+    name: string;
+    imageUrl: string;
+    fileUrl: string;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface CatalogFormData {
+    name: string;
+    imageUrl: string;
+    fileUrl: string;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+}
+
+export interface OurProjects {
+    id: string;
+    title: string;
+    previewImageUrl: string;
+    content: string;
+    images: string[];
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface OurProjectsFormData {
+    title: string;
+    previewImageUrl: string;
+    content: string;
+    images: string[];
+}
+
+export interface News {
+    id: string;
+    title: MultilingualText;
+    previewImageUrl: string;
+    content: MultilingualText;
+    images: string[];
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface NewsFormData {
+    title: MultilingualText;
+    previewImageUrl: string;
+    content: MultilingualText;
+    images: string[];
+}
+
+export interface Festival {
+    id: string;
+    title: MultilingualText;
+    previewImageUrl: string;
+    content: MultilingualText;
+    images: string[];
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface FestivalFormData {
+    title: MultilingualText;
+    previewImageUrl: string;
+    content: MultilingualText;
+    images: string[];
+}
+
+export interface DealerAddress {
+    title: string;
+    phoneNumbers: string;
+    email: string;
+    map: string;
+    website?: string;
+}
+
+export interface Dealer {
+    id: string;
+    title: MultilingualText;
+    logoUrl: string;
+    addresses: DealerAddress[];
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface DealerFormData {
+    title: MultilingualText;
+    logoUrl: string;
+    addresses: DealerAddress[];
+}
+
+export interface Video {
+    id: string;
+    title: MultilingualText;
+    videoUrl: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface VideoFormData {
+    title: MultilingualText;
+    videoUrl: string;
+}
+
 /**
  * Firebase Firestore document snapshot type
  */
