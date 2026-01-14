@@ -102,8 +102,7 @@ export default async function ContactsPage() {
             messageError: t("form.messageError"),
         },
         contact: {
-            phone1: t("contact.phone1"),
-            phone2: t("contact.phone2"),
+            phone: t("contact.phone"),
             email: t("contact.email"),
             address1: {
                 title: t("contact.address1.title"),
@@ -144,18 +143,11 @@ export default async function ContactsPage() {
         contactPoint: [
             {
                 "@type": "ContactPoint",
-                telephone: translations.contact.phone1,
+                telephone: translations.contact.phone,
                 contactType: "customer service",
                 availableLanguage: ["Russian", "Uzbek", "English"],
                 areaServed: "UZ",
-            },
-            {
-                "@type": "ContactPoint",
-                telephone: translations.contact.phone2,
-                contactType: "sales",
-                availableLanguage: ["Russian", "Uzbek", "English"],
-                areaServed: "UZ",
-            },
+            }
         ],
 
         // Email
@@ -190,7 +182,7 @@ export default async function ContactsPage() {
         },
 
         // Контакты
-        telephone: translations.contact.phone1,
+        telephone: translations.contact.phone,
         email: translations.contact.email,
         url: "https://asiataren.uz",
 
@@ -230,7 +222,7 @@ export default async function ContactsPage() {
                   latitude: "41.252889",
                   longitude: "69.301639",
               },
-              telephone: translations.contact.phone2,
+              telephone: translations.contact.phone,
               email: translations.contact.email,
               url: "https://asiataren.uz",
           }

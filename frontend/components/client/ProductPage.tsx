@@ -164,7 +164,7 @@ export const ProductPageClient = ({
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="w-full bg-gray-400 h-20" />
+            <div className="w-full bg-cRed/60 h-20" />
             <div
                 ref={heroRef}
                 className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-8 md:py-12"

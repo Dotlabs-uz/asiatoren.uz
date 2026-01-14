@@ -3,18 +3,17 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { MarqueeText } from "./MarqueeText";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollItem {
-    type: "text" | "image" | "video";
+    type: "text" | "video";
     content?: string;
     src?: string;
     alt?: string;
     poster?: string;
-    videoUrl?: string; // Для YouTube URL
+    videoUrl?: string;
 }
 
 interface ScrollMainClientProps {
@@ -39,7 +38,7 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
             scrollTrigger: {
                 trigger: section,
                 start: "top top",
-                end: "+=400%", // Длина скролла
+                end: "+=400%",
                 scrub: 1,
                 pin: true,
                 anticipatePin: 1,
@@ -56,6 +55,12 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                     y: 0,
                     duration: 1,
                     ease: "power2.out",
+                    onStart: () => {
+                        // Включаем pointer-events для текущего элемента
+                        if (element) {
+                            element.style.pointerEvents = "auto";
+                        }
+                    },
                 },
                 index * 2
             );
@@ -69,6 +74,12 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                         y: -50,
                         duration: 0.8,
                         ease: "power2.in",
+                        onComplete: () => {
+                            // Отключаем pointer-events после исчезновения
+                            if (element) {
+                                element.style.pointerEvents = "none";
+                            }
+                        },
                     },
                     index * 2 + 1.2
                 );
@@ -93,7 +104,8 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                             ref={(el) => {
                                 itemsRef.current[index] = el;
                             }}
-                            className="absolute inset-0 flex items-center justify-center"
+                            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                            style={{ pointerEvents: "none" }}
                         >
                             {item.type === "text" && (
                                 <h2
@@ -104,20 +116,8 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                                 />
                             )}
 
-                            {item.type === "image" && (
-                                <div className="relative w-full max-w-2xl aspect-square">
-                                    <Image
-                                        src={item.src || ""}
-                                        alt={item.alt || ""}
-                                        fill
-                                        className="object-contain drop-shadow-2xl"
-                                        loading="lazy"
-                                    />
-                                </div>
-                            )}
-
                             {item.type === "video" && (
-                                <div className="relative flex justify-center items-center w-full">
+                                <div className="relative flex justify-center items-center w-full z-10 pointer-events-auto">
                                     <div className="relative w-full max-w-4xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-cGray">
                                         <iframe
                                             className="w-full h-full"
@@ -132,7 +132,7 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                                             allowFullScreen
                                         />
                                     </div>
-                                    <div className="absolute top-1/2 left-1/2 -translate-1/2 w-full -z-10">
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full -z-10 pointer-events-none">
                                         <MarqueeText text="ASIA TAREN POULTRY" />
                                     </div>
                                 </div>

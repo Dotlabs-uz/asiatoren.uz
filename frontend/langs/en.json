@@ -51,11 +51,6 @@
                 "content": "<span class='relative inline-block'>Modern<img src='/images/circle.svg' alt='circle' class='absolute top-5 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> solutions for efficient <span class='relative inline-block'>raising<img src='/images/circle.svg' alt='circle' class='absolute top-5 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> broiler chickens"
             },
             {
-                "type": "image",
-                "src": "/images/chicken.webp",
-                "alt": "Chicken"
-            },
-            {
                 "type": "video",
                 "src": "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE",
                 "poster": "/images/farm.webp"
@@ -108,19 +103,19 @@
         "p2": "Our mission is to provide innovative and reliable solutions that increase the efficiency and profitability of your business.",
         "stats": [
             {
-                "number": "100%",
+                "number": "95%",
                 "label": "Satisfied Customers"
             },
             {
-                "number": "10000+",
+                "number": "7200+",
                 "label": "Installed Systems"
             },
             {
-                "number": "10+",
+                "number": "150+",
                 "label": "Established Farms"
             },
             {
-                "number": "100+",
+                "number": "150+",
                 "label": "Partners"
             }
         ]
@@ -249,8 +244,7 @@
             "messageError": "Minimum 10 characters"
         },
         "contact": {
-            "phone1": "+998 77 201 31 31",
-            "phone2": "+998 90 455 43 51",
+            "phone": "+998 77 201 31 31",
             "email": "asiataren2017@gmail.com",
             "address1": {
                 "title": "Main Factory",
