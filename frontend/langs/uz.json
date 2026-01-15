@@ -24,6 +24,7 @@
         "nav": {
             "main": "Bosh sahifa",
             "products": "Mahsulotlar",
+            "catalogs": "Kataloglar",
             "about": "Biz haqimizda",
             "contacts": "Kontaktlar"
         },
@@ -32,7 +33,8 @@
     "footer": {
         "nav": {
             "title": "Navigatsiya",
-            "products": "Katalog",
+            "products": "Mahsulotlar",
+            "catalogs": "Kataloglar",
             "about": "Biz haqimizda",
             "contacts": "Kontaktlar"
         },
@@ -162,7 +164,7 @@
             "error": "Xatolik yuz berdi. Qayta urinib ko'ring."
         }
     },
-    "catalog": {
+    "products-page": {
         "title": "Uskunalar katalogi",
         "searchPlaceholder": "Tovarlar bo'yicha qidiruv (oziqlantirgichlar, ventilyatsiya, yemlar)",
         "all": "Barchasi",
@@ -172,6 +174,32 @@
         "showing": "Ko'rsatilmoqda",
         "of": "dan",
         "items": "tovarlar"
+    },
+    "product-page": {
+        "breadcrumb": {
+            "home": "Bosh sahifa",
+            "catalog": "Katalog"
+        },
+        "priceLabel": "Narxi",
+        "currency": "so'm",
+        "requestButton": "Ariza qoldirish",
+        "benefits": {
+            "warranty": {
+                "title": "12 oylik kafolat",
+                "text": "Barcha uskunalar uchun to'liq kafolat"
+            },
+            "delivery": {
+                "title": "Yetkazib berish",
+                "text": "O'zbekiston va MDH bo'ylab"
+            },
+            "selection": {
+                "title": "Komplektatsiya tanlash",
+                "text": "ferma uchun"
+            }
+        },
+        "descriptionTitle": "Tavsif",
+        "characteristicsTitle": "Xususiyatlar",
+        "notFound": "Mahsulot topilmadi"
     },
     "about-page": {
         "hero": {
@@ -260,30 +288,7 @@
             "socialTitle": "Ijtimoiy tarmoqlarda biz"
         }
     },
-    "product-page": {
-        "breadcrumb": {
-            "home": "Bosh sahifa",
-            "catalog": "Katalog"
-        },
-        "priceLabel": "Narxi",
-        "currency": "so'm",
-        "requestButton": "Ariza qoldirish",
-        "benefits": {
-            "warranty": {
-                "title": "12 oylik kafolat",
-                "text": "Barcha uskunalar uchun to'liq kafolat"
-            },
-            "delivery": {
-                "title": "Yetkazib berish",
-                "text": "O'zbekiston va MDH bo'ylab"
-            },
-            "selection": {
-                "title": "Komplektatsiya tanlash",
-                "text": "ferma uchun"
-            }
-        },
-        "descriptionTitle": "Tavsif",
-        "characteristicsTitle": "Xususiyatlar",
-        "notFound": "Mahsulot topilmadi"
+    "catalogs-page": {
+        "title": "Kataloglar"
     }
 }

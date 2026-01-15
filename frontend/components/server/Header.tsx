@@ -8,6 +8,7 @@ export default async function Header() {
         pages: [
             { href: "/", label: t("nav.main") },
             { href: "/products", label: t("nav.products") },
+            { href: "/catalogs", label: t("nav.catalogs") },
             { href: "/about-us", label: t("nav.about") },
             { href: "/contacts", label: t("nav.contacts") },
         ],

@@ -15,6 +15,7 @@ export default async function Footer() {
 
     const navigation = [
         { label: t("nav.products"), href: "/products" },
+        { label: t("nav.catalogs"), href: "/catalogs" },
         { label: t("nav.about"), href: "/about-us" },
         { label: t("nav.contacts"), href: "/contacts" },
     ];

@@ -1,11 +1,11 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { CatalogClient } from "@/components/client/Catalog";
 import {
     getCategoriesServer,
     getProductsServer,
 } from "@/lib/firebase/server-api";
 import { Language } from "@/types";
 import { Metadata } from "next";
+import { ProductsPageClient } from "@/components/client/ProductsPageClient";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
@@ -66,8 +66,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // ============ КОМПОНЕНТ СТРАНИЦЫ ============
-export default async function CatalogPage() {
-    const t = await getTranslations("catalog");
+export default async function ProductsPage() {
+    const t = await getTranslations("products-page");
     const products = await getProductsServer();
     const categories = await getCategoriesServer();
     const locale = (await getLocale()) as Language;
@@ -193,7 +193,7 @@ export default async function CatalogPage() {
                     }}
                 />
             )}
-            <CatalogClient
+            <ProductsPageClient
                 initialCategories={categories}
                 initialProducts={products}
                 translations={translations}

@@ -30,10 +30,14 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
         const section = sectionRef.current;
         const itemElements = itemsRef.current.filter(Boolean);
 
-        // Скрываем все элементы изначально
-        gsap.set(itemElements, { opacity: 0, y: 50 });
+        // Устанавливаем начальное состояние
+        gsap.set(itemElements, {
+            opacity: 0,
+            y: 50,
+            pointerEvents: "none",
+            zIndex: 0,
+        });
 
-        // Создаем timeline с ScrollTrigger
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
@@ -45,7 +49,6 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
             },
         });
 
-        // Анимация каждого элемента
         itemElements.forEach((element, index) => {
             // Появление
             tl.to(
@@ -55,11 +58,16 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                     y: 0,
                     duration: 1,
                     ease: "power2.out",
+                    // Включаем взаимодействие сразу, как только начинается анимация появления
                     onStart: () => {
-                        // Включаем pointer-events для текущего элемента
-                        if (element) {
-                            element.style.pointerEvents = "auto";
-                        }
+                        gsap.set(element, {
+                            pointerEvents: "auto",
+                            zIndex: 50,
+                        });
+                    },
+                    // При скролле назад (когда анимация возвращается к началу этой точки)
+                    onReverseComplete: () => {
+                        gsap.set(element, { pointerEvents: "none", zIndex: 0 });
                     },
                 },
                 index * 2
@@ -74,11 +82,19 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                         y: -50,
                         duration: 0.8,
                         ease: "power2.in",
-                        onComplete: () => {
-                            // Отключаем pointer-events после исчезновения
-                            if (element) {
-                                element.style.pointerEvents = "none";
-                            }
+                        // Выключаем взаимодействие, как только элемент начал исчезать
+                        onStart: () => {
+                            gsap.set(element, {
+                                pointerEvents: "none",
+                                zIndex: 0,
+                            });
+                        },
+                        // При скролле назад (когда элемент возвращается сверху)
+                        onReverseComplete: () => {
+                            gsap.set(element, {
+                                pointerEvents: "auto",
+                                zIndex: 50,
+                            });
                         },
                     },
                     index * 2 + 1.2
@@ -87,7 +103,9 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
         });
 
         return () => {
-            ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+            if (ScrollTrigger.getById("mainTrigger")) {
+                ScrollTrigger.getById("mainTrigger")?.kill();
+            }
         };
     }, [items]);
 
@@ -105,7 +123,6 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                                 itemsRef.current[index] = el;
                             }}
                             className="absolute inset-0 flex items-center justify-center pointer-events-none"
-                            style={{ pointerEvents: "none" }}
                         >
                             {item.type === "text" && (
                                 <h2
@@ -120,7 +137,7 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                                 <div className="relative flex justify-center items-center w-full z-10 pointer-events-auto">
                                     <div className="relative w-full max-w-4xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-cGray">
                                         <iframe
-                                            className="w-full h-full"
+                                            className="w-full h-full relative z-50"
                                             src={
                                                 item.videoUrl ||
                                                 "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE"

@@ -7,6 +7,9 @@ import HeroSection from "@/components/server/Hero";
 import ProductsSection from "@/components/server/Products";
 import ScrollMain from "@/components/server/ScrollMain";
 import StagesSection from "@/components/server/Stages";
+import { getBannersServer } from "@/lib/firebase/server-api";
+import { BannerCarousel } from "@/components/client/BannerCarousel";
+import { Suspense } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
@@ -82,6 +85,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
     const locale = await getLocale();
     const t = await getTranslations({ locale, namespace: "home" });
+    const banners = await getBannersServer();
+    console.log(banners);
 
     const baseUrl = "https://www.asiataren.uz";
 
@@ -175,6 +180,11 @@ export default async function Home() {
 
                 {/* Scroll Section */}
                 <ScrollMain />
+
+                {/* Banners */}
+                <Suspense fallback={<div>Loading....</div>}>
+                    <BannerCarousel images={banners} />
+                </Suspense>
 
                 {/* Stages section */}
                 <StagesSection />
