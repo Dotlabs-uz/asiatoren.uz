@@ -251,6 +251,13 @@
                 "title": "Bizning hamkorlarimiz",
                 "p1": "15 yillik faoliyat davomida turli mintaqalarda yuzlab mijozlar va hamkorlar bizga ishonch bildirdi.",
                 "p2": "Bizning hamkorlarimiz — ishonchli kompaniyalar va ishlab chiqaruvchilar bo‘lib, ular bilan birgalikda parrandachilik uchun samarali yechimlarni amalga oshiramiz."
+            },
+            "videos": {
+                "label": "Videolar",
+                "title": "Bizning ishlarimiz natijalari",
+                "p1": "Taqdim etilgan loyihalarning videolaridan iborat to'plamni tomosha qiling: montaj bosqichlari, ishga tushirish ishlari va uskunaning real sharoitdagi ishlashi.",
+                "p2": "Videolarda mijozlarning fikrlari va yechimlarimizni joriy etish natijasida samaradorlikning oshishi misollari ham keltirilgan.",
+                "btn": "Batafsil"
             }
         }
     },
@@ -310,5 +317,8 @@
     },
     "dealers-page": {
         "title": "Bizning distribyutorlarimiz"
+    },
+    "videos-page": {
+        "title": "Videolar galereyasi"
     }
 }
