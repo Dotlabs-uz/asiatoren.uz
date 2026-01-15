@@ -59,7 +59,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                 "bg-white/20 backdrop-blur-md border-white/20 shadow-sm"
             }`}
         >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     <Link href="/" className="shrink-0">
@@ -83,7 +83,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center space-x-8">
+                    <nav className="hidden lg:flex items-center space-x-3">
                         {text.pages.map((item) => {
                             const active = isActive(item.href);
                             return (
