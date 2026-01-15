@@ -29,6 +29,7 @@
             "projects": "Projects",
             "news": "News",
             "festivals": "Festivals",
+            "dealers": "Distributors",
             "contacts": "Contacts"
         },
         "btn": "Get in touch"
@@ -42,6 +43,7 @@
             "projects": "Projects",
             "news": "news",
             "festivals": "Festivals",
+            "dealers": "Distributors",
             "contacts": "Contacts"
         },
         "socials": "Social Media"
@@ -308,5 +310,8 @@
     "festivals-page": {
         "title": "Festivals",
         "btn": "See more"
+    },
+    "dealers-page": {
+        "title": "Our Distributors"
     }
 }

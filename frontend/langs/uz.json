@@ -29,6 +29,7 @@
             "projects": "Loyihalar",
             "news": "Yangiliklar",
             "festivals": "Bayramlar",
+            "dealers": "Distribyutorlarimiz",
             "contacts": "Kontaktlar"
         },
         "btn": "Bog'lanish"
@@ -39,6 +40,7 @@
             "products": "Mahsulotlar",
             "catalogs": "Kataloglar",
             "about": "Biz haqimizda",
+            "dealers": "Distribyutorlarimiz",
             "contacts": "Kontaktlar"
         },
         "socials": "Ijtimoiy tarmoqlar"
@@ -305,5 +307,8 @@
     "festivals-page": {
         "title": "Bayramlar",
         "btn": "Batafsil"
+    },
+    "dealers-page": {
+        "title": "Bizning distribyutorlarimiz"
     }
 }

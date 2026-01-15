@@ -20,6 +20,7 @@ export default async function Footer() {
         { label: t("nav.projects"), href: "/projects" },
         { label: t("nav.news"), href: "/news" },
         { label: t("nav.festivals"), href: "/festivals" },
+        { label: t("nav.dealers"), href: "/dealers" },
         { label: t("nav.contacts"), href: "/contacts" },
     ];
 

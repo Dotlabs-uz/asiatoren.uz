@@ -29,6 +29,7 @@
             "projects": "Проекты",
             "news": "Новости",
             "festivals": "Праздники",
+            "dealers": "Дилеры",
             "contacts": "Контакты"
         },
         "btn": "Связаться"
@@ -42,6 +43,7 @@
             "projects": "Проекты",
             "news": "Новости",
             "festivals": "Праздники",
+            "dealers": "Дилеры",
             "contacts": "Контакты"
         },
         "socials": "Социальные сети"
@@ -308,5 +310,8 @@
     "festivals-page": {
         "title": "Праздники",
         "btn": "Подробнее"
+    },
+    "dealers-page": {
+        "title": "Наши дилеры"
     }
 }

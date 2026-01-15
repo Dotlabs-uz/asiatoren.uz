@@ -13,6 +13,7 @@ export default async function Header() {
             { href: "/projects", label: t("nav.projects") },
             { href: "/news", label: t("nav.news") },
             { href: "/festivals", label: t("nav.festivals") },
+            { href: "/dealers", label: t("nav.dealers") },
             { href: "/contacts", label: t("nav.contacts") },
         ],
         btn: t("btn"),
