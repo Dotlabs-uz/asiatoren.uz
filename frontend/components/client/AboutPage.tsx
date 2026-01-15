@@ -6,9 +6,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play } from "lucide-react";
 import AboutSection from "../server/About";
 import { AboutClient } from "./AboutClient";
-import { Media } from "@/types";
+import { Language, Media, Video } from "@/types";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
+import VideoCarousel from "./VideosCarousel";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -21,6 +24,8 @@ interface AboutPageClientProps {
     videoUrl?: string;
     certificates: Media[];
     partners: Media[];
+    videos: Video[];
+    locale: Language;
 }
 
 export const AboutPageClient = ({
@@ -29,6 +34,8 @@ export const AboutPageClient = ({
     videoUrl,
     certificates,
     partners,
+    videos,
+    locale,
 }: AboutPageClientProps) => {
     const [showVideo, setShowVideo] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -155,6 +162,33 @@ export const AboutPageClient = ({
             gsap.from(".partners-card", {
                 scrollTrigger: {
                     trigger: ".partners-card",
+                    start: "top 85%",
+                    toggleActions: "play none none none",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+            });
+            // videos Section
+            gsap.from(".videos-section", {
+                scrollTrigger: {
+                    trigger: ".videos-section",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power3.out",
+            });
+
+            // video Cards
+            gsap.from(".videos-card", {
+                scrollTrigger: {
+                    trigger: ".videos-card",
                     start: "top 85%",
                     toggleActions: "play none none none",
                 },
@@ -419,6 +453,48 @@ export const AboutPageClient = ({
                                 </div>
                             ))}
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Videos Carousel */}
+            <div className="bg-white py-16 md:py-24">
+                <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
+                    {/* Header Grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_1fr] gap-8 lg:gap-12 mb-12">
+                        {/* Label */}
+                        <div className="videos-section">
+                            <div className="text-sm font-semibold text-gray-500">
+                                {translations.sections.videos.label}
+                            </div>
+                        </div>
+
+                        {/* Title */}
+                        <div className="videos-section">
+                            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                                {translations.sections.videos.title}
+                            </h2>
+                        </div>
+
+                        {/* Description */}
+                        <div className="videos-section space-y-4">
+                            <p className="text-base text-gray-600 leading-relaxed">
+                                {translations.sections.videos.p1}
+                            </p>
+                            <p className="text-base text-gray-600 leading-relaxed">
+                                {translations.sections.videos.p2}
+                            </p>
+                        </div>
+                    </div>
+
+                    <VideoCarousel videos={videos} locale={locale} />
+
+                    <div className="w-full text-right">
+                        <Link href={"/videos"}>
+                            <Button className="w-32 cursor-pointer">
+                                {translations.sections.videos.btn}
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

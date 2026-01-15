@@ -2,7 +2,9 @@ import { AboutPageClient } from "@/components/client/AboutPage";
 import {
     getCertificatesServer,
     getPartnersServer,
+    getVideosServer,
 } from "@/lib/firebase/server-api";
+import { Language } from "@/types";
 import { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 
@@ -63,11 +65,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-    const locale = await getLocale();
+    const locale = (await getLocale()) as Language;
     const t = await getTranslations("about-page");
     const t1 = await getTranslations("about-us");
     const certificates = await getCertificatesServer();
     const partners = await getPartnersServer();
+    const videos = (await getVideosServer()).slice(0, 5);
 
     const aboutTranslations = {
         subtitle: t1("subtitle"),
@@ -138,6 +141,13 @@ export default async function AboutPage() {
                 title: t("sections.partners.title"),
                 p1: t("sections.partners.p1"),
                 p2: t("sections.partners.p2"),
+            },
+            videos: {
+                label: t("sections.videos.label"),
+                title: t("sections.videos.title"),
+                p1: t("sections.videos.p1"),
+                p2: t("sections.videos.p2"),
+                btn: t("sections.videos.btn"),
             },
         },
     };
@@ -240,6 +250,8 @@ export default async function AboutPage() {
                 aboutSectionTranslations={aboutTranslations}
                 certificates={certificates}
                 partners={partners}
+                videos={videos}
+                locale={locale}
                 videoUrl="https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE"
             />
         </>

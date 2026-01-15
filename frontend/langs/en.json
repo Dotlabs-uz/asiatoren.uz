@@ -254,6 +254,13 @@
                 "title": "Our Partners",
                 "p1": "Over 15 years of operation, hundreds of customers and partners across different regions have trusted us.",
                 "p2": "Our partners are trusted companies and manufacturers with whom we jointly implement effective poultry farming solutions."
+            },
+            "videos": {
+                "label": "Videos",
+                "title": "Results of Our Work",
+                "p1": "Watch a selection of videos from completed projects: installation stages, commissioning, and equipment operation in real conditions.",
+                "p2": "The videos also feature customer testimonials and examples of increased efficiency after implementing our solutions.",
+                "btn": "See more"
             }
         }
     },
@@ -313,5 +320,8 @@
     },
     "dealers-page": {
         "title": "Our Distributors"
+    },
+    "videos-page": {
+        "title": "Video Gallery"
     }
 }
