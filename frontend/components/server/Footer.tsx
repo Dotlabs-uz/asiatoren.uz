@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { Instagram, Send, Phone, MessageCircle } from "lucide-react";
+import {
+    Instagram,
+    Send,
+    Phone,
+    MessageCircle,
+    SquarePlay,
+    PhoneOutgoing,
+} from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
@@ -8,7 +15,12 @@ export default async function Footer() {
 
     const navigation = [
         { label: t("nav.products"), href: "/products" },
+        { label: t("nav.catalogs"), href: "/catalogs" },
         { label: t("nav.about"), href: "/about-us" },
+        { label: t("nav.projects"), href: "/projects" },
+        { label: t("nav.news"), href: "/news" },
+        { label: t("nav.festivals"), href: "/festivals" },
+        { label: t("nav.dealers"), href: "/dealers" },
         { label: t("nav.contacts"), href: "/contacts" },
     ];
 
@@ -22,6 +34,16 @@ export default async function Footer() {
             label: "Telegram",
             href: "https://t.me/Asia_Taren_Poultry",
             icon: <Send className="w-5 h-5" />,
+        },
+        {
+            label: "VK",
+            href: "https://vk.ru/club235335933",
+            icon: <SquarePlay className="w-5 h-5" />,
+        },
+        {
+            label: "WhatsApp",
+            href: "https://chat.whatsapp.com/BZrNTimdKr09LySnKD6tYZ",
+            icon: <PhoneOutgoing className="w-5 h-5" />,
         },
     ];
 

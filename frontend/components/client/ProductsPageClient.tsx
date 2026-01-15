@@ -1,4 +1,4 @@
-// components/client/CatalogClient.tsx
+// components/client/ProductsPageClient.tsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -21,7 +21,7 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-interface CatalogClientProps {
+interface ProductsPageClientProps {
     initialCategories: Category[];
     initialProducts: Product[];
     translations: {
@@ -40,12 +40,12 @@ interface CatalogClientProps {
 
 const PRODUCTS_PER_PAGE = 16;
 
-export const CatalogClient = ({
+export const ProductsPageClient = ({
     initialCategories,
     initialProducts,
     translations,
     locale,
-}: CatalogClientProps) => {
+}: ProductsPageClientProps) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState<string>("all");
     const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -206,9 +206,9 @@ export const CatalogClient = ({
             {/* Hero Section */}
             <div className="relative bg-[url('/images/farm.webp')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex items-center justify-center">
                 <div className="absolute inset-0 bg-black/30" />
-                <h1 className="hero-title relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
+                <h2 className="hero-title relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
                     {translations.title}
-                </h1>
+                </h2>
             </div>
 
             {/* Search and Filters */}

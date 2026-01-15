@@ -23,8 +23,8 @@ export const MarqueeText = ({ text, speed = 10 }: MarqueeTextProps) => {
                         >
                             <span className="marquee-item">{item}</span>
                             <img
-                                src={"/images/star.svg"}
-                                alt="star"
+                                src={"/images/logo.svg"}
+                                alt="logo"
                                 className="text-cRed w-10 h-10 mr-8"
                             />
                         </div>

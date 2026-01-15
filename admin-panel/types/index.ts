@@ -99,7 +99,7 @@ export interface BannerFormData {
 
 export interface Catalog {
     id: string;
-    name: string;
+    name: MultilingualText;
     imageUrl: string;
     fileUrl: string;
     fileName: string;
@@ -110,7 +110,7 @@ export interface Catalog {
 }
 
 export interface CatalogFormData {
-    name: string;
+    name: MultilingualText;
     imageUrl: string;
     fileUrl: string;
     fileName: string;

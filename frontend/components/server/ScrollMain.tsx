@@ -5,7 +5,7 @@ export default async function ScrollMain() {
     const t = await getTranslations("scroll-section");
 
     const itemsData = t.raw("items") as Array<{
-        type: "text" | "image" | "video";
+        type: "text" | "video";
         content?: string;
         src?: string;
         alt?: string;

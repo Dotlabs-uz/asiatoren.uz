@@ -8,10 +8,9 @@ import {
     Mail,
     MapPin,
     Instagram,
-    Facebook,
-    Twitter,
-    Youtube,
     Send,
+    SquarePlay,
+    PhoneOutgoing,
 } from "lucide-react";
 import { ContactsPageForm } from "./ContactsPageForm";
 
@@ -39,8 +38,7 @@ interface ContactsPageClientProps {
             messageError: string;
         };
         contact: {
-            phone1: string;
-            phone2: string;
+            phone: string;
             email: string;
             address1: {
                 title: string;
@@ -222,7 +220,7 @@ export default function ContactsPageClient({
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
                         {/* Phone */}
                         <a
-                            href={`tel:${translations.contact.phone1.replace(
+                            href={`tel:${translations.contact.phone.replace(
                                 /\s/g,
                                 ""
                             )}`}
@@ -236,27 +234,7 @@ export default function ContactsPageClient({
                                     {translations.contact.connectTitle}
                                 </p>
                                 <span className="text-white text-xl font-semibold">
-                                    {translations.contact.phone1}
-                                </span>
-                            </div>
-                        </a>
-
-                        <a
-                            href={`tel:${translations.contact.phone2.replace(
-                                /\s/g,
-                                ""
-                            )}`}
-                            className="flex items-center gap-4 hover:opacity-80 transition-opacity group"
-                        >
-                            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Phone className="w-8 h-8 text-cRed" />
-                            </div>
-                            <div>
-                                <p className="text-white/80 text-sm mb-1">
-                                    {translations.contact.connectTitle}
-                                </p>
-                                <span className="text-white text-xl font-semibold">
-                                    {translations.contact.phone2}
+                                    {translations.contact.phone}
                                 </span>
                             </div>
                         </a>
@@ -280,7 +258,7 @@ export default function ContactsPageClient({
                         </a>
 
                         {/* Social Media */}
-                        <div className="col-span-full flex flex-col md:justify-start md:items-start">
+                        <div className="flex flex-col md:justify-start md:items-start">
                             <p className="text-white/80 mb-4 text-sm">
                                 {translations.contact.socialTitle}
                             </p>
@@ -302,6 +280,24 @@ export default function ContactsPageClient({
                                     aria-label="Telegram"
                                 >
                                     <Send className="w-6 h-6 text-cRed" />
+                                </a>
+                                <a
+                                    href="https://vk.ru/club235335933"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                                    aria-label="Vk"
+                                >
+                                    <SquarePlay className="w-6 h-6 text-cRed" />
+                                </a>
+                                <a
+                                    href="https://chat.whatsapp.com/BZrNTimdKr09LySnKD6tYZ"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                                    aria-label="WhatsApp"
+                                >
+                                    <PhoneOutgoing className="w-6 h-6 text-cRed" />
                                 </a>
                             </div>
                         </div>

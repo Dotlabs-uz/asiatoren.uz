@@ -24,7 +24,12 @@
         "nav": {
             "main": "Bosh sahifa",
             "products": "Mahsulotlar",
+            "catalogs": "Kataloglar",
             "about": "Biz haqimizda",
+            "projects": "Loyihalar",
+            "news": "Yangiliklar",
+            "festivals": "Bayramlar",
+            "dealers": "Distribyutorlarimiz",
             "contacts": "Kontaktlar"
         },
         "btn": "Bog'lanish"
@@ -32,8 +37,10 @@
     "footer": {
         "nav": {
             "title": "Navigatsiya",
-            "products": "Katalog",
+            "products": "Mahsulotlar",
+            "catalogs": "Kataloglar",
             "about": "Biz haqimizda",
+            "dealers": "Distribyutorlarimiz",
             "contacts": "Kontaktlar"
         },
         "socials": "Ijtimoiy tarmoqlar"
@@ -49,11 +56,6 @@
             {
                 "type": "text",
                 "content": "Broiler tovuqlarni samarali <span class='relative inline-block'>yetishtirish<img src='/images/circle.svg' alt='circle' class='absolute top-0 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> uchun <span class='relative inline-block'>zamonaviy<img src='/images/circle.svg' alt='circle' class='absolute top-0 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> yechimlar"
-            },
-            {
-                "type": "image",
-                "src": "/images/chicken.webp",
-                "alt": "Tovuq"
             },
             {
                 "type": "video",
@@ -108,19 +110,19 @@
         "p2": "Bizning missiyamiz — sizning biznesingiz samaradorligi va rentabelligini oshirishga xizmat qiluvchi innovatsion va ishonchli yechimlarni taqdim etish.",
         "stats": [
             {
-                "number": "100%",
+                "number": "95%",
                 "label": "Mamnun mijozlar"
             },
             {
-                "number": "10000+",
+                "number": "7200+",
                 "label": "O'rnatilgan tizimlar"
             },
             {
-                "number": "10+",
+                "number": "150+",
                 "label": "Tashkil etilgan fermalar"
             },
             {
-                "number": "100+",
+                "number": "150+",
                 "label": "Hamkorlar"
             }
         ]
@@ -167,7 +169,7 @@
             "error": "Xatolik yuz berdi. Qayta urinib ko'ring."
         }
     },
-    "catalog": {
+    "products-page": {
         "title": "Uskunalar katalogi",
         "searchPlaceholder": "Tovarlar bo'yicha qidiruv (oziqlantirgichlar, ventilyatsiya, yemlar)",
         "all": "Barchasi",
@@ -177,6 +179,32 @@
         "showing": "Ko'rsatilmoqda",
         "of": "dan",
         "items": "tovarlar"
+    },
+    "product-page": {
+        "breadcrumb": {
+            "home": "Bosh sahifa",
+            "catalog": "Katalog"
+        },
+        "priceLabel": "Narxi",
+        "currency": "so'm",
+        "requestButton": "Ariza qoldirish",
+        "benefits": {
+            "warranty": {
+                "title": "12 oylik kafolat",
+                "text": "Barcha uskunalar uchun to'liq kafolat"
+            },
+            "delivery": {
+                "title": "Yetkazib berish",
+                "text": "O'zbekiston va MDH bo'ylab"
+            },
+            "selection": {
+                "title": "Komplektatsiya tanlash",
+                "text": "ferma uchun"
+            }
+        },
+        "descriptionTitle": "Tavsif",
+        "characteristicsTitle": "Xususiyatlar",
+        "notFound": "Mahsulot topilmadi"
     },
     "about-page": {
         "hero": {
@@ -249,8 +277,7 @@
             "messageError": "Kamida 10 ta belgi"
         },
         "contact": {
-            "phone1": "+998 77 201 31 31",
-            "phone2": "+998 90 455 43 51",
+            "phone": "+998 77 201 31 31",
             "email": "asiataren2017@gmail.com",
             "address1": {
                 "title": "Asosiy zavod",
@@ -266,30 +293,22 @@
             "socialTitle": "Ijtimoiy tarmoqlarda biz"
         }
     },
-    "product-page": {
-        "breadcrumb": {
-            "home": "Bosh sahifa",
-            "catalog": "Katalog"
-        },
-        "priceLabel": "Narxi",
-        "currency": "so'm",
-        "requestButton": "Ariza qoldirish",
-        "benefits": {
-            "warranty": {
-                "title": "12 oylik kafolat",
-                "text": "Barcha uskunalar uchun to'liq kafolat"
-            },
-            "delivery": {
-                "title": "Yetkazib berish",
-                "text": "O'zbekiston va MDH bo'ylab"
-            },
-            "selection": {
-                "title": "Komplektatsiya tanlash",
-                "text": "ferma uchun"
-            }
-        },
-        "descriptionTitle": "Tavsif",
-        "characteristicsTitle": "Xususiyatlar",
-        "notFound": "Mahsulot topilmadi"
+    "catalogs-page": {
+        "title": "Kataloglar"
+    },
+    "projects-page": {
+        "title": "Loyihalarimiz",
+        "btn": "Batafsil"
+    },
+    "news-page": {
+        "title": "Yangiliklar",
+        "btn": "Batafsil"
+    },
+    "festivals-page": {
+        "title": "Bayramlar",
+        "btn": "Batafsil"
+    },
+    "dealers-page": {
+        "title": "Bizning distribyutorlarimiz"
     }
 }

@@ -23,8 +23,13 @@
     "header": {
         "nav": {
             "main": "Home",
-            "products": "Catalog",
+            "products": "Products",
+            "catalogs": "Catalogues",
             "about": "About Us",
+            "projects": "Projects",
+            "news": "News",
+            "festivals": "Festivals",
+            "dealers": "Distributors",
             "contacts": "Contacts"
         },
         "btn": "Get in touch"
@@ -32,8 +37,13 @@
     "footer": {
         "nav": {
             "title": "Navigation",
-            "products": "Catalog",
+            "products": "Products",
+            "catalogs": "Catalogues",
             "about": "About Us",
+            "projects": "Projects",
+            "news": "news",
+            "festivals": "Festivals",
+            "dealers": "Distributors",
             "contacts": "Contacts"
         },
         "socials": "Social Media"
@@ -49,11 +59,6 @@
             {
                 "type": "text",
                 "content": "<span class='relative inline-block'>Modern<img src='/images/circle.svg' alt='circle' class='absolute top-5 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> solutions for efficient <span class='relative inline-block'>raising<img src='/images/circle.svg' alt='circle' class='absolute top-5 left-1/2 -translate-x-1/2 w-full pointer-events-none'/></span> broiler chickens"
-            },
-            {
-                "type": "image",
-                "src": "/images/chicken.webp",
-                "alt": "Chicken"
             },
             {
                 "type": "video",
@@ -108,19 +113,19 @@
         "p2": "Our mission is to provide innovative and reliable solutions that increase the efficiency and profitability of your business.",
         "stats": [
             {
-                "number": "100%",
+                "number": "95%",
                 "label": "Satisfied Customers"
             },
             {
-                "number": "10000+",
+                "number": "7200+",
                 "label": "Installed Systems"
             },
             {
-                "number": "10+",
+                "number": "150+",
                 "label": "Established Farms"
             },
             {
-                "number": "100+",
+                "number": "150+",
                 "label": "Partners"
             }
         ]
@@ -167,7 +172,7 @@
             "error": "An error occurred. Please try again."
         }
     },
-    "catalog": {
+    "products-page": {
         "title": "Equipment Catalog",
         "searchPlaceholder": "Search products (feeders, ventilation, feeders)",
         "all": "All",
@@ -177,6 +182,32 @@
         "showing": "Showing",
         "of": "of",
         "items": "items"
+    },
+    "product-page": {
+        "breadcrumb": {
+            "home": "Home",
+            "catalog": "Catalog"
+        },
+        "priceLabel": "Price",
+        "currency": "UZS",
+        "requestButton": "Request Quote",
+        "benefits": {
+            "warranty": {
+                "title": "12 Month Warranty",
+                "text": "Full warranty on all equipment"
+            },
+            "delivery": {
+                "title": "Delivery",
+                "text": "throughout Uzbekistan and CIS"
+            },
+            "selection": {
+                "title": "Configuration Selection",
+                "text": "for your farm"
+            }
+        },
+        "descriptionTitle": "Description",
+        "characteristicsTitle": "Characteristics",
+        "notFound": "Product not found"
     },
     "about-page": {
         "hero": {
@@ -249,8 +280,7 @@
             "messageError": "Minimum 10 characters"
         },
         "contact": {
-            "phone1": "+998 77 201 31 31",
-            "phone2": "+998 90 455 43 51",
+            "phone": "+998 77 201 31 31",
             "email": "asiataren2017@gmail.com",
             "address1": {
                 "title": "Main Factory",
@@ -266,30 +296,22 @@
             "socialTitle": "Find us on social media"
         }
     },
-    "product-page": {
-        "breadcrumb": {
-            "home": "Home",
-            "catalog": "Catalog"
-        },
-        "priceLabel": "Price",
-        "currency": "UZS",
-        "requestButton": "Request Quote",
-        "benefits": {
-            "warranty": {
-                "title": "12 Month Warranty",
-                "text": "Full warranty on all equipment"
-            },
-            "delivery": {
-                "title": "Delivery",
-                "text": "throughout Uzbekistan and CIS"
-            },
-            "selection": {
-                "title": "Configuration Selection",
-                "text": "for your farm"
-            }
-        },
-        "descriptionTitle": "Description",
-        "characteristicsTitle": "Characteristics",
-        "notFound": "Product not found"
+    "catalogs-page": {
+        "title": "Catalogues"
+    },
+    "projects-page": {
+        "title": "Our Projects",
+        "btn": "See more"
+    },
+    "news-page": {
+        "title": "News",
+        "btn": "See more"
+    },
+    "festivals-page": {
+        "title": "Festivals",
+        "btn": "See more"
+    },
+    "dealers-page": {
+        "title": "Our Distributors"
     }
 }

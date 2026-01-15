@@ -1,6 +1,18 @@
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import { Product, Category, Media, Application } from "@/types";
+import {
+    Product,
+    Category,
+    Media,
+    Application,
+    OurProjects,
+    News,
+    Festival,
+    Dealer,
+    Video,
+    Banner,
+    Catalog,
+} from "@/types";
 
 // Инициализация только один раз
 if (!getApps().length) {
@@ -337,6 +349,277 @@ export async function getMediaServer(id: string): Promise<Media | null> {
         };
     } catch (error) {
         console.error("Error fetching media (server):", error);
+        return null;
+    }
+}
+
+// ==========================================
+// ПРОЕКТЫ (Our Projects)
+// ==========================================
+
+export async function getBannersServer(): Promise<Banner[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("banners")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                imageUrl: data.imageUrl,
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching projects (server):", error);
+        return [];
+    }
+}
+
+// ==========================================
+// Каталоги
+// ==========================================
+
+export async function getCatalogsServer(): Promise<Catalog[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("catalogs")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                name: data.name,
+                imageUrl: data.imageUrl,
+                fileUrl: data.fileUrl,
+                fileName: data.fileName,
+                fileType: data.fileType,
+                fileSize: data.fileSize,
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching catalogs (server):", error);
+        return [];
+    }
+}
+
+export async function getProjectsServer(): Promise<OurProjects[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("our-projects")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || { ru: "", en: "", uz: "" },
+                content: data.content || { ru: "", en: "", uz: "" },
+                previewImageUrl: data.previewImageUrl || "",
+                images: data.images || [],
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching projects (server):", error);
+        return [];
+    }
+}
+
+// ==========================================
+// НОВОСТИ (News)
+// ==========================================
+
+export async function getNewsServer(): Promise<News[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("news")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || { ru: "", en: "", uz: "" },
+                content: data.content || { ru: "", en: "", uz: "" },
+                previewImageUrl: data.previewImageUrl || "",
+                images: data.images || [],
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching news (server):", error);
+        return [];
+    }
+}
+
+// ==========================================
+// ФЕСТИВАЛИ (Festivals)
+// ==========================================
+
+export async function getFestivalsServer(): Promise<Festival[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("festivals")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || { ru: "", en: "", uz: "" },
+                content: data.content || { ru: "", en: "", uz: "" },
+                previewImageUrl: data.previewImageUrl || "",
+                images: data.images || [],
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching festivals (server):", error);
+        return [];
+    }
+}
+
+// ==========================================
+// ДИЛЕРЫ (Our Dealers)
+// ==========================================
+
+export async function getDealersServer(): Promise<Dealer[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("our-dealers")
+            .orderBy("createdAt", "asc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || { ru: "", en: "", uz: "" },
+                logoUrl: data.logoUrl || "",
+                addresses: data.addresses || [],
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching dealers (server):", error);
+        return [];
+    }
+}
+
+// ==========================================
+// ВИДЕО (Videos)
+// ==========================================
+
+export async function getVideosServer(): Promise<Video[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("videos")
+            .orderBy("createdAt", "desc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                title: data.title || { ru: "", en: "", uz: "" },
+                videoUrl: data.videoUrl || "",
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error fetching videos (server):", error);
+        return [];
+    }
+}
+
+/**
+ * Получить проект по ID
+ */
+export async function getProjectByIdServer(
+    id: string
+): Promise<OurProjects | null> {
+    try {
+        const doc = await adminDb.collection("our-projects").doc(id).get();
+        if (!doc.exists) return null;
+
+        const data = doc.data()!;
+        return {
+            id: doc.id,
+            title: data.title || { ru: "", en: "", uz: "" },
+            content: data.content || { ru: "", en: "", uz: "" },
+            previewImageUrl: data.previewImageUrl || "",
+            images: data.images || [],
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+        };
+    } catch (error) {
+        console.error(`Error fetching project ${id}:`, error);
+        return null;
+    }
+}
+
+/**
+ * Получить новость по ID
+ */
+export async function getNewsByIdServer(id: string): Promise<News | null> {
+    try {
+        const doc = await adminDb.collection("news").doc(id).get();
+        if (!doc.exists) return null;
+
+        const data = doc.data()!;
+        return {
+            id: doc.id,
+            title: data.title || { ru: "", en: "", uz: "" },
+            content: data.content || { ru: "", en: "", uz: "" },
+            previewImageUrl: data.previewImageUrl || "",
+            images: data.images || [],
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+        };
+    } catch (error) {
+        console.error(`Error fetching news ${id}:`, error);
+        return null;
+    }
+}
+
+/**
+ * Получить фестиваль по ID
+ */
+export async function getFestivalByIdServer(
+    id: string
+): Promise<Festival | null> {
+    try {
+        const doc = await adminDb.collection("festivals").doc(id).get();
+        if (!doc.exists) return null;
+
+        const data = doc.data()!;
+        return {
+            id: doc.id,
+            title: data.title || { ru: "", en: "", uz: "" },
+            content: data.content || { ru: "", en: "", uz: "" },
+            previewImageUrl: data.previewImageUrl || "",
+            images: data.images || [],
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+        };
+    } catch (error) {
+        console.error(`Error fetching festival ${id}:`, error);
         return null;
     }
 }

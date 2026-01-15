@@ -31,8 +31,11 @@ import {
     deleteCatalog,
 } from "@/lib/firebase/catalogs";
 import { uploadFile, deleteFileByURL } from "@/lib/firebase/storage";
-import { Catalog } from "@/types/index";
+import { Catalog, MultilingualText } from "@/types/index";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MultilingualInput } from "@/components/admin/MultilingualInput";
+
+const emptyMultilingual: MultilingualText = { ru: "", en: "", uz: "" };
 
 export default function CatalogsPage() {
     const [catalogs, setCatalogs] = useState<Catalog[]>([]);
@@ -50,23 +53,31 @@ export default function CatalogsPage() {
     const { toast } = useToast();
 
     const [formData, setFormData] = useState<{
-        name: string;
+        name: MultilingualText;
     }>({
-        name: "",
+        name: emptyMultilingual,
     });
 
     useEffect(() => {
         fetchCatalogs();
     }, []);
 
+    const getLocalizedName = (
+        name: MultilingualText | string,
+        lang: keyof MultilingualText = "ru"
+    ) => {
+        if (typeof name === "string") return name;
+        return name[lang] || name.ru || "";
+    };
+
     useEffect(() => {
-        setFormData({
-            name: "",
-        });
-        setSelectedFile(null);
-        setSelectedImage(null);
-        setImagePreview(null);
-    }, [isDialogOpen, catalogs]);
+        if (!isDialogOpen) {
+            setFormData({ name: emptyMultilingual });
+            setSelectedFile(null);
+            setSelectedImage(null);
+            setImagePreview(null);
+        }
+    }, [isDialogOpen]);
 
     const fetchCatalogs = async () => {
         try {
@@ -95,7 +106,7 @@ export default function CatalogsPage() {
         setSelectedImage(null);
         setImagePreview(null);
         setFormData({
-            name: "",
+            name: emptyMultilingual,
         });
     };
 
@@ -121,10 +132,11 @@ export default function CatalogsPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!formData.name.trim()) {
+        // Валидация мультиязычного имени
+        if (!formData.name.ru || !formData.name.en || !formData.name.uz) {
             toast({
                 title: "Ошибка",
-                description: "Введите название каталога",
+                description: "Заполните название на всех языках",
                 variant: "destructive",
             });
             return;
@@ -141,51 +153,33 @@ export default function CatalogsPage() {
 
         try {
             setSaving(true);
-
             let imageUrl = "";
 
-            // Загружаем изображение обложки (если есть)
             if (selectedImage) {
-                const imageTimestamp = Date.now();
-                const imageRandomStr = Math.random().toString(36).substring(7);
-                const imageExtension = selectedImage.name.split(".").pop();
-                const imageFileName = `catalogs/covers/${imageTimestamp}_${imageRandomStr}.${imageExtension}`;
-
-                imageUrl = await uploadFile(selectedImage, imageFileName);
+                const imagePath = `catalogs/covers/${Date.now()}_${
+                    selectedImage.name
+                }`;
+                imageUrl = await uploadFile(selectedImage, imagePath);
             }
 
-            // Загружаем файл каталога
-            const timestamp = Date.now();
-            const randomStr = Math.random().toString(36).substring(7);
-            const extension = selectedFile.name.split(".").pop();
-            const fileName = `catalogs/${timestamp}_${randomStr}.${extension}`;
-
-            const fileUrl = await uploadFile(selectedFile, fileName);
+            const filePath = `catalogs/${Date.now()}_${selectedFile.name}`;
+            const fileUrl = await uploadFile(selectedFile, filePath);
 
             const catalogData = {
-                name: formData.name,
+                name: formData.name, // Теперь это объект {ru, en, uz}
                 imageUrl,
                 fileUrl,
-                fileName,
+                fileName: selectedFile.name,
                 fileType: selectedFile.type,
                 fileSize: selectedFile.size,
             };
 
             await addCatalog(catalogData);
-            toast({
-                title: "Успешно",
-                description: "Каталог успешно создан",
-            });
-
+            toast({ title: "Успешно", description: "Каталог создан" });
             handleCloseDialog();
             fetchCatalogs();
         } catch (error) {
-            console.error("Error saving catalog:", error);
-            toast({
-                title: "Ошибка",
-                description: "Не удалось создать каталог",
-                variant: "destructive",
-            });
+            toast({ title: "Ошибка", variant: "destructive" });
         } finally {
             setSaving(false);
         }
@@ -311,40 +305,34 @@ export default function CatalogsPage() {
                             className="relative border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                         >
                             {/* Изображение обложки */}
-                            {catalog.imageUrl ? (
-                                <div className="relative w-full h-48 bg-muted">
+                            <div className="relative w-full h-48 bg-muted">
+                                {catalog.imageUrl ? (
                                     <Image
                                         src={catalog.imageUrl}
-                                        alt={catalog.name}
+                                        alt={getLocalizedName(catalog.name)}
                                         fill
                                         className="object-cover"
                                     />
-                                </div>
-                            ) : (
-                                <div className="w-full h-48 bg-muted flex items-center justify-center">
-                                    <FileText className="h-16 w-16 text-muted-foreground" />
-                                </div>
-                            )}
-
-                            {/* Контент карточки */}
-                            <div className="p-4">
-                                <div className="flex items-start gap-3 mb-3">
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="font-semibold text-lg line-clamp-2">
-                                            {catalog.name}
-                                        </h3>
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center">
+                                        <FileText className="h-16 w-16 text-muted-foreground" />
                                     </div>
-                                </div>
+                                )}
+                            </div>
+
+                            <div className="p-4">
+                                <h3 className="font-semibold text-lg line-clamp-1">
+                                    {getLocalizedName(catalog.name, "ru")}
+                                </h3>
+                                <p className="text-xs text-muted-foreground mb-3 truncate">
+                                    EN: {catalog.name.en} | UZ:{" "}
+                                    {catalog.name.uz}
+                                </p>
 
                                 <div className="space-y-1 text-sm text-muted-foreground mb-4">
                                     <p>
                                         Размер:{" "}
                                         {formatFileSize(catalog.fileSize)}
-                                    </p>
-                                    <p className="capitalize">
-                                        Формат:{" "}
-                                        {catalog.fileType.split("/")[1] ||
-                                            "unknown"}
                                     </p>
                                     <p>
                                         Создан: {formatDate(catalog.createdAt)}
@@ -362,9 +350,8 @@ export default function CatalogsPage() {
                                             href={catalog.fileUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            download
                                         >
-                                            <Download className="h-4 w-4 mr-2" />
+                                            <Download className="h-4 w-4 mr-2" />{" "}
                                             Скачать
                                         </a>
                                     </Button>
@@ -374,7 +361,7 @@ export default function CatalogsPage() {
                                         onClick={() =>
                                             handleDeleteClick(catalog)
                                         }
-                                        className="text-destructive hover:text-destructive"
+                                        className="text-destructive"
                                     >
                                         <Trash2 className="h-4 w-4" />
                                     </Button>
@@ -386,87 +373,58 @@ export default function CatalogsPage() {
             )}
 
             {/* Dialog создания */}
+            {/* Dialog создания */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogContent className="max-w-2xl">
                     <DialogHeader>
                         <DialogTitle>Добавить каталог</DialogTitle>
-                        <DialogDescription>
-                            Загрузите файл каталога и укажите его название
-                        </DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        {/* Изображение обложки */}
+                        {/* Мультиязычное название */}
+                        <MultilingualInput
+                            label="Название каталога"
+                            value={formData.name}
+                            onChange={(name) =>
+                                setFormData({ ...formData, name })
+                            }
+                            required
+                        />
+
+                        {/* Обложка */}
                         <div className="space-y-2">
-                            <Label htmlFor="catalog-image">
-                                Изображение обложки (необязательно)
-                            </Label>
+                            <Label>Обложка (необязательно)</Label>
                             <Input
-                                id="catalog-image"
                                 type="file"
                                 accept="image/*"
                                 onChange={handleImageChange}
                                 disabled={saving}
                             />
                             {imagePreview && (
-                                <div className="relative w-full h-48 mt-2 rounded-lg overflow-hidden border">
+                                <div className="relative w-full h-32 rounded border overflow-hidden">
                                     <Image
                                         src={imagePreview}
                                         alt="Preview"
                                         fill
-                                        className="object-cover"
+                                        className="object-contain"
                                     />
                                 </div>
                             )}
-                            <p className="text-xs text-muted-foreground">
-                                Рекомендуемый размер: 800x600px. Максимум: 5MB.
-                            </p>
-                        </div>
-
-                        {/* Название */}
-                        <div className="space-y-2">
-                            <Label htmlFor="catalog-name">
-                                Название каталога
-                            </Label>
-                            <Input
-                                id="catalog-name"
-                                placeholder="Например: Каталог продукции 2024"
-                                value={formData.name}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        name: e.target.value,
-                                    })
-                                }
-                                disabled={saving}
-                            />
                         </div>
 
                         {/* Файл */}
                         <div className="space-y-2">
-                            <Label htmlFor="catalog-file">Файл каталога</Label>
+                            <Label>Файл каталога (PDF)</Label>
                             <Input
-                                id="catalog-file"
                                 type="file"
-                                accept=".pdf,.doc,.docx,.xls,.xlsx"
+                                accept=".pdf"
                                 onChange={handleFileChange}
                                 disabled={saving}
                             />
                             {selectedFile && (
-                                <div className="flex items-center gap-2 p-3 bg-muted rounded-lg">
-                                    <FileText className="h-5 w-5 text-muted-foreground" />
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium truncate">
-                                            {selectedFile.name}
-                                        </p>
-                                        <p className="text-xs text-muted-foreground">
-                                            {formatFileSize(selectedFile.size)}
-                                        </p>
-                                    </div>
-                                </div>
+                                <p className="text-sm text-blue-600 font-medium">
+                                    {selectedFile.name}
+                                </p>
                             )}
-                            <p className="text-xs text-muted-foreground">
-                                Поддерживаемый формат: PDF. Максимум: 20MB
-                            </p>
                         </div>
 
                         <DialogFooter>
@@ -498,8 +456,8 @@ export default function CatalogsPage() {
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             Вы уверены, что хотите удалить каталог &quot;
-                            {catalogToDelete?.name}&quot;? Это действие нельзя
-                            отменить.
+                            {catalogToDelete?.name.ru}&quot;? Это действие
+                            нельзя отменить.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
