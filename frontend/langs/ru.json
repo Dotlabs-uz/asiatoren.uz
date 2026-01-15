@@ -26,6 +26,9 @@
             "products": "Товары",
             "catalogs": "Каталоги",
             "about": "О нас",
+            "projects": "Проекты",
+            "news": "Новости",
+            "festivals": "Праздники",
             "contacts": "Контакты"
         },
         "btn": "Связаться"
@@ -36,6 +39,9 @@
             "products": "Товары",
             "catalogs": "Каталоги",
             "about": "О нас",
+            "projects": "Проекты",
+            "news": "Новости",
+            "festivals": "Праздники",
             "contacts": "Контакты"
         },
         "socials": "Социальные сети"
@@ -290,5 +296,17 @@
     },
     "catalogs-page": {
         "title": "Каталоги"
+    },
+    "projects-page": {
+        "title": "Наши проекты",
+        "btn": "Подробнее"
+    },
+    "news-page": {
+        "title": "Новости",
+        "btn": "Подробнее"
+    },
+    "festivals-page": {
+        "title": "Праздники",
+        "btn": "Подробнее"
     }
 }

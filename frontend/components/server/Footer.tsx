@@ -17,6 +17,9 @@ export default async function Footer() {
         { label: t("nav.products"), href: "/products" },
         { label: t("nav.catalogs"), href: "/catalogs" },
         { label: t("nav.about"), href: "/about-us" },
+        { label: t("nav.projects"), href: "/projects" },
+        { label: t("nav.news"), href: "/news" },
+        { label: t("nav.festivals"), href: "/festivals" },
         { label: t("nav.contacts"), href: "/contacts" },
     ];
 

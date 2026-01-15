@@ -107,9 +107,9 @@ export interface Catalog {
 
 export interface OurProjects {
     id: string;
-    title: string;
+    title: MultilingualText;
     previewImageUrl: string;
-    content: string;
+    content: MultilingualText;
     images: string[];
     createdAt: Date;
     updatedAt: Date;

@@ -26,6 +26,9 @@
             "products": "Mahsulotlar",
             "catalogs": "Kataloglar",
             "about": "Biz haqimizda",
+            "projects": "Loyihalar",
+            "news": "Yangiliklar",
+            "festivals": "Bayramlar",
             "contacts": "Kontaktlar"
         },
         "btn": "Bog'lanish"
@@ -290,5 +293,17 @@
     },
     "catalogs-page": {
         "title": "Kataloglar"
+    },
+    "projects-page": {
+        "title": "Loyihalarimiz",
+        "btn": "Batafsil"
+    },
+    "news-page": {
+        "title": "Yangiliklar",
+        "btn": "Batafsil"
+    },
+    "festivals-page": {
+        "title": "Bayramlar",
+        "btn": "Batafsil"
     }
 }

@@ -26,6 +26,9 @@
             "products": "Products",
             "catalogs": "Catalogues",
             "about": "About Us",
+            "projects": "Projects",
+            "news": "News",
+            "festivals": "Festivals",
             "contacts": "Contacts"
         },
         "btn": "Get in touch"
@@ -36,6 +39,9 @@
             "products": "Products",
             "catalogs": "Catalogues",
             "about": "About Us",
+            "projects": "Projects",
+            "news": "news",
+            "festivals": "Festivals",
             "contacts": "Contacts"
         },
         "socials": "Social Media"
@@ -290,5 +296,17 @@
     },
     "catalogs-page": {
         "title": "Catalogues"
+    },
+    "projects-page": {
+        "title": "Our Projects",
+        "btn": "See more"
+    },
+    "news-page": {
+        "title": "News",
+        "btn": "See more"
+    },
+    "festivals-page": {
+        "title": "Festivals",
+        "btn": "See more"
     }
 }

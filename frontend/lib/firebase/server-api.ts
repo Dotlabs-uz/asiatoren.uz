@@ -547,3 +547,79 @@ export async function getVideosServer(): Promise<Video[]> {
         return [];
     }
 }
+
+/**
+ * Получить проект по ID
+ */
+export async function getProjectByIdServer(
+    id: string
+): Promise<OurProjects | null> {
+    try {
+        const doc = await adminDb.collection("our-projects").doc(id).get();
+        if (!doc.exists) return null;
+
+        const data = doc.data()!;
+        return {
+            id: doc.id,
+            title: data.title || { ru: "", en: "", uz: "" },
+            content: data.content || { ru: "", en: "", uz: "" },
+            previewImageUrl: data.previewImageUrl || "",
+            images: data.images || [],
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+        };
+    } catch (error) {
+        console.error(`Error fetching project ${id}:`, error);
+        return null;
+    }
+}
+
+/**
+ * Получить новость по ID
+ */
+export async function getNewsByIdServer(id: string): Promise<News | null> {
+    try {
+        const doc = await adminDb.collection("news").doc(id).get();
+        if (!doc.exists) return null;
+
+        const data = doc.data()!;
+        return {
+            id: doc.id,
+            title: data.title || { ru: "", en: "", uz: "" },
+            content: data.content || { ru: "", en: "", uz: "" },
+            previewImageUrl: data.previewImageUrl || "",
+            images: data.images || [],
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+        };
+    } catch (error) {
+        console.error(`Error fetching news ${id}:`, error);
+        return null;
+    }
+}
+
+/**
+ * Получить фестиваль по ID
+ */
+export async function getFestivalByIdServer(
+    id: string
+): Promise<Festival | null> {
+    try {
+        const doc = await adminDb.collection("festivals").doc(id).get();
+        if (!doc.exists) return null;
+
+        const data = doc.data()!;
+        return {
+            id: doc.id,
+            title: data.title || { ru: "", en: "", uz: "" },
+            content: data.content || { ru: "", en: "", uz: "" },
+            previewImageUrl: data.previewImageUrl || "",
+            images: data.images || [],
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+        };
+    } catch (error) {
+        console.error(`Error fetching festival ${id}:`, error);
+        return null;
+    }
+}
