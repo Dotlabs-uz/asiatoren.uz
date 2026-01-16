@@ -83,7 +83,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center space-x-3">
+                    <nav className="hidden lg:flex items-center space-x-5">
                         {text.pages.map((item) => {
                             const active = isActive(item.href);
                             return (
