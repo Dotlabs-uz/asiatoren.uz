@@ -28,7 +28,7 @@
             "about": "О нас",
             "projects": "Проекты",
             "news": "Новости",
-            "festivals": "Праздники",
+            "festivals": "Фестивали",
             "dealers": "Дилеры",
             "contacts": "Контакты"
         },
@@ -42,7 +42,7 @@
             "about": "О нас",
             "projects": "Проекты",
             "news": "Новости",
-            "festivals": "Праздники",
+            "festivals": "Фестивали",
             "dealers": "Дилеры",
             "contacts": "Контакты"
         },
@@ -315,7 +315,7 @@
         "btn": "Подробнее"
     },
     "festivals-page": {
-        "title": "Праздники",
+        "title": "Фестивали",
         "btn": "Подробнее"
     },
     "dealers-page": {
