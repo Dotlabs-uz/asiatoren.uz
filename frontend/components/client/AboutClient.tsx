@@ -202,24 +202,62 @@ export const AboutClient = ({ translations }: AboutClientProps) => {
                         lineColor="#de2b1c"
                         dots={[
                             {
-                                start: { lat: 41.3775, lng: 64.5853 }, // Узбекистан (Бухара)
-                                end: { lat: 17.0, lng: 42.0 }, // Саудовская Аравия (юго-западная точка, граница с Йеменом)
+                                start: {
+                                    lat: 64.2008,
+                                    lng: -149.4937,
+                                }, // Alaska (Fairbanks)
+                                end: {
+                                    lat: 34.0522,
+                                    lng: -118.2437,
+                                }, // Los Angeles
                             },
                             {
-                                start: { lat: 41.3775, lng: 64.5853 }, // Узбекистан
-                                end: { lat: 77.5, lng: 104.0 }, // Россия (мыс Челюскин - самая северная точка)
+                                start: { lat: 64.2008, lng: -149.4937 }, // Alaska (Fairbanks)
+                                end: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
                             },
                             {
-                                start: { lat: 41.3775, lng: 64.5853 }, // Узбекистан
-                                end: { lat: 25.0, lng: 60.5 }, // Иран (юго-восточная точка, граница с Пакистаном)
+                                start: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+                                end: { lat: 38.7223, lng: -9.1393 }, // Lisbon
                             },
                             {
-                                start: { lat: 41.3775, lng: 64.5853 }, // Узбекистан
-                                end: { lat: 47.2701, lng: 7.4 }, // Германия (юго-западная точка, граница со Швейцарией)
+                                start: { lat: 51.5074, lng: -0.1278 }, // London
+                                end: { lat: 28.6139, lng: 77.209 }, // New Delhi
                             },
                             {
-                                start: { lat: 41.3775, lng: 64.5853 }, // Узбекистан
-                                end: { lat: 36.0, lng: 26.0 }, // Турция (юго-западная точка, остров в Эгейском море)
+                                start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                                end: { lat: 43.1332, lng: 131.9113 }, // Vladivostok
+                            },
+                            {
+                                start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                                end: { lat: -1.2921, lng: 36.8219 }, // Nairobi
+                            },
+                            {
+                                start: { lat: 24.7136, lng: 46.6753 }, // Riyadh (Saudi Arabia)
+                                end: { lat: 28.6139, lng: 77.209 }, // New Delhi
+                            },
+                            {
+                                start: { lat: 41.2995, lng: 69.2401 }, // Tashkent (Uzbekistan)
+                                end: { lat: 52.52, lng: 13.405 }, // Berlin (Germany)
+                            },
+                            {
+                                start: { lat: 41.2995, lng: 69.2401 }, // Tashkent (Uzbekistan)
+                                end: { lat: 39.9334, lng: 32.8597 }, // Ankara (Turkey)
+                            },
+                            {
+                                start: { lat: 41.2995, lng: 69.2401 }, // Tashkent (Uzbekistan)
+                                end: { lat: 52.52, lng: 13.405 }, // Berlin (Germany)
+                            },
+                            {
+                                start: { lat: 41.2995, lng: 69.2401 }, // Tashkent (Uzbekistan)
+                                end: { lat: 55.7558, lng: 37.6173 }, // Moscow (Russia)
+                            },
+                            {
+                                start: { lat: 41.2995, lng: 69.2401 }, // Tashkent (Uzbekistan)
+                                end: { lat: 30.6892, lng: 55.389 }, // Tehran (Iran)
+                            },
+                            {
+                                start: { lat: 41.2995, lng: 69.2401 }, // Tashkent (Uzbekistan)
+                                end: { lat: 28.6139, lng: 77.209 }, // New Delhi
                             },
                         ]}
                     />
