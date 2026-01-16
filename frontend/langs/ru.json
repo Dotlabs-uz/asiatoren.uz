@@ -27,8 +27,8 @@
             "catalogs": "Каталоги",
             "about": "О нас",
             "projects": "Проекты",
-            "news": "Новости",
-            "festivals": "Фестивали",
+            "news": "Объявления",
+            "festivals": "Выставки",
             "dealers": "Дилеры",
             "contacts": "Контакты"
         },
@@ -41,8 +41,8 @@
             "catalogs": "Каталоги",
             "about": "О нас",
             "projects": "Проекты",
-            "news": "Новости",
-            "festivals": "Фестивали",
+            "news": "Объявления",
+            "festivals": "Выставки",
             "dealers": "Дилеры",
             "contacts": "Контакты"
         },
@@ -311,11 +311,11 @@
         "btn": "Подробнее"
     },
     "news-page": {
-        "title": "Новости",
+        "title": "Объявления",
         "btn": "Подробнее"
     },
     "festivals-page": {
-        "title": "Фестивали",
+        "title": "Выставки",
         "btn": "Подробнее"
     },
     "dealers-page": {
