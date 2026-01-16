@@ -66,12 +66,12 @@ const navigation = [
         icon: FolderTree,
     },
     {
-        name: "Новости",
+        name: "Объявления",
         href: "/news",
         icon: NewspaperIcon,
     },
     {
-        name: "Праздники",
+        name: "Выставки",
         href: "/festivals",
         icon: SparkleIcon,
     },
