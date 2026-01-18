@@ -11,3 +11,14 @@ export function getYoutubeId(url: string) {
     const match = url.match(regExp);
     return match && match[2].length === 11 ? match[2] : null;
 }
+
+
+export const formatPrice = (price: number) => {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0,
+    });
+
+    return formatter.format(price);
+}

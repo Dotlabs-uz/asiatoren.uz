@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ChevronRight, ArrowRight, Shield, Truck, Home } from "lucide-react";
 import { Language, Product } from "@/types";
 import { ProductImageCarousel } from "./ProductImageCarousel"; // Изменено здесь
+import { formatPrice } from "@/lib/utils";
 
 interface ProductPageClientProps {
     product: Product;
@@ -213,10 +214,10 @@ export const ProductPageClient = ({
                                 {translations.priceLabel}
                             </p>
                             <p className="text-3xl md:text-4xl font-bold text-cRed">
-                                {product.price}{" "}
-                                <span className="text-2xl">
+                                {formatPrice(product.price)}
+                                {/* <span className="text-2xl">
                                     {translations.currency}
-                                </span>
+                                </span> */}
                             </p>
                         </div>
 
