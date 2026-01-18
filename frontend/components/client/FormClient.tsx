@@ -138,8 +138,6 @@ export const FormClient = ({ translations }: FormClientProps) => {
     }, []);
 
     const onSubmit = async (data: FormValues) => {
-        console.log("click");
-
         try {
             setLoading(true);
             await createApplication(data);

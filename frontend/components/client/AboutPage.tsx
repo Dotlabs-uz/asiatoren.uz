@@ -206,7 +206,7 @@ export const AboutPageClient = ({
     return (
         <div ref={containerRef} className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="relative bg-[url('/images/about.webp')] bg-cover bg-center bg-no-repeat w-full h-[70vh] flex items-center justify-center">
+            <div className="relative bg-[url('/images/about-bg.webp')] bg-cover bg-center bg-no-repeat w-full h-[70vh] flex items-center justify-center">
                 <div className="absolute inset-0 bg-black/30" />
                 <div className="flex flex-col justify-center items-center gap-4">
                     <h1 className="hero-title relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">

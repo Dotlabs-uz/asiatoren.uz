@@ -118,7 +118,7 @@ export const ProductsPageClient = ({
                     } else {
                         newProducts = await getProductsByCategory(
                             selectedCategory,
-                            PRODUCTS_PER_PAGE
+                            PRODUCTS_PER_PAGE,
                         );
                     }
                     setProducts(newProducts);
@@ -192,7 +192,7 @@ export const ProductsPageClient = ({
                 duration: 0.6,
                 stagger: 0.08,
                 ease: "power3.out",
-            }
+            },
         );
     };
 
@@ -204,7 +204,7 @@ export const ProductsPageClient = ({
     return (
         <div ref={containerRef} className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="relative bg-[url('/images/farm.webp')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex items-center justify-center">
+            <div className="relative bg-[url('/images/products-bg.webp')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex items-center justify-center">
                 <div className="absolute inset-0 bg-black/30" />
                 <h2 className="hero-title relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
                     {translations.title}
@@ -276,7 +276,7 @@ export const ProductsPageClient = ({
                             {currentProducts.map((product) => (
                                 <div
                                     key={product.id}
-                                    className="product-card group relative bg-white rounded-3xl overflow-hidden hover:shadow-lg transition-all duration-500 border border-gray-200"
+                                    className="product-card group relative bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-500 border border-gray-200"
                                 >
                                     <div className="relative h-64 flex items-center justify-center overflow-hidden">
                                         {product.images?.[0] ? (
@@ -303,7 +303,7 @@ export const ProductsPageClient = ({
                                         </p>
 
                                         <Link href={"/products/" + product.id}>
-                                            <Button className="w-full bg-cRed hover:bg-cRed/90 text-white rounded-xl py-6 font-semibold group/btn transition-all">
+                                            <Button className="w-full bg-cRed hover:bg-cRed/90 text-white rounded-xl py-6 font-semibold group/btn transition-all cursor-pointer">
                                                 <span>
                                                     {translations.viewButton}
                                                 </span>

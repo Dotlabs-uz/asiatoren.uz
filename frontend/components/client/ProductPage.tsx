@@ -4,7 +4,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { ChevronRight, ArrowRight, Shield, Truck, Home } from "lucide-react";
 import { Language, Product } from "@/types";
 import { ProductImageCarousel } from "./ProductImageCarousel"; // Изменено здесь
@@ -58,7 +57,7 @@ export const ProductPageClient = ({
                     duration: 0.8,
                     ease: "power3.out",
                 },
-                "-=0.3"
+                "-=0.3",
             );
 
             tl.from(
@@ -69,7 +68,7 @@ export const ProductPageClient = ({
                     duration: 0.8,
                     ease: "power3.out",
                 },
-                "-=0.5"
+                "-=0.5",
             );
 
             tl.from(
@@ -80,7 +79,7 @@ export const ProductPageClient = ({
                     duration: 0.6,
                     ease: "power3.out",
                 },
-                "-=0.4"
+                "-=0.4",
             );
 
             tl.from(
@@ -91,7 +90,7 @@ export const ProductPageClient = ({
                     duration: 0.6,
                     ease: "power3.out",
                 },
-                "-=0.4"
+                "-=0.4",
             );
 
             tl.from(
@@ -103,7 +102,7 @@ export const ProductPageClient = ({
                     stagger: 0.1,
                     ease: "power3.out",
                 },
-                "-=0.3"
+                "-=0.3",
             );
 
             tl.from(
@@ -115,7 +114,7 @@ export const ProductPageClient = ({
                     duration: 0.6,
                     ease: "back.out(1.7)",
                 },
-                "-=0.3"
+                "-=0.3",
             );
 
             tl.from(
@@ -127,7 +126,7 @@ export const ProductPageClient = ({
                     stagger: 0.15,
                     ease: "power3.out",
                 },
-                "-=0.2"
+                "-=0.2",
             );
 
             tl.from(
@@ -139,7 +138,7 @@ export const ProductPageClient = ({
                     stagger: 0.2,
                     ease: "power3.out",
                 },
-                "-=0.3"
+                "-=0.3",
             );
         });
 
@@ -214,7 +213,7 @@ export const ProductPageClient = ({
                                 {translations.priceLabel}
                             </p>
                             <p className="text-3xl md:text-4xl font-bold text-cRed">
-                                {product.price.toLocaleString()}{" "}
+                                {product.price}{" "}
                                 <span className="text-2xl">
                                     {translations.currency}
                                 </span>

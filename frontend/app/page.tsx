@@ -86,7 +86,6 @@ export default async function Home() {
     const locale = await getLocale();
     const t = await getTranslations({ locale, namespace: "home" });
     const banners = await getBannersServer();
-    console.log(banners);
 
     const baseUrl = "https://www.asiataren.uz";
 
