@@ -4,7 +4,6 @@ import AboutSection from "@/components/server/About";
 import FAQSection from "@/components/server/Faq";
 import Form from "@/components/server/Form";
 import HeroSection from "@/components/server/Hero";
-import ProductsSection from "@/components/server/Products";
 import ScrollMain from "@/components/server/ScrollMain";
 import StagesSection from "@/components/server/Stages";
 import { getBannersServer } from "@/lib/firebase/server-api";
@@ -189,7 +188,7 @@ export default async function Home() {
                 <StagesSection />
 
                 {/* Products */}
-                <ProductsSection />
+                {/* <ProductsSection /> */}
 
                 {/* About Us */}
                 <AboutSection />
