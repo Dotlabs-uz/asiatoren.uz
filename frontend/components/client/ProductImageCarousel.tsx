@@ -61,7 +61,7 @@ export const ProductImageCarousel = ({
             </Carousel>
 
             {/* Thumbnails */}
-            {images.length > 1 && (
+            {/* {images.length > 1 && (
                 <div className="grid grid-cols-4 gap-3">
                     {images.map((image, index) => (
                         <button
@@ -83,7 +83,7 @@ export const ProductImageCarousel = ({
                         </button>
                     ))}
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
