@@ -43,7 +43,7 @@ export const ProductImageCarousel = ({
                 <CarouselContent>
                     {images.map((image, index) => (
                         <CarouselItem key={index}>
-                            <div className="bg-gray-100 rounded-3xl aspect-square flex items-center justify-center p-8">
+                            <div className="rounded-3xl aspect-square flex items-center justify-center p-8">
                                 <Image
                                     src={image}
                                     alt={`${title} ${index + 1}`}
@@ -56,8 +56,8 @@ export const ProductImageCarousel = ({
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-4" />
-                <CarouselNext className="right-4" />
+                <CarouselPrevious className="-left-2 border-cGray" />
+                <CarouselNext className="-right-2 border-cGray" />
             </Carousel>
 
             {/* Thumbnails */}

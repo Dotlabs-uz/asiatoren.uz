@@ -34,7 +34,6 @@ export default async function ProductPage({
         selectionText: t("benefits.selection.text"),
         descriptionTitle: t("descriptionTitle"),
         characteristicsTitle: t("characteristicsTitle"),
-        featuresTitle: t("featuresTitle"),
         notFound: t("notFound"),
         priceLabel: t("priceLabel"),
         currency: t("currency"),
