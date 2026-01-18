@@ -120,7 +120,7 @@ export const ProductsClient = ({
                                 className="product-card-wrapper self-end relative"
                             >
                                 <Link href={`/products/${product.id}`}>
-                                    <div className="group h-40 md:h-48 bg-gray-200 rounded-2xl overflow-hidden transition-all duration-700 ease-out hover:bg-cRed hover:h-64 md:hover:h-80 hover:-mt-8 md:hover:-mt-16 cursor-pointer shadow-lg hover:shadow-2xl">
+                                    <div className="group h-40 md:h-48 border border-cRed rounded-2xl overflow-hidden transition-all duration-700 ease-out hover:bg-cRed hover:h-64 md:hover:h-80 hover:-mt-8 md:hover:-mt-16 cursor-pointer shadow-lg hover:shadow-2xl">
                                         {/* Image Container */}
                                         <div className="absolute -top-12 md:-top-20 left-1/2 -translate-x-1/2 w-full flex items-center justify-center transition-all duration-700 group-hover:scale-105 group-hover:-top-8">
                                             <Image
