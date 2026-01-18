@@ -64,7 +64,7 @@ export const ProductsClient = ({
                     duration: 0.8,
                     ease: "power3.out",
                 },
-                "-=0.6"
+                "-=0.6",
             );
 
             tl.from(
@@ -76,7 +76,7 @@ export const ProductsClient = ({
                     stagger: 0.08,
                     ease: "power3.out",
                 },
-                "-=0.3"
+                "-=0.3",
             );
         }, sectionRef);
 
@@ -128,7 +128,7 @@ export const ProductsClient = ({
                                                 alt={product.title[locale]}
                                                 width={1000}
                                                 height={1000}
-                                                className="size-52 object-contain"
+                                                className="size-52 object-contain rounded-2xl"
                                                 priority
                                             />
                                         </div>
@@ -137,7 +137,9 @@ export const ProductsClient = ({
                                         <div className="absolute bottom-0 left-0 right-0 p-2 md:p-4">
                                             <div className="flex items-center justify-between gap-4">
                                                 <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-cGray transition-colors duration-500 group-hover:text-white line-clamp-2">
-                                                    {product.title[locale]}
+                                                    {product.title[
+                                                        locale
+                                                    ].slice(0, 10) + "..."}
                                                 </h3>
 
                                                 {/* Arrow Button */}
