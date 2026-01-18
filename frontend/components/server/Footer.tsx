@@ -6,6 +6,7 @@ import {
     MessageCircle,
     SquarePlay,
     PhoneOutgoing,
+    Youtube,
 } from "lucide-react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
@@ -45,6 +46,11 @@ export default async function Footer() {
             href: "https://chat.whatsapp.com/BZrNTimdKr09LySnKD6tYZ",
             icon: <PhoneOutgoing className="w-5 h-5" />,
         },
+        {
+            label: "Youtube",
+            href: "https://youtube.com/@asia-taren-poultry?si=kz-hNB7jIoahmbAE",
+            icon: <Youtube className="w-5 h-5"/>
+        }
     ];
 
     const contact = {

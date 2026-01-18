@@ -11,6 +11,7 @@ import {
     Send,
     SquarePlay,
     PhoneOutgoing,
+    Youtube,
 } from "lucide-react";
 import { ContactsPageForm } from "./ContactsPageForm";
 
@@ -298,6 +299,15 @@ export default function ContactsPageClient({
                                     aria-label="WhatsApp"
                                 >
                                     <PhoneOutgoing className="w-6 h-6 text-cRed" />
+                                </a>
+                                <a
+                                    href="https://youtube.com/@asia-taren-poultry?si=kz-hNB7jIoahmbAE"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                                    aria-label="Youtube"
+                                >
+                                    <Youtube className="w-6 h-6 text-cRed" />
                                 </a>
                             </div>
                         </div>
