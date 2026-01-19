@@ -6,6 +6,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/server/Header";
 import Footer from "@/components/server/Footer";
+import FloatingButtons from "@/components/client/FloatingButtons";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -99,6 +100,7 @@ export default async function RootLayout({
                 <NextIntlClientProvider messages={messages}>
                     <Header />
                     {children}
+                    <FloatingButtons />
                     <Toaster />
                     <Footer />
                 </NextIntlClientProvider>
