@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play } from "lucide-react";
 import AboutSection from "../server/About";
 import { AboutClient } from "./AboutClient";
-import { Language, Media, Video } from "@/types";
+import { Language, Media, Video, MediaSection } from "@/types";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
 import VideoCarousel from "./VideosCarousel";
@@ -25,6 +25,7 @@ interface AboutPageClientProps {
     certificates: Media[];
     partners: Media[];
     videos: Video[];
+    heroMedia: MediaSection | null; // Добавили медиа для hero
     locale: Language;
 }
 
@@ -35,6 +36,7 @@ export const AboutPageClient = ({
     certificates,
     partners,
     videos,
+    heroMedia,
     locale,
 }: AboutPageClientProps) => {
     const [showVideo, setShowVideo] = useState(false);
@@ -205,14 +207,53 @@ export const AboutPageClient = ({
 
     return (
         <div ref={containerRef} className="min-h-screen bg-white">
-            {/* Hero Section */}
-            <div className="relative bg-[url('/images/about-bg.webp')] bg-cover bg-center bg-no-repeat w-full h-[70vh] flex items-center justify-center">
+            {/* Hero Section with Dynamic Media */}
+            <div className="relative w-full h-[70vh] flex items-center justify-center overflow-hidden">
+                {/* Динамическое медиа (изображение или видео) */}
+                {heroMedia ? (
+                    <>
+                        {heroMedia.mediaType === "image" ? (
+                            <Image
+                                src={heroMedia.mediaUrl}
+                                alt={
+                                    heroMedia.description || "About background"
+                                }
+                                fill
+                                className="object-cover"
+                                priority
+                                quality={90}
+                            />
+                        ) : (
+                            <video
+                                src={heroMedia.mediaUrl}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                poster={heroMedia.thumbnailUrl}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            >
+                                <source
+                                    src={heroMedia.mediaUrl}
+                                    type="video/mp4"
+                                />
+                            </video>
+                        )}
+                    </>
+                ) : (
+                    // Фолбэк: дефолтное изображение
+                    <div className="absolute inset-0 bg-[url('/images/about-bg.webp')] bg-cover bg-center bg-no-repeat" />
+                )}
+
+                {/* Темный оверлей */}
                 <div className="absolute inset-0 bg-black/30" />
-                <div className="flex flex-col justify-center items-center gap-4">
-                    <h1 className="hero-title relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
+
+                {/* Контент */}
+                <div className="flex flex-col justify-center items-center gap-4 relative z-10">
+                    <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
                         {translations.hero.title}
                     </h1>
-                    <p className="hero-subtitle relative z-10 text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-medium text-center px-4 max-w-4xl">
+                    <p className="hero-subtitle text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-medium text-center px-4 max-w-4xl">
                         {translations.hero.subtitle}
                     </p>
                 </div>
@@ -390,7 +431,7 @@ export const AboutPageClient = ({
                             {certificates.map((item, i) => (
                                 <div
                                     key={i}
-                                    className="certificates-card w-[200px] aspect-3/4 bg-gray-100 rounded-2xl overflow-hidden shrink-0"
+                                    className="certificates-card relative w-[200px] aspect-3/4 bg-gray-100 rounded-2xl overflow-hidden shrink-0"
                                 >
                                     <Image
                                         src={item.imageUrl}
@@ -442,13 +483,14 @@ export const AboutPageClient = ({
                             {partners.map((partner, i) => (
                                 <div
                                     key={i}
-                                    className="partners-card w-[200px] aspect-3/2 bg-gray-100 rounded-2xl flex items-center justify-center p-6 shrink-0"
+                                    className="partners-card relative w-[200px] aspect-3/2 bg-gray-100 rounded-2xl flex items-center justify-center p-6 shrink-0"
                                 >
                                     <Image
                                         src={partner.imageUrl}
                                         alt="partner title"
                                         loading="lazy"
                                         fill
+                                        className="object-contain"
                                     />
                                 </div>
                             ))}

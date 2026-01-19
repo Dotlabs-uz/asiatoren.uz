@@ -12,7 +12,9 @@ import {
     Video,
     Banner,
     Catalog,
+    MediaSection,
 } from "@/types";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 
 // Инициализация только один раз
 if (!getApps().length) {
@@ -23,7 +25,7 @@ if (!getApps().length) {
                 clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
                 privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(
                     /\\n/g,
-                    "\n"
+                    "\n",
                 ),
             }),
         });
@@ -98,7 +100,7 @@ export async function getProductServer(id: string): Promise<Product | null> {
  * Получить товары по категории
  */
 export async function getProductsByCategoryServer(
-    categoryId: string
+    categoryId: string,
 ): Promise<Product[]> {
     try {
         const snapshot = await adminDb
@@ -214,7 +216,7 @@ export async function getApplicationsServer(): Promise<Application[]> {
  * Получить заявку по ID
  */
 export async function getApplicationServer(
-    id: string
+    id: string,
 ): Promise<Application | null> {
     try {
         const doc = await adminDb.collection("applications").doc(id).get();
@@ -552,7 +554,7 @@ export async function getVideosServer(): Promise<Video[]> {
  * Получить проект по ID
  */
 export async function getProjectByIdServer(
-    id: string
+    id: string,
 ): Promise<OurProjects | null> {
     try {
         const doc = await adminDb.collection("our-projects").doc(id).get();
@@ -602,7 +604,7 @@ export async function getNewsByIdServer(id: string): Promise<News | null> {
  * Получить фестиваль по ID
  */
 export async function getFestivalByIdServer(
-    id: string
+    id: string,
 ): Promise<Festival | null> {
     try {
         const doc = await adminDb.collection("festivals").doc(id).get();
@@ -621,5 +623,40 @@ export async function getFestivalByIdServer(
     } catch (error) {
         console.error(`Error fetching festival ${id}:`, error);
         return null;
+    }
+}
+
+/**
+ * Получить медиа-секцию по ID секции (Server-side)
+ */
+export async function getMediaSectionBySectionId(
+    sectionId: string,
+): Promise<MediaSection[]> {
+    try {
+        const snapshot = await adminDb
+            .collection("media-sections")
+            .where("sectionId", "==", sectionId)
+            .orderBy("order", "asc")
+            .get();
+
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                sectionId: data.sectionId,
+                pagePath: data.pagePath,
+                sectionName: data.sectionName,
+                mediaType: data.mediaType,
+                mediaUrl: data.mediaUrl,
+                thumbnailUrl: data.thumbnailUrl || "",
+                description: data.description || "",
+                order: data.order || 0,
+                createdAt: data.createdAt?.toDate() || new Date(),
+                updatedAt: data.updatedAt?.toDate() || new Date(),
+            };
+        });
+    } catch (error) {
+        console.error("Error getting media section by sectionId:", error);
+        return [];
     }
 }

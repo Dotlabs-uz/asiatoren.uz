@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import {
     getCategoriesServer,
+    getMediaSectionBySectionId,
     getProductsServer,
 } from "@/lib/firebase/server-api";
 import { Language } from "@/types";
@@ -68,8 +69,11 @@ export async function generateMetadata(): Promise<Metadata> {
 // ============ КОМПОНЕНТ СТРАНИЦЫ ============
 export default async function ProductsPage() {
     const t = await getTranslations("products-page");
-    const products = await getProductsServer();
-    const categories = await getCategoriesServer();
+    const [categories, products, heroMediaArray] = await Promise.all([
+        getCategoriesServer(),
+        getProductsServer(),
+        getMediaSectionBySectionId("products-banner"),
+    ]);
     const locale = (await getLocale()) as Language;
 
     const translations = {
@@ -164,6 +168,8 @@ export default async function ProductsPage() {
               }
             : null;
 
+    const heroMedia = heroMediaArray.length > 0 ? heroMediaArray[0] : null;
+
     return (
         <>
             {/* ============ СТРУКТУРИРОВАННЫЕ ДАННЫЕ ============ */}
@@ -198,6 +204,7 @@ export default async function ProductsPage() {
                 initialProducts={products}
                 translations={translations}
                 locale={locale}
+                heroMedia={heroMedia}
             />
         </>
     );

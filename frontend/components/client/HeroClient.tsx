@@ -18,10 +18,9 @@ interface HeroClientProps {
         btn1: string;
         btn2: string;
     };
-    banners: Banner[];
 }
 
-export const HeroClient = ({ translations, banners }: HeroClientProps) => {
+export const HeroClient = ({ translations }: HeroClientProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -84,7 +83,7 @@ export const HeroClient = ({ translations, banners }: HeroClientProps) => {
         >
             <div
                 ref={contentRef}
-                className="w-full lg:w-[80%] flex flex-col justify-start items-start gap-5 lg:gap-10 px-5 sm:px-8 md:px-10"
+                className="w-full lg:w-[60%] flex flex-col justify-start items-start gap-12 md:gap-16 lg:gap-24 px-5 sm:px-8 md:px-10 mb-20"
             >
                 <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white font-bold">
                     {translations.title}
@@ -117,8 +116,6 @@ export const HeroClient = ({ translations, banners }: HeroClientProps) => {
                     </div>
                 </div>
             </div>
-
-            <BannerCarousel images={banners} />
 
             <div className="absolute -bottom-60 left-0 right-0 w-full z-0">
                 <Image
