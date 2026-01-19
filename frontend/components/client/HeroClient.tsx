@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { BannerCarousel } from "./BannerCarousel";
+import { Banner } from "@/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,9 +18,10 @@ interface HeroClientProps {
         btn1: string;
         btn2: string;
     };
+    banners: Banner[];
 }
 
-export const HeroClient = ({ translations }: HeroClientProps) => {
+export const HeroClient = ({ translations, banners }: HeroClientProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +46,7 @@ export const HeroClient = ({ translations }: HeroClientProps) => {
                     opacity: 0,
                     duration: 0.8,
                 },
-                "-=0.6"
+                "-=0.6",
             );
 
             tl.from(
@@ -54,7 +57,7 @@ export const HeroClient = ({ translations }: HeroClientProps) => {
                     duration: 0.6,
                     stagger: 0.15,
                 },
-                "-=0.4"
+                "-=0.4",
             );
 
             // Параллакс с fade out
@@ -77,11 +80,12 @@ export const HeroClient = ({ translations }: HeroClientProps) => {
     return (
         <div
             ref={containerRef}
-            className="w-full lg:w-[40%] md:w-[60%] h-screen flex flex-col justify-end items-start px-5 sm:px-8 md:mx-10 pb-8 md:pb-12"
+            className="h-screen flex flex-col justify-end gap-5 lg:gap-10 px-5 sm:px-8 md:px-10"
         >
+            <BannerCarousel images={banners} />
             <div
                 ref={contentRef}
-                className="flex flex-col gap-12 md:gap-16 lg:gap-28 mb-20"
+                className="w-full lg:w-[80%] flex flex-col justify-start items-start gap-5 lg:gap-10 mb-5 px-5 sm:px-8 md:px-10"
             >
                 <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white font-bold">
                     {translations.title}

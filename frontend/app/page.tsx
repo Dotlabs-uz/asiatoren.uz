@@ -84,7 +84,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
     const locale = await getLocale();
     const t = await getTranslations({ locale, namespace: "home" });
-    const banners = await getBannersServer();
 
     const baseUrl = "https://www.asiataren.uz";
 
@@ -178,11 +177,6 @@ export default async function Home() {
 
                 {/* Scroll Section */}
                 <ScrollMain />
-
-                {/* Banners */}
-                <Suspense fallback={<div>Loading....</div>}>
-                    <BannerCarousel images={banners} />
-                </Suspense>
 
                 {/* Stages section */}
                 <StagesSection />
