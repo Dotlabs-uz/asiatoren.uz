@@ -26,7 +26,7 @@ export default function FloatingButtons() {
 
             {/* Phone */}
             <a
-                href="tel:+998712070707"
+                href="tel:+998772013131"
                 className="size-10 md:size-14 rounded-md bg-linear-to-br from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white shadow-lg hover:shadow-2xl hover:shadow-orange-500/50 hover:scale-110 transition-all duration-300 flex items-center justify-center group"
                 aria-label="Call us"
             >
