@@ -14,8 +14,11 @@ import {
     Youtube,
 } from "lucide-react";
 import { ContactsPageForm } from "./ContactsPageForm";
+import { MediaSection } from "@/types";
+import Image from "next/image";
 
 interface ContactsPageClientProps {
+    heroMedia: MediaSection | null; // Добавили медиа для hero
     translations: {
         hero: {
             title: string;
@@ -58,6 +61,7 @@ interface ContactsPageClientProps {
 }
 
 export default function ContactsPageClient({
+    heroMedia,
     translations,
 }: ContactsPageClientProps) {
     const heroRef = useRef<HTMLDivElement>(null);
@@ -81,7 +85,7 @@ export default function ContactsPageClient({
                     duration: 0.8,
                     ease: "power3.out",
                 },
-                "-=0.5"
+                "-=0.5",
             );
 
             tl.from(
@@ -92,7 +96,7 @@ export default function ContactsPageClient({
                     duration: 0.8,
                     ease: "power3.out",
                 },
-                "-=0.3"
+                "-=0.3",
             );
 
             tl.from(
@@ -104,7 +108,7 @@ export default function ContactsPageClient({
                     stagger: 0.2,
                     ease: "power3.out",
                 },
-                "-=0.6"
+                "-=0.6",
             );
 
             tl.from(
@@ -115,7 +119,7 @@ export default function ContactsPageClient({
                     duration: 0.8,
                     ease: "power3.out",
                 },
-                "-=0.3"
+                "-=0.3",
             );
         });
 
@@ -124,12 +128,52 @@ export default function ContactsPageClient({
 
     return (
         <div className="min-h-screen bg-white">
-            {/* Hero Section */}
+            {/* Hero Section with Dynamic Media */}
             <div
                 ref={heroRef}
-                className="relative bg-[url('/images/contacts-bg.webp')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex flex-col items-center justify-center"
+                className="relative w-full h-[50vh] flex flex-col items-center justify-center overflow-hidden"
             >
+                {/* Динамическое медиа (изображение или видео) */}
+                {heroMedia ? (
+                    <>
+                        {heroMedia.mediaType === "image" ? (
+                            <Image
+                                src={heroMedia.mediaUrl}
+                                alt={
+                                    heroMedia.description ||
+                                    "Contacts background"
+                                }
+                                fill
+                                className="object-cover"
+                                priority
+                                quality={90}
+                            />
+                        ) : (
+                            <video
+                                src={heroMedia.mediaUrl}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                poster={heroMedia.thumbnailUrl}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            >
+                                <source
+                                    src={heroMedia.mediaUrl}
+                                    type="video/mp4"
+                                />
+                            </video>
+                        )}
+                    </>
+                ) : (
+                    // Фолбэк: дефолтное изображение
+                    <div className="absolute inset-0 bg-[url('/images/contacts-bg.webp')] bg-cover bg-center bg-no-repeat" />
+                )}
+
+                {/* Темный оверлей */}
                 <div className="absolute inset-0 bg-black/30" />
+
+                {/* Контент */}
                 <div className="relative z-10 text-center px-4">
                     <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold mb-4">
                         {translations.hero.title}
@@ -223,7 +267,7 @@ export default function ContactsPageClient({
                         <a
                             href={`tel:${translations.contact.phone.replace(
                                 /\s/g,
-                                ""
+                                "",
                             )}`}
                             className="flex items-center gap-4 hover:opacity-80 transition-opacity group"
                         >

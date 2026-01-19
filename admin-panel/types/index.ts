@@ -205,6 +205,38 @@ export interface VideoFormData {
     videoUrl: string;
 }
 
+export interface MediaSection {
+    id: string;
+    sectionId: string; // 'home-hero', 'home-features', 'products-banner', etc.
+    pagePath: string; // '/', '/products', '/about', '/contacts'
+    sectionName: string; // 'Главный баннер', 'О компании - галерея'
+    mediaType: 'image' | 'video';
+    mediaUrl: string;
+    thumbnailUrl?: string; // для видео
+    description?: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface MediaSectionFormData {
+    sectionId: string;
+    pagePath: string;
+    sectionName: string;
+    mediaType: 'image' | 'video';
+    mediaUrl: string;
+    thumbnailUrl?: string;
+    description?: string;
+    order?: number;
+}
+
+// Предопределенные секции сайта
+export interface SiteSection {
+    id: string;
+    pagePath: string;
+    sectionName: string;
+    acceptedTypes: ('image' | 'video')[];
+}
+
 /**
  * Firebase Firestore document snapshot type
  */

@@ -1,6 +1,7 @@
 import ContactsPageClient from "@/components/client/ContactsPageClient";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Metadata } from "next";
+import { getMediaSectionBySectionId } from "@/lib/firebase/server-api";
 
 // ============ SEO МЕТАДАННЫЕ ============
 export async function generateMetadata(): Promise<Metadata> {
@@ -78,6 +79,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ContactsPage() {
     const locale = await getLocale();
     const t = await getTranslations("contacts-page");
+    const heroMediaArray = await getMediaSectionBySectionId("contacts-banner");
 
     const translations = {
         hero: {
@@ -147,7 +149,7 @@ export default async function ContactsPage() {
                 contactType: "customer service",
                 availableLanguage: ["Russian", "Uzbek", "English"],
                 areaServed: "UZ",
-            }
+            },
         ],
 
         // Email
@@ -247,6 +249,7 @@ export default async function ContactsPage() {
             },
         ],
     };
+    const heroMedia = heroMediaArray.length > 0 ? heroMediaArray[0] : null;
 
     return (
         <>
@@ -284,7 +287,10 @@ export default async function ContactsPage() {
                 }}
             />
 
-            <ContactsPageClient translations={translations} />
+            <ContactsPageClient
+                translations={translations}
+                heroMedia={heroMedia}
+            />
         </>
     );
 }

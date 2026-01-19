@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { Search, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Category, Language, Product } from "@/types";
+import { Category, Language, Product, MediaSection } from "@/types";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -24,6 +24,7 @@ if (typeof window !== "undefined") {
 interface ProductsPageClientProps {
     initialCategories: Category[];
     initialProducts: Product[];
+    heroMedia: MediaSection | null; // Добавили медиа
     translations: {
         title: string;
         searchPlaceholder: string;
@@ -43,6 +44,7 @@ const PRODUCTS_PER_PAGE = 16;
 export const ProductsPageClient = ({
     initialCategories,
     initialProducts,
+    heroMedia,
     translations,
     locale,
 }: ProductsPageClientProps) => {
@@ -203,9 +205,49 @@ export const ProductsPageClient = ({
 
     return (
         <div ref={containerRef} className="min-h-screen bg-white">
-            {/* Hero Section */}
-            <div className="relative bg-[url('/images/products-bg.webp')] bg-cover bg-center bg-no-repeat w-full h-[50vh] flex items-center justify-center">
+            {/* Hero Section with Dynamic Media */}
+            <div className="relative w-full h-[50vh] flex items-center justify-center overflow-hidden">
+                {/* Динамическое медиа (изображение или видео) */}
+                {heroMedia ? (
+                    <>
+                        {heroMedia.mediaType === "image" ? (
+                            <Image
+                                src={heroMedia.mediaUrl}
+                                alt={
+                                    heroMedia.description ||
+                                    "Products background"
+                                }
+                                fill
+                                className="object-cover"
+                                priority
+                                quality={90}
+                            />
+                        ) : (
+                            <video
+                                src={heroMedia.mediaUrl}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                poster={heroMedia.thumbnailUrl}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            >
+                                <source
+                                    src={heroMedia.mediaUrl}
+                                    type="video/mp4"
+                                />
+                            </video>
+                        )}
+                    </>
+                ) : (
+                    // Фолбэк: дефолтное изображение
+                    <div className="absolute inset-0 bg-[url('/images/products-bg.webp')] bg-cover bg-center bg-no-repeat" />
+                )}
+
+                {/* Темный оверлей */}
                 <div className="absolute inset-0 bg-black/30" />
+
+                {/* Заголовок */}
                 <h2 className="hero-title relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
                     {translations.title}
                 </h2>

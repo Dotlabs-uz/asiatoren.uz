@@ -160,6 +160,21 @@ export interface Video {
     updatedAt: Date;
 }
 
+
+export interface MediaSection {
+    id: string;
+    sectionId: string; // 'home-hero', 'home-features', 'products-banner', etc.
+    pagePath: string; // '/', '/products', '/about', '/contacts'
+    sectionName: string; // 'Главный баннер', 'О компании - галерея'
+    mediaType: 'image' | 'video';
+    mediaUrl: string;
+    thumbnailUrl?: string; // для видео
+    description?: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+
 /**
  * Firebase Firestore document snapshot type
  */

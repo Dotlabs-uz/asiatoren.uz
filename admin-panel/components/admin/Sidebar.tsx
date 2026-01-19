@@ -50,11 +50,11 @@ const navigation = [
         href: "/media",
         icon: ImageIcon,
     },
-    {
-        name: "Баннеры",
-        href: "/banners",
-        icon: ImageIcon,
-    },
+    // {
+    //     name: "Баннеры",
+    //     href: "/banners",
+    //     icon: ImageIcon,
+    // },
     {
         name: "Каталоги",
         href: "/catalogs",
@@ -85,6 +85,11 @@ const navigation = [
         href: "/videos",
         icon: PlayIcon,
     },
+    {
+        name: "Медия Страниц",
+        href: "/media-sections",
+        icon: ImageIcon,
+    },
 ];
 
 export function Sidebar() {
@@ -114,7 +119,7 @@ export function Sidebar() {
                             "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                             isActive
                                 ? "bg-accent text-accent-foreground"
-                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                         )}
                     >
                         <item.icon className="h-5 w-5" />
