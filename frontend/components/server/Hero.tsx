@@ -1,8 +1,10 @@
 import { getTranslations } from "next-intl/server";
 import { HeroClient } from "../client/HeroClient";
+import { getBannersServer } from "@/lib/firebase/server-api";
 
 export default async function HeroSection() {
     const t = await getTranslations("hero");
+    const banners = await getBannersServer();
 
     const translations = {
         title: t("title"),
@@ -17,7 +19,7 @@ export default async function HeroSection() {
             <div className="absolute inset-0 bg-black/40"></div>
 
             <div className="relative z-10">
-                <HeroClient translations={translations} />
+                <HeroClient translations={translations} banners={banners}/>
             </div>
         </section>
     );

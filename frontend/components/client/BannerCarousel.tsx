@@ -21,7 +21,7 @@ export function BannerCarousel({ images }: { images: Banner[] }) {
 
     // Инициализация плагина автопрокрутки
     const plugin = React.useRef(
-        Autoplay({ delay: 4000, stopOnInteraction: true })
+        Autoplay({ delay: 4000, stopOnInteraction: true }),
     );
 
     React.useEffect(() => {
@@ -47,7 +47,7 @@ export function BannerCarousel({ images }: { images: Banner[] }) {
                 <CarouselContent>
                     {images.map((banner) => (
                         <CarouselItem key={banner.id}>
-                            <div className="relative aspect-25/9 w-full">
+                            <div className="relative h-[300px] w-full">
                                 <Image
                                     src={banner.imageUrl}
                                     alt={`image-${banner.id}`}
@@ -76,7 +76,7 @@ export function BannerCarousel({ images }: { images: Banner[] }) {
                                 "h-2 w-2 rounded-full transition-all",
                                 current === index
                                     ? "bg-white w-6" // Активная точка длиннее
-                                    : "bg-white/50 hover:bg-white/80"
+                                    : "bg-white/50 hover:bg-white/80",
                             )}
                         />
                     ))}
