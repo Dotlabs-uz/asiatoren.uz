@@ -105,8 +105,7 @@ export const HeroClient = ({ translations }: HeroClientProps) => {
                         </div>
                         <div className="hero-button">
                             <Link
-                                href="/files/catalog.pdf"
-                                download={"Asia-Taren-Catalog.pdf"}
+                                href="/catalogs"
                             >
                                 <Button className="w-full sm:w-52 md:w-60 px-6 sm:px-8 md:px-10 py-4 md:py-5 text-sm md:text-base bg-transparent hover:bg-white/10 border border-white cursor-pointer">
                                     {translations.btn2}
