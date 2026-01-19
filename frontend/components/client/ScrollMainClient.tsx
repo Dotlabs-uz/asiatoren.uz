@@ -30,12 +30,24 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
         const section = sectionRef.current;
         const itemElements = itemsRef.current.filter(Boolean);
 
-        // Устанавливаем начальное состояние
-        gsap.set(itemElements, {
-            opacity: 0,
-            y: 50,
-            pointerEvents: "none",
-            zIndex: 0,
+        // Первый элемент появляется сразу, остальные со смещением
+        itemElements.forEach((element, index) => {
+            if (index === 0) {
+                // Первый элемент - минимальное смещение и почти виден
+                gsap.set(element, {
+                    opacity: 0.3, // Уже немного виден
+                    y: 50, // Минимальное смещение
+                    pointerEvents: "none",
+                    zIndex: 0,
+                });
+            } else {
+                gsap.set(element, {
+                    opacity: 0,
+                    y: 50,
+                    pointerEvents: "none",
+                    zIndex: 0,
+                });
+            }
         });
 
         const tl = gsap.timeline({
@@ -50,27 +62,29 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
         });
 
         itemElements.forEach((element, index) => {
+            // Первый элемент появляется быстрее
+            const appearDuration = index === 0 ? 0.5 : 1;
+            const startTime = index === 0 ? 0 : index * 2;
+
             // Появление
             tl.to(
                 element,
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 1,
+                    duration: appearDuration,
                     ease: "power2.out",
-                    // Включаем взаимодействие сразу, как только начинается анимация появления
                     onStart: () => {
                         gsap.set(element, {
                             pointerEvents: "auto",
                             zIndex: 50,
                         });
                     },
-                    // При скролле назад (когда анимация возвращается к началу этой точки)
                     onReverseComplete: () => {
                         gsap.set(element, { pointerEvents: "none", zIndex: 0 });
                     },
                 },
-                index * 2
+                startTime,
             );
 
             // Исчезновение (кроме последнего)
@@ -82,14 +96,12 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                         y: -50,
                         duration: 0.8,
                         ease: "power2.in",
-                        // Выключаем взаимодействие, как только элемент начал исчезать
                         onStart: () => {
                             gsap.set(element, {
                                 pointerEvents: "none",
                                 zIndex: 0,
                             });
                         },
-                        // При скролле назад (когда элемент возвращается сверху)
                         onReverseComplete: () => {
                             gsap.set(element, {
                                 pointerEvents: "auto",
@@ -97,7 +109,7 @@ export const ScrollMainClient = ({ items }: ScrollMainClientProps) => {
                             });
                         },
                     },
-                    index * 2 + 1.2
+                    startTime + (index === 0 ? 0.7 : 1.2),
                 );
             }
         });

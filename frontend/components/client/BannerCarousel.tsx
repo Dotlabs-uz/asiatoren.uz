@@ -35,7 +35,7 @@ export function BannerCarousel({ images }: { images: Banner[] }) {
     }, [api]);
 
     return (
-        <div className="group relative w-full max-w-7xl mx-auto overflow-hidden rounded-2xl">
+        <div className="group relative w-full max-w-7xl mx-auto overflow-hidden rounded-2xl mb-5">
             <Carousel
                 setApi={setApi}
                 plugins={[plugin.current]}
