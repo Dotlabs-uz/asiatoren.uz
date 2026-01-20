@@ -35,7 +35,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 0) {
+            if (window.scrollY > 50) {
                 setIsScrolled(true);
             } else {
                 setIsScrolled(false);
@@ -52,11 +52,32 @@ export default function HeaderClient({ text }: HeaderClientProps) {
         return currentPath === navPath;
     };
 
+    // Проверяем, находимся ли мы на динамической странице (детальная страница)
+    const isDynamicPage = () => {
+        const cleanPath = pathname.replace(/^\/(uz|ru|en)/, "");
+
+        // Проверяем паттерны динамических страниц
+        const dynamicPatterns = [
+            /^\/products\/[^\/]+$/, // /products/[id]
+            /^\/news\/[^\/]+$/, // /news/[id]
+            /^\/projects\/[^\/]+$/, // /projects/[id]
+            /^\/festivals\/[^\/]+$/, // /festivals/[id]
+        ];
+
+        return dynamicPatterns.some((pattern) => pattern.test(cleanPath));
+    };
+
+    // Определяем, когда показывать темный текст
+    // Всегда темный на динамических страницах ИЛИ когда прокручено на обычных
+    const useDarkText = isDynamicPage() || isScrolled;
+    const useWhiteBackground = isDynamicPage() || isScrolled;
+
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all border-b border-transparent duration-300 ${
-                isScrolled &&
-                "bg-white/20 backdrop-blur-md border-white/20 shadow-sm"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                useWhiteBackground
+                    ? "bg-white/5 backdrop-blur-md shadow-sm"
+                    : "bg-transparent"
             }`}
         >
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,7 +88,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                             <Image
                                 width={40}
                                 height={40}
-                                src={"/images/logo.svg"}
+                                src={"/images/logo.png"}
                                 alt="logo"
                                 loading="lazy"
                             />
@@ -93,10 +114,10 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                                     className={`${
                                         active
                                             ? "text-cRed"
-                                            : isScrolled
-                                            ? "text-cGray hover:text-cRed"
-                                            : "text-white hover:text-cRed"
-                                    } transition-colors duration-200 text-sm font-medium relative group`}
+                                            : useDarkText
+                                              ? "text-gray-700 hover:text-cRed"
+                                              : "text-white hover:text-white/80"
+                                    } transition-colors duration-200 text-sm font-semibold relative group`}
                                 >
                                     {item.label}
                                     <span
@@ -115,7 +136,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                     <div className="hidden lg:flex items-center gap-4">
                         <LanguageSwitcher />
                         <Link href="/contacts">
-                            <Button className="cursor-pointer">
+                            <Button className="cursor-pointer bg-cRed hover:bg-cRed/90">
                                 {text.btn}
                             </Button>
                         </Link>
@@ -127,9 +148,19 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="hover:bg-white/50"
+                                className={`${
+                                    useDarkText
+                                        ? "hover:bg-gray-100"
+                                        : "hover:bg-white/20"
+                                }`}
                             >
-                                <Menu className="w-6 h-6 text-gray-700" />
+                                <Menu
+                                    className={`w-6 h-6 ${
+                                        useDarkText
+                                            ? "text-gray-700"
+                                            : "text-white"
+                                    }`}
+                                />
                                 <span className="sr-only">Открыть меню</span>
                             </Button>
                         </SheetTrigger>
@@ -143,7 +174,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                                         <Image
                                             width={40}
                                             height={40}
-                                            src={"/images/logo.svg"}
+                                            src={"/images/logo.png"}
                                             alt="logo"
                                             loading="lazy"
                                         />
@@ -182,7 +213,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                             <div className="mt-8 px-4 pt-6 border-t space-y-4">
                                 <LanguageSwitcher />
                                 <Link href="/contacts">
-                                    <Button className="w-full cursor-pointer">
+                                    <Button className="w-full cursor-pointer bg-cRed hover:bg-cRed/90">
                                         {text.btn}
                                     </Button>
                                 </Link>

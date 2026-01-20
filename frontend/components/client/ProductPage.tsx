@@ -162,12 +162,10 @@ export const ProductPageClient = ({
     const rightFeatures = features.slice(halfLength);
 
     return (
-        <div className="min-h-screen bg-white">
-            {/* Hero Section */}
-            <div className="w-full bg-cRed/60 h-20" />
+        <div className="min-h-screen bg-white pt-32">
             <div
                 ref={heroRef}
-                className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-8 md:py-12"
+                className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16"
             >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                     {/* Left - Images Carousel */}
@@ -200,7 +198,7 @@ export const ProductPageClient = ({
                                 </span>
                                 <ChevronRight className="w-4 h-4" />
                                 <span className="text-cRed font-medium">
-                                    {product.title[locale]}
+                                    {product.title[locale].length < 40 ? product.title[locale]: product.title[locale].slice(0, 40) + "..."}
                                 </span>
                             </div>
                         </div>
@@ -262,7 +260,7 @@ export const ProductPageClient = ({
             </div>
 
             {/* Benefits */}
-            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-12 md:py-16">
+            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="benefit-card bg-gray-50 rounded-3xl p-8 flex flex-col items-center text-center">
                         <div className="w-16 h-16 bg-cRed/10 rounded-2xl flex items-center justify-center mb-4">
