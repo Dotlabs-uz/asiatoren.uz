@@ -64,7 +64,7 @@ export default function DealersPageClient({
                 <div className="absolute inset-0 bg-black/30" />
 
                 {/* Заголовок */}
-                <h2 className="relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4 uppercase">
+                <h2 className="relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4">
                     {translations.title}
                 </h2>
             </div>

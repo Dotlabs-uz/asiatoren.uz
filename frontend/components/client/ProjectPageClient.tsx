@@ -15,10 +15,7 @@ export default function ProjectPageClient({
 }: ProjectPageClientProps) {
     return (
         <div className="flex flex-col items-center">
-            {/* Декоративная шапка */}
-            <div className="w-full bg-cRed/60 h-20" />
-
-            <div className="max-w-[1000px] w-full px-5 py-10">
+            <div className="max-w-[1000px] w-full px-5 py-24">
                 {/* Кнопка назад */}
                 <Link href="/news" className="mb-6 inline-block">
                     <Button variant="ghost" className="gap-2">
