@@ -117,7 +117,7 @@ export default function WorldMap({
                     <g key={`points-group-${i}`}>
                         <g key={`start-${i}`}>
                             <image
-                                href="/images/logo.svg"
+                                href="/images/logo.png"
                                 x={
                                     projectPoint(dot.start.lat, dot.start.lng)
                                         .x - 8
@@ -161,7 +161,7 @@ export default function WorldMap({
                         </g>
                         <g key={`end-${i}`}>
                             <image
-                                href="/images/logo.svg"
+                                href="/images/logo.png"
                                 x={projectPoint(dot.end.lat, dot.end.lng).x - 8}
                                 y={projectPoint(dot.end.lat, dot.end.lng).y - 8}
                                 width="16"

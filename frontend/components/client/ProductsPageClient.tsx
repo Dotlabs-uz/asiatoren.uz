@@ -318,34 +318,42 @@ export const ProductsPageClient = ({
                             {currentProducts.map((product) => (
                                 <div
                                     key={product.id}
-                                    className="product-card group relative bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-500 border border-gray-200"
+                                    className="product-card group relative bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-500 border border-gray-200 flex flex-col justify-between"
                                 >
-                                    <div className="relative h-64 flex items-center justify-center overflow-hidden">
-                                        {product.images?.[0] ? (
-                                            <Image
-                                                src={product.images[0]}
-                                                alt={product.title[locale]}
-                                                width={1000}
-                                                height={1000}
-                                                className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-                                            />
-                                        ) : (
-                                            <div className="text-gray-300 text-4xl">
-                                                📦
-                                            </div>
-                                        )}
+                                    <div>
+                                        <div className="relative h-64 flex items-center justify-center overflow-hidden">
+                                            {product.images?.[0] ? (
+                                                <Image
+                                                    src={product.images[0]}
+                                                    alt={product.title[locale]}
+                                                    width={1000}
+                                                    height={1000}
+                                                    className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                                                />
+                                            ) : (
+                                                <div className="text-gray-300 text-4xl">
+                                                    📦
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="px-4">
+                                            <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-cRed transition-colors">
+                                                {product.title[locale].length <
+                                                50
+                                                    ? product.title[locale]
+                                                    : product.title[
+                                                          locale
+                                                      ].slice(0, 50) + "..."}
+                                            </h3>
+                                            <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+                                                {product.description[locale]}
+                                            </p>
+                                        </div>
                                     </div>
-
-                                    <div className="p-6">
-                                        <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-cRed transition-colors">
-                                            {product.title[locale]}
-                                        </h3>
-                                        <p className="text-sm text-gray-500 mb-4 line-clamp-2">
-                                            {product.description[locale]}
-                                        </p>
-
+                                    <div className="mx-4 mb-4">
                                         <Link href={"/products/" + product.id}>
-                                            <Button className="w-full bg-cRed hover:bg-cRed/90 text-white rounded-xl py-6 font-semibold group/btn transition-all cursor-pointer">
+                                            <Button className="w-full bg-cRed hover:bg-cRed/90 text-white rounded-xl font-semibold group/btn transition-all cursor-pointer">
                                                 <span>
                                                     {translations.viewButton}
                                                 </span>

@@ -56,13 +56,6 @@ export const SITE_SECTIONS: SiteSection[] = [
         sectionName: "Главная - Основной баннер",
         acceptedTypes: ["image", "video"],
     },
-    {
-        id: "home-about-preview",
-        pagePath: "/",
-        sectionName: "Главная - О компании (превью)",
-        acceptedTypes: ["image", "video"],
-    },
-
     // Страница продуктов
     {
         id: "products-banner",
@@ -70,13 +63,6 @@ export const SITE_SECTIONS: SiteSection[] = [
         sectionName: "Продукты - Баннер",
         acceptedTypes: ["image", "video"],
     },
-    {
-        id: "products-showcase",
-        pagePath: "/products",
-        sectionName: "Продукты - Витрина",
-        acceptedTypes: ["image", "video"],
-    },
-
     // Страница "О нас"
     {
         id: "about-banner",
@@ -84,13 +70,6 @@ export const SITE_SECTIONS: SiteSection[] = [
         sectionName: "О нас - Баннер",
         acceptedTypes: ["image", "video"],
     },
-    {
-        id: "about-company",
-        pagePath: "/about",
-        sectionName: "О нас - О компании",
-        acceptedTypes: ["image", "video"],
-    },
-
     // Страница контактов
     {
         id: "contacts-banner",
@@ -98,10 +77,43 @@ export const SITE_SECTIONS: SiteSection[] = [
         sectionName: "Контакты - Баннер",
         acceptedTypes: ["image", "video"],
     },
+    // Страница каталогов
     {
-        id: "contacts-office",
-        pagePath: "/contacts",
-        sectionName: "Контакты - Офис",
+        id: "catalogs-banner",
+        pagePath: "/catalogs",
+        sectionName: "Каталоги - Баннер",
+        acceptedTypes: ["image", "video"],
+    },
+
+    // Страница проектов
+    {
+        id: "projects-banner",
+        pagePath: "/projects",
+        sectionName: "Наши проекты - Баннер",
+        acceptedTypes: ["image", "video"],
+    },
+
+    // Страница новостей
+    {
+        id: "news-banner",
+        pagePath: "/news",
+        sectionName: "Новости - Баннер",
+        acceptedTypes: ["image", "video"],
+    },
+
+    // Страница фестивалей
+    {
+        id: "festivals-banner",
+        pagePath: "/festivals",
+        sectionName: "Фестивали - Баннер",
+        acceptedTypes: ["image", "video"],
+    },
+
+    // Страница дилеров
+    {
+        id: "dealers-banner",
+        pagePath: "/dealers",
+        sectionName: "Дилеры - Баннер",
         acceptedTypes: ["image", "video"],
     },
 ];
@@ -454,14 +466,19 @@ export default function MediaSectionsPage() {
             </div>
 
             <Tabs value={currentTab} onValueChange={setCurrentTab}>
-                <TabsList className="grid w-full grid-cols-4 mb-6">
+                <TabsList className="grid w-full grid-cols-4 lg:grid-cols-9 mb-6">
                     <TabsTrigger value="/">Главная</TabsTrigger>
                     <TabsTrigger value="/products">Продукты</TabsTrigger>
                     <TabsTrigger value="/about">О нас</TabsTrigger>
                     <TabsTrigger value="/contacts">Контакты</TabsTrigger>
+                    <TabsTrigger value="/catalogs">Каталоги</TabsTrigger>
+                    <TabsTrigger value="/projects">Проекты</TabsTrigger>
+                    <TabsTrigger value="/news">Новости</TabsTrigger>
+                    <TabsTrigger value="/festivals">Фестивали</TabsTrigger>
+                    <TabsTrigger value="/dealers">Дилеры</TabsTrigger>
                 </TabsList>
 
-                {["/", "/products", "/about", "/contacts"].map((pagePath) => (
+                {["/", "/products", "/about", "/contacts", "/catalogs", "/projects", "/news", "/festivals", "/dealers"].map((pagePath) => (
                     <TabsContent key={pagePath} value={pagePath}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {getSectionsForPage(pagePath).map((section) => {

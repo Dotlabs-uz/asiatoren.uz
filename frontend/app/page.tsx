@@ -6,9 +6,6 @@ import Form from "@/components/server/Form";
 import HeroSection from "@/components/server/Hero";
 import ScrollMain from "@/components/server/ScrollMain";
 import StagesSection from "@/components/server/Stages";
-import { getBannersServer } from "@/lib/firebase/server-api";
-import { BannerCarousel } from "@/components/client/BannerCarousel";
-import { Suspense } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();

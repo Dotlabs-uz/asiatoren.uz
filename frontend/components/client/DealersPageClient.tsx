@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Dealer, Language } from "@/types";
+import { Dealer, Language, MediaSection } from "@/types";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { MapPin, Phone, Mail, Globe, Map as MapIcon } from "lucide-react";
@@ -11,12 +11,14 @@ interface DealersPageClientProps {
         title: string;
     };
     data: Dealer[];
+    heroMedia: MediaSection | null; // Добавили медиа
     locale: Language;
 }
 
 export default function DealersPageClient({
     translations,
     data,
+    heroMedia,
     locale,
 }: DealersPageClientProps) {
     const [selectedDealer, setSelectedDealer] = useState<Dealer | null>(
@@ -24,16 +26,53 @@ export default function DealersPageClient({
     );
 
     return (
-        <div className="flex flex-col items-center gap-10 pb-20">
-            <div className="w-full bg-cRed/60 h-20" />
+        <div className="min-h-screen bg-white">
+            {/* Hero Section with Dynamic Media */}
+            <div className="relative w-full h-[50vh] flex items-center justify-center overflow-hidden">
+                {/* Динамическое медиа (изображение или видео) */}
+                {heroMedia ? (
+                    <>
+                        {heroMedia.mediaType === "image" ? (
+                            <Image
+                                src={heroMedia.mediaUrl}
+                                alt={heroMedia.description || "Dealers background"}
+                                fill
+                                className="object-cover"
+                                priority
+                                quality={90}
+                            />
+                        ) : (
+                            <video
+                                src={heroMedia.mediaUrl}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                poster={heroMedia.thumbnailUrl}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            >
+                                <source src={heroMedia.mediaUrl} type="video/mp4" />
+                            </video>
+                        )}
+                    </>
+                ) : (
+                    // Фолбэк: серый фон если медиа не загружено
+                    <div className="absolute inset-0 bg-linear-to-br from-gray-100 to-gray-200" />
+                )}
 
-            <h2 className="text-4xl md:text-6xl font-bold text-center px-4 uppercase">
-                {translations.title}
-            </h2>
+                {/* Темный оверлей */}
+                <div className="absolute inset-0 bg-black/30" />
 
-            <div className="max-w-[1400px] w-full px-5">
+                {/* Заголовок */}
+                <h2 className="relative z-10 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white font-bold text-center px-4 uppercase">
+                    {translations.title}
+                </h2>
+            </div>
+
+            {/* Dealers Content */}
+            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-12 md:py-16">
                 {/* Сетка логотипов (стран/дилеров) */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-10">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
                     {data.map((dealer) => (
                         <button
                             key={dealer.id}
@@ -41,7 +80,7 @@ export default function DealersPageClient({
                             className={cn(
                                 "flex flex-col items-center justify-center p-4 border rounded-xl transition-all duration-300 gap-3 bg-white hover:shadow-md",
                                 selectedDealer?.id === dealer.id
-                                    ? "border-cRed ring-1 ring-cRed shadow-lg"
+                                    ? "border-cRed ring-2 ring-cRed shadow-lg scale-105"
                                     : "border-gray-200 opacity-70 hover:opacity-100"
                             )}
                         >
@@ -53,7 +92,7 @@ export default function DealersPageClient({
                                     className="object-contain"
                                 />
                             </div>
-                            <span className="text-xs md:text-sm font-bold uppercase text-center">
+                            <span className="text-xs md:text-sm font-bold uppercase text-center line-clamp-2">
                                 {dealer.title[locale]}
                             </span>
                         </button>
@@ -62,15 +101,15 @@ export default function DealersPageClient({
 
                 {/* Блок с адресами выбранного дилера */}
                 {selectedDealer && (
-                    <div className="w-full bg-[#fcfcfc] border-l-4 border-cRed rounded-r-2xl p-6 md:p-10 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="w-full bg-linear-to-br from-gray-50 to-white border-l-4 border-cRed rounded-r-2xl p-6 md:p-10 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="flex flex-col gap-12">
                             {selectedDealer.addresses.map((address, idx) => (
                                 <div key={idx} className="flex flex-col gap-6">
-                                    <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
+                                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
                                         {address.title}
                                     </h3>
 
-                                    <div className="flex flex-col gap-4 text-gray-600">
+                                    <div className="flex flex-col gap-4 text-gray-700">
                                         <div className="flex items-start gap-3">
                                             <MapPin className="w-5 h-5 text-cRed shrink-0 mt-1" />
                                             <span className="text-sm md:text-base leading-relaxed">
@@ -80,9 +119,12 @@ export default function DealersPageClient({
 
                                         <div className="flex items-center gap-3">
                                             <Phone className="w-5 h-5 text-cRed shrink-0" />
-                                            <span className="text-sm md:text-base font-medium">
+                   <a                         
+                                                href={`tel:${address.phoneNumbers.replace(/\s/g, "")}`}
+                                                className="text-sm md:text-base font-medium hover:text-cRed transition-colors"
+                                            >
                                                 {address.phoneNumbers}
-                                            </span>
+                                            </a>
                                         </div>
 
                                         <div className="flex items-center gap-3">
@@ -118,7 +160,7 @@ export default function DealersPageClient({
                                                 href={address.map}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-sm md:text-base font-bold text-gray-800 hover:text-cRed flex items-center gap-1 transition-colors underline decoration-cRed underline-offset-4"
+                                                className="text-sm md:text-base font-bold text-gray-900 hover:text-cRed flex items-center gap-1 transition-colors underline decoration-cRed underline-offset-4"
                                             >
                                                 {locale === "ru"
                                                     ? "Мы на карте"
@@ -130,13 +172,24 @@ export default function DealersPageClient({
                                     </div>
 
                                     {/* Разделитель между филиалами, кроме последнего */}
-                                    {idx <
-                                        selectedDealer.addresses.length - 1 && (
-                                        <div className="h-px bg-gray-200 w-full mt-4" />
+                                    {idx < selectedDealer.addresses.length - 1 && (
+                                        <div className="h-px bg-linear-to-r from-transparent via-gray-300 to-transparent w-full mt-4" />
                                     )}
                                 </div>
                             ))}
                         </div>
+                    </div>
+                )}
+
+                {/* Empty State */}
+                {data.length === 0 && (
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                        <p className="text-2xl text-gray-400 mb-2">
+                            Дилеров пока нет
+                        </p>
+                        <p className="text-gray-500">
+                            Следите за обновлениями
+                        </p>
                     </div>
                 )}
             </div>
