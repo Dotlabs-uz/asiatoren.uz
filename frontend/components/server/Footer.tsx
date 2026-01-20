@@ -71,7 +71,7 @@ export default async function Footer() {
                                     <Image
                                         width={40}
                                         height={40}
-                                        src={"/images/logo.png"}
+                                        src={"/images/logo.PNG"}
                                         alt="logo"
                                         loading="lazy"
                                     />

@@ -88,7 +88,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                             <Image
                                 width={40}
                                 height={40}
-                                src={"/images/logo.png"}
+                                src={"/images/logo.PNG"}
                                 alt="logo"
                                 loading="lazy"
                             />
@@ -174,7 +174,7 @@ export default function HeaderClient({ text }: HeaderClientProps) {
                                         <Image
                                             width={40}
                                             height={40}
-                                            src={"/images/logo.png"}
+                                            src={"/images/logo.PNG"}
                                             alt="logo"
                                             loading="lazy"
                                         />
