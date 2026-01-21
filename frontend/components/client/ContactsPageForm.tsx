@@ -52,14 +52,15 @@ export const ContactsPageForm = ({ translations }: ContactsPageFormProps) => {
         phoneNumber: z.string().min(10, {
             message: translations.phoneError,
         }),
-        email: z.string().email({
-            message: translations.emailError,
-        }),
+        email: z
+            .string()
+            .email({
+                message: translations.emailError,
+            })
+            .optional()
+            .or(z.literal("")),
         text: z
             .string()
-            .min(10, {
-                message: translations.messageError,
-            })
             .optional(),
     });
 

@@ -6,6 +6,16 @@ import Form from "@/components/server/Form";
 import HeroSection from "@/components/server/Hero";
 import ScrollMain from "@/components/server/ScrollMain";
 import StagesSection from "@/components/server/Stages";
+import { MarqueeText } from "@/components/client/MarqueeText";
+import { ProductsClient } from "@/components/client/ProductsClient";
+import {
+    getCertificatesServer,
+    getProductsServer,
+} from "@/lib/firebase/server-api";
+import { Language } from "@/types";
+import Image from "next/image";
+import CertificatesSection from "@/components/client/CertificatesSection";
+import { Suspense } from "react";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
@@ -79,8 +89,28 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-    const locale = await getLocale();
-    const t = await getTranslations({ locale, namespace: "home" });
+    const locale = (await getLocale()) as Language;
+    const t = await getTranslations("home");
+    const [products, certificates] = await Promise.all([
+        getProductsServer(),
+        getCertificatesServer(),
+    ]);
+    const t1 = await getTranslations("our-products");
+    const t2 = await getTranslations("about-page");
+
+    const products_trans = {
+        subtitle: t1("subtitle"),
+        title: t1("title"),
+        btn: t1("btn"),
+        prod_btn: t1("prod_btn"),
+    };
+
+    const certificates_trans = {
+        label: t2("sections.certificates.label"),
+        title: t2("sections.certificates.title"),
+        p1: t2("sections.certificates.p1"),
+        p2: t2("sections.certificates.p2"),
+    };
 
     const baseUrl = "https://www.asiataren.uz";
 
@@ -172,8 +202,32 @@ export default async function Home() {
                 {/* Hero section */}
                 <HeroSection />
 
-                {/* Scroll Section */}
-                <ScrollMain />
+                {/* Products section */}
+                <ProductsClient
+                    products={products.slice(0, 5)}
+                    locale={locale}
+                    translations={products_trans}
+                />
+
+                {/* Video Section */}
+                <section className="relative flex justify-center items-center w-full z-10 pointer-events-auto">
+                    <div className="relative w-full max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-cGray">
+                        <iframe
+                            className="w-full h-full relative z-50"
+                            src={
+                                "https://www.youtube.com/embed/Riv1FdyvFxs?si=qe5_Hnx6g9OPwFkE"
+                            }
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                        />
+                    </div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full -z-10 pointer-events-none">
+                        <MarqueeText text="ASIA TAREN POULTRY" />
+                    </div>
+                </section>
 
                 {/* Stages section */}
                 <StagesSection />
@@ -183,6 +237,14 @@ export default async function Home() {
 
                 {/* About Us */}
                 <AboutSection />
+
+                {/* Certificates Section */}
+                <Suspense fallback={<div>Loading....</div>}>
+                    <CertificatesSection
+                        translations={certificates_trans}
+                        certificates={certificates}
+                    />
+                </Suspense>
 
                 {/* Faq */}
                 <FAQSection />

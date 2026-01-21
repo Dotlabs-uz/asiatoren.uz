@@ -13,6 +13,7 @@ export default async function ProductsSection() {
         subtitle: t("subtitle"),
         title: t("title"),
         btn: t("btn"),
+        prod_btn: t("prod_btn")
     };
 
     return (

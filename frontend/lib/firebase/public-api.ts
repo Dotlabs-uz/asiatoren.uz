@@ -206,7 +206,7 @@ export const createApplication = async (
             name: data.name,
             surname: data.surname,
             phoneNumber: data.phoneNumber,
-            email: data.email,
+            email: data.email || "",
             text: data.text || "",
             status: "new",
             createdAt: serverTimestamp(),

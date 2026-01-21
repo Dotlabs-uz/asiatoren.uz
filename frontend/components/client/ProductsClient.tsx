@@ -18,6 +18,7 @@ interface ProductsClientProps {
         subtitle: string;
         title: string;
         btn: string;
+        prod_btn: string;
     };
     locale: Language;
 }
@@ -33,6 +34,12 @@ export const ProductsClient = ({
         if (!sectionRef.current) return;
 
         const ctx = gsap.context(() => {
+            // Установите начальное состояние для карточек
+            gsap.set(".product-card-wrapper", {
+                opacity: 1,
+                y: 0,
+            });
+
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
@@ -70,13 +77,12 @@ export const ProductsClient = ({
             tl.from(
                 ".product-card-wrapper",
                 {
-                    y: 60,
+                    y: 50,
                     opacity: 0,
                     duration: 0.8,
-                    stagger: 0.08,
                     ease: "power3.out",
                 },
-                "-=0.3",
+                "-=2",
             );
         }, sectionRef);
 
@@ -112,42 +118,52 @@ export const ProductsClient = ({
                 </div>
 
                 {/* Products Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-32">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8 mt-32">
                     {products &&
                         products.map((product) => (
                             <div
                                 key={product.id}
-                                className="product-card-wrapper self-end relative"
+                                className="product-card-wrapper group relative bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-500 border border-gray-200 flex flex-col justify-between"
                             >
-                                <Link href={`/products/${product.id}`}>
-                                    <div className="group h-40 md:h-48 border border-cRed rounded-2xl overflow-hidden transition-all duration-700 ease-out hover:bg-cRed hover:h-64 md:hover:h-80 hover:-mt-8 md:hover:-mt-16 cursor-pointer shadow-lg hover:shadow-2xl">
-                                        {/* Image Container */}
-                                        <div className="absolute -top-12 md:-top-20 left-1/2 -translate-x-1/2 w-full flex items-center justify-center transition-all duration-700 group-hover:scale-105 group-hover:-top-8">
+                                <div>
+                                    <div className="relative h-64 flex items-center justify-center overflow-hidden">
+                                        {product.images?.[0] ? (
                                             <Image
                                                 src={product.images[0]}
                                                 alt={product.title[locale]}
                                                 width={1000}
                                                 height={1000}
-                                                className="size-52 object-contain rounded-2xl"
-                                                priority
+                                                className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                                             />
-                                        </div>
-
-                                        {/* Content */}
-                                        <div className="absolute bottom-0 left-0 right-0 p-2 md:p-4">
-                                            <div className="flex items-center justify-between gap-4">
-                                                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-cGray transition-colors duration-500 group-hover:text-white line-clamp-2">
-                                                    {product.title[
-                                                        locale
-                                                    ].slice(0, 10) + "..."}
-                                                </h3>
-
-                                                {/* Arrow Button */}
-                                                <ArrowRight className="w-6 h-6 md:w-7 md:h-7 text-cGray group-hover:text-white transition-transform duration-500 group-hover:translate-x-0.5" />
+                                        ) : (
+                                            <div className="text-gray-300 text-4xl">
+                                                📦
                                             </div>
-                                        </div>
+                                        )}
                                     </div>
-                                </Link>
+
+                                    <div className="px-4">
+                                        <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-cRed transition-colors">
+                                            {product.title[locale].length < 50
+                                                ? product.title[locale]
+                                                : product.title[locale].slice(
+                                                      0,
+                                                      50,
+                                                  ) + "..."}
+                                        </h3>
+                                        <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+                                            {product.description[locale]}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="mx-4 mb-4">
+                                    <Link href={"/products/" + product.id}>
+                                        <Button className="w-full bg-cRed hover:bg-cRed/90 text-white rounded-xl font-semibold group/btn transition-all cursor-pointer">
+                                            <span>{translations.prod_btn}</span>
+                                            <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                                        </Button>
+                                    </Link>
+                                </div>
                             </div>
                         ))}
                 </div>

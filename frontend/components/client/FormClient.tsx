@@ -57,9 +57,13 @@ export const FormClient = ({ translations }: FormClientProps) => {
         phoneNumber: z.string().min(10, {
             message: translations.phoneError,
         }),
-        email: z.string().email({
-            message: translations.emailError,
-        }),
+        email: z
+            .string()
+            .email({
+                message: translations.emailError,
+            })
+            .optional()
+            .or(z.literal("")),
     });
 
     type FormValues = z.infer<typeof formSchema>;
@@ -104,7 +108,7 @@ export const FormClient = ({ translations }: FormClientProps) => {
                     duration: 0.6,
                     ease: "power3.out",
                 },
-                "-=0.4"
+                "-=0.4",
             );
 
             // 3. Поля формы с stagger
@@ -117,7 +121,7 @@ export const FormClient = ({ translations }: FormClientProps) => {
                     stagger: 0.1,
                     ease: "power3.out",
                 },
-                "-=0.3"
+                "-=0.3",
             );
 
             // 4. Кнопка
@@ -130,7 +134,7 @@ export const FormClient = ({ translations }: FormClientProps) => {
                     duration: 0.6,
                     ease: "back.out(1.7)",
                 },
-                "-=0.2"
+                "-=0.2",
             );
         }, containerRef);
 

@@ -104,7 +104,8 @@
     "our-products": {
         "subtitle": "Mahsulotlar",
         "title": "Bizning Texnologiyalarimiz",
-        "btn": "Katalogni ochish"
+        "btn": "Katalogni ochish",
+        "prod_btn": "Batafsil"
     },
     "about-us": {
         "subtitle": "Biz haqimizda",
@@ -155,9 +156,9 @@
     "form": {
         "title": "Mutaxassisdan<br />konsultatsiya oling",
         "p": "Biz siz bilan<br />2 ish kuni ichida bog'lanamiz",
-        "name": "Ismingiz",
-        "surname": "Familiyangiz",
-        "phone": "Telefon raqami",
+        "name": "*Ismingiz",
+        "surname": "*Familiyangiz",
+        "phone": "*Telefon raqami",
         "email": "Elektron pochta",
         "btn1": "Yuborish",
         "btn2": "Yuborilmoqda...",
@@ -274,7 +275,7 @@
             "firstName": "Ism",
             "lastName": "Familiya",
             "phone": "Telefon",
-            "email": "Elektron pochta",
+            "email": "Elektron pochta (ixtiyoriy)",
             "message": "Xabar (ixtiyoriy)",
             "submit": "Yuborish",
             "sending": "Yuborilmoqda...",

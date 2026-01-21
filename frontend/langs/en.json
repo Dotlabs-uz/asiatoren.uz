@@ -104,7 +104,8 @@
     "our-products": {
         "subtitle": "Products",
         "title": "Our Technologies",
-        "btn": "Open Catalog"
+        "btn": "Open Catalog",
+        "prod_btn": "See more"
     },
     "about-us": {
         "subtitle": "About",
@@ -155,9 +156,9 @@
     "form": {
         "title": "Get a<br />consultation<br />with a specialist",
         "p": "We will contact you<br />within 2 business days",
-        "name": "Your name",
-        "surname": "Your surname",
-        "phone": "Phone number",
+        "name": "*Your name",
+        "surname": "*Your surname",
+        "phone": "*Phone number",
         "email": "Email",
         "btn1": "Submit",
         "btn2": "Sending...",
@@ -274,7 +275,7 @@
             "firstName": "First name",
             "lastName": "Last name",
             "phone": "Phone",
-            "email": "Email",
+            "email": "Email (optional)",
             "message": "Message (optional)",
             "submit": "Send",
             "sending": "Sending...",
