@@ -81,7 +81,7 @@ export default function ApplicationsPage() {
 
     const handleStatusChange = async (
         id: string,
-        newStatus: Application["status"]
+        newStatus: Application["status"],
     ) => {
         try {
             await updateApplicationStatus(id, newStatus);
@@ -89,8 +89,8 @@ export default function ApplicationsPage() {
             // Обновляем локально
             setApplications((prev) =>
                 prev.map((app) =>
-                    app.id === id ? { ...app, status: newStatus } : app
-                )
+                    app.id === id ? { ...app, status: newStatus } : app,
+                ),
             );
 
             toast({
@@ -120,7 +120,7 @@ export default function ApplicationsPage() {
             await deleteApplication(applicationToDelete);
 
             setApplications((prev) =>
-                prev.filter((app) => app.id !== applicationToDelete)
+                prev.filter((app) => app.id !== applicationToDelete),
             );
 
             toast({
@@ -294,9 +294,11 @@ export default function ApplicationsPage() {
                                             <div className="text-sm">
                                                 {application.phoneNumber}
                                             </div>
-                                            <div className="text-sm text-muted-foreground">
-                                                {application.email}
-                                            </div>
+                                            {application.email && (
+                                                <div className="text-sm text-muted-foreground">
+                                                    {application.email}
+                                                </div>
+                                            )}
                                         </div>
                                     </TableCell>
                                     <TableCell>
@@ -305,7 +307,7 @@ export default function ApplicationsPage() {
                                             onValueChange={(value) =>
                                                 handleStatusChange(
                                                     application.id,
-                                                    value as Application["status"]
+                                                    value as Application["status"],
                                                 )
                                             }
                                         >
@@ -345,7 +347,7 @@ export default function ApplicationsPage() {
                                                 size="icon"
                                                 onClick={() =>
                                                     handleDeleteClick(
-                                                        application.id
+                                                        application.id,
                                                     )
                                                 }
                                                 aria-label="Удалить заявку"
@@ -402,14 +404,16 @@ export default function ApplicationsPage() {
                                         {viewingApplication.phoneNumber}
                                     </p>
                                 </div>
-                                <div>
-                                    <p className="text-sm font-medium text-muted-foreground">
-                                        Email
-                                    </p>
-                                    <p className="text-base">
-                                        {viewingApplication.email}
-                                    </p>
-                                </div>
+                                {viewingApplication.email && (
+                                    <div>
+                                        <p className="text-sm font-medium text-muted-foreground">
+                                            Email
+                                        </p>
+                                        <p className="text-base">
+                                            {viewingApplication.email}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
 
                             <div>

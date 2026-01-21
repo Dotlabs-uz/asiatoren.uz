@@ -39,7 +39,7 @@ export interface Application {
     name: string;
     surname: string;
     phoneNumber: string;
-    email: string;
+    email?: string;
     text?: string;
     createdAt: Date;
     status: "new" | "processing" | "completed";
@@ -49,7 +49,7 @@ export interface ApplicationFormData {
     name: string;
     surname: string;
     phoneNumber: string;
-    email: string;
+    email?: string;
     text?: string;
 }
 
