@@ -35,7 +35,7 @@ export default function FloatingButtons() {
 
             {/* WhatsApp */}
             <a
-                href="https://chat.whatsapp.com/BZrNTimdKr09LySnKD6tYZ"
+                href="https://wa.me/998956134440"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="size-10 md:size-14 rounded-md bg-linear-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white shadow-lg hover:shadow-2xl hover:shadow-green-500/50 hover:scale-110 transition-all duration-300 flex items-center justify-center group"
