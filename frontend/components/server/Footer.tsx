@@ -55,7 +55,7 @@ export default async function Footer() {
 
     const contact = {
         phone: "+998 77 201 31 31",
-        tg: "@Asiatarenpoultry1",
+        tg: "@asiatarenru",
     };
 
     return (
