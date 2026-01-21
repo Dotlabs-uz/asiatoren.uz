@@ -50,11 +50,11 @@ const navigation = [
         href: "/media",
         icon: ImageIcon,
     },
-    // {
-    //     name: "Баннеры",
-    //     href: "/banners",
-    //     icon: ImageIcon,
-    // },
+    {
+        name: "Баннеры",
+        href: "/banners",
+        icon: ImageIcon,
+    },
     {
         name: "Каталоги",
         href: "/catalogs",
