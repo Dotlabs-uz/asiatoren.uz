@@ -28,8 +28,8 @@
             "about": "Biz haqimizda",
             "projects": "Loyihalar",
             "news": "Yangiliklar",
-            "festivals": "Bayramlar",
-            "dealers": "Distribyutorlarimiz",
+            "festivals": "Vistavkalarimiz",
+            "dealers": "Dilerlarimiz",
             "contacts": "Kontaktlar"
         },
         "btn": "Bog'lanish"
@@ -42,8 +42,8 @@
             "about": "Biz haqimizda",
             "projects": "Loyihalar",
             "news": "Yangiliklar",
-            "festivals": "Bayramlar",
-            "dealers": "Distribyutorlarimiz",
+            "festivals": "Vistavkalarimiz",
+            "dealers": "Dilerlarimiz",
             "contacts": "Kontaktlar"
         },
         "socials": "Ijtimoiy tarmoqlar"
@@ -76,7 +76,7 @@
         ]
     },
     "stages": {
-        "title": "Biznesni \"kalit taslim\" ishga tushirish bosqichlari",
+        "title": "Biznesni \"Pod klyuch\" ishga tushirish bosqichlari",
         "subtitle1": "Biz parranda fermalari uchun ilg'or uskunalarni ishlab chiqish va ishlab chiqarishga ixtisoslashganmiz.",
         "subtitle2": "Bizning vazifamiz — sizning biznesingizning samaradorligini va rentabelligini oshiradigan innovatsion va ishonchli yechimlarni taqdim etish.",
         "stageLabel": "bosqich",
@@ -93,7 +93,7 @@
             "description": "Broylerni yetishtirish uchun to'liq tizimlar to'plamini ishlab chiqaramiz va yetkazib beramiz."
         },
         "stage4": {
-            "title": "\"Kalit taslim\" o'rnatish va ishga tushirish",
+            "title": "\"Pod klyuch\" o'rnatish va ishga tushirish",
             "description": "O'rnatamiz, ulaymiz, sozlaymiz — ferma ishlashga tayyor."
         },
         "stage5": {
@@ -293,12 +293,12 @@
             "address1": {
                 "title": "Asosiy zavod",
                 "address": "Dahbed, Samarqand, O'zbekiston",
-                "mapUrl": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3717.993436340659!2d66.9142363728934!3d39.74099720233546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMznCsDQ0JzM0LjIiTiA2NsKwNTQnNTcuNiJF!5e0!3m2!1sru!2s!4v1766689874007!5m2!1sru!2s"
+                "mapUrl": "https://yandex.uz/map-widget/v1/?ll=66.916006%2C39.742901&z=17&l=map&pt=66.916006,39.742901,pm2rdm"
             },
             "address2": {
                 "title": "Toshkent filiali",
                 "address": "Sergeli tumani, Toshkent, O'zbekiston",
-                "mapUrl": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2999.5716820576195!2d69.29905007605282!3d41.25288697131727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDE1JzEwLjQiTiA2OcKwMTgnMDUuOSJF!5e0!3m2!1sru!2s!4v1766689970904!5m2!1sru!2s"
+                "mapUrl": "https://yandex.ru/map-widget/v1/?ll=69.301726%2C41.252807&z=17&l=map&pt=69.301726,41.252807,pm2rdm"
             },
             "connectTitle": "Bizga qo'ng'iroq qiling",
             "socialTitle": "Ijtimoiy tarmoqlarda biz"
@@ -316,11 +316,11 @@
         "btn": "Batafsil"
     },
     "festivals-page": {
-        "title": "Bayramlar",
+        "title": "Vistavkalarimiz",
         "btn": "Batafsil"
     },
     "dealers-page": {
-        "title": "Bizning distribyutorlarimiz"
+        "title": "Bizning Dilerlarimiz"
     },
     "videos-page": {
         "title": "Videolar galereyasi"
