@@ -9,6 +9,7 @@ import StagesSection from "@/components/server/Stages";
 import { MarqueeText } from "@/components/client/MarqueeText";
 import { ProductsClient } from "@/components/client/ProductsClient";
 import {
+    getBannersServer,
     getCertificatesServer,
     getProductsServer,
 } from "@/lib/firebase/server-api";
@@ -16,6 +17,7 @@ import { Language } from "@/types";
 import Image from "next/image";
 import CertificatesSection from "@/components/client/CertificatesSection";
 import { Suspense } from "react";
+import { BannerCarousel } from "@/components/client/BannerCarousel";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getLocale();
@@ -91,9 +93,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
     const locale = (await getLocale()) as Language;
     const t = await getTranslations("home");
-    const [products, certificates] = await Promise.all([
+    const [products, certificates, banners] = await Promise.all([
         getProductsServer(),
         getCertificatesServer(),
+        getBannersServer(),
     ]);
     const t1 = await getTranslations("our-products");
     const t2 = await getTranslations("about-page");
@@ -202,6 +205,18 @@ export default async function Home() {
                 {/* Hero section */}
                 <HeroSection />
 
+                {/* About Us */}
+                <AboutSection />
+
+                {/* Banners */}
+                <BannerCarousel images={banners} locale={locale}/>
+
+                {/* Stages section */}
+                <StagesSection />
+
+                {/* Faq */}
+                <FAQSection />
+
                 {/* Products section */}
                 <ProductsClient
                     products={products.slice(0, 5)}
@@ -229,15 +244,6 @@ export default async function Home() {
                     </div>
                 </section>
 
-                {/* Stages section */}
-                <StagesSection />
-
-                {/* Products */}
-                {/* <ProductsSection /> */}
-
-                {/* About Us */}
-                <AboutSection />
-
                 {/* Certificates Section */}
                 <Suspense fallback={<div>Loading....</div>}>
                     <CertificatesSection
@@ -245,9 +251,6 @@ export default async function Home() {
                         certificates={certificates}
                     />
                 </Suspense>
-
-                {/* Faq */}
-                <FAQSection />
 
                 {/* Form */}
                 <Form />

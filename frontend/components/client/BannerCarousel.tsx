@@ -13,9 +13,9 @@ import {
     type CarouselApi,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { Banner } from "@/types";
+import { Banner, Language } from "@/types";
 
-export function BannerCarousel({ images }: { images: Banner[] }) {
+export function BannerCarousel({ images, locale }: { images: Banner[], locale: Language }) {
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
 
@@ -35,7 +35,8 @@ export function BannerCarousel({ images }: { images: Banner[] }) {
     }, [api]);
 
     return (
-        <div className="group relative w-full max-w-7xl mx-auto overflow-hidden rounded-2xl mb-5">
+        <div className="group relative w-full max-w-7xl mx-auto overflow-hidden mb-5">
+            <h2 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">{locale == 'ru' ? "Галерея": locale == 'en' ? "Gallery": "Galeriya"}</h2>
             <Carousel
                 setApi={setApi}
                 plugins={[plugin.current]}
@@ -47,12 +48,12 @@ export function BannerCarousel({ images }: { images: Banner[] }) {
                 <CarouselContent>
                     {images.map((banner) => (
                         <CarouselItem key={banner.id}>
-                            <div className="relative h-[300px] w-full">
+                            <div className="relative h-[500px] w-full">
                                 <Image
                                     src={banner.imageUrl}
                                     alt={`image-${banner.id}`}
                                     fill
-                                    className="object-cover"
+                                    className="object-cover rounded-2xl"
                                     priority
                                 />
                             </div>
