@@ -107,6 +107,7 @@ export default async function AboutPage() {
             subtitle: t("hero.subtitle"),
         },
         sections: {
+            text: t("sections.text"),
             aboutCompany: t("sections.aboutCompany"),
             equipment: {
                 title: t("sections.equipment.title"),

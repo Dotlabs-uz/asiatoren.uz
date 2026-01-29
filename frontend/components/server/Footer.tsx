@@ -54,8 +54,9 @@ export default async function Footer() {
     ];
 
     const contact = {
-        phone: "+998 77 201 31 31",
-        tg: "@asiatarenru",
+        phone1: "+998 77 201 31 31",
+        phone2: "+998 95 613 44 40",
+        tg: "@asiataren_poultry",
     };
 
     return (
@@ -90,12 +91,21 @@ export default async function Footer() {
                         {/* Contact Info */}
                         <div className="flex flex-col gap-4">
                             <Link
-                                href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                                href={`tel:${contact.phone1.replace(/\s/g, "")}`}
                                 className="flex items-center gap-3 group"
                             >
                                 <Phone className="w-6 h-6 text-gray-400 group-hover:text-cRed transition-colors" />
                                 <span className="text-lg md:text-xl lg:text-2xl font-bold group-hover:text-cRed transition-colors">
-                                    {contact.phone}
+                                    {contact.phone1}
+                                </span>
+                            </Link>
+                            <Link
+                                href={`tel:${contact.phone2.replace(/\s/g, "")}`}
+                                className="flex items-center gap-3 group"
+                            >
+                                <Phone className="w-6 h-6 text-gray-400 group-hover:text-cRed transition-colors" />
+                                <span className="text-lg md:text-xl lg:text-2xl font-bold group-hover:text-cRed transition-colors">
+                                    {contact.phone2}
                                 </span>
                             </Link>
                             <Link

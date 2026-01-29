@@ -7,7 +7,6 @@ import Link from "next/link";
 import { ChevronRight, ArrowRight, Shield, Truck, Home } from "lucide-react";
 import { Language, Product } from "@/types";
 import { ProductImageCarousel } from "./ProductImageCarousel"; // Изменено здесь
-import { formatPrice } from "@/lib/utils";
 
 interface ProductPageClientProps {
     product: Product;
@@ -205,19 +204,6 @@ export const ProductPageClient = ({
                         <h1 className="product-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
                             {product.title[locale]}
                         </h1>
-
-                        {/* Price */}
-                        <div className="product-price mb-6">
-                            <p className="text-sm text-gray-500 mb-1">
-                                {translations.priceLabel}
-                            </p>
-                            <p className="text-3xl md:text-4xl font-bold text-cRed">
-                                {formatPrice(product.price)}
-                                {/* <span className="text-2xl">
-                                    {translations.currency}
-                                </span> */}
-                            </p>
-                        </div>
 
                         <p className="product-description text-base md:text-lg text-gray-600 mb-8 leading-relaxed">
                             {product.description[locale]}

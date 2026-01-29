@@ -117,14 +117,6 @@ export default async function ProductsPage() {
                     product.description?.[locale] || product.description?.ru,
                 image: product.images?.[0],
                 url: `https://asiataren.uz/products/${product.id}`,
-                ...(product.price && {
-                    offers: {
-                        "@type": "Offer",
-                        price: product.price,
-                        priceCurrency: "UZS",
-                        availability: "https://schema.org/InStock",
-                    },
-                }),
             },
         })),
     };
