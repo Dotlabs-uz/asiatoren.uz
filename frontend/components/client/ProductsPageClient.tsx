@@ -269,13 +269,13 @@ export const ProductsPageClient = ({
                     </div>
 
                     {/* Categories */}
-                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+                    <div className="flex flex-wrap gap-2 pb-2">
                         <Button
                             onClick={() => {
                                 setSelectedCategory("all");
                                 setSearchQuery("");
                             }}
-                            className={`category-tab whitespace-nowrap px-4 py-2 text-sm md:text-base rounded-xl font-semibold transition-all duration-300 ${
+                            className={`category-tab px-4 py-2 text-sm md:text-base rounded-xl font-semibold transition-all duration-300 ${
                                 selectedCategory === "all"
                                     ? "bg-cRed text-white hover:bg-cRed/90"
                                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -290,7 +290,7 @@ export const ProductsPageClient = ({
                                     setSelectedCategory(category.id);
                                     setSearchQuery("");
                                 }}
-                                className={`category-tab whitespace-nowrap px-4 py-2 text-sm md:text-base rounded-xl font-semibold transition-all duration-300 ${
+                                className={`category-tab px-4 py-2 text-sm md:text-base rounded-xl font-semibold transition-all duration-300 ${
                                     selectedCategory === category.id
                                         ? "bg-cRed text-white hover:bg-cRed/90"
                                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"

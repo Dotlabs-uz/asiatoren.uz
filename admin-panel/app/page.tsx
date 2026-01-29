@@ -17,7 +17,6 @@ export default function DashboardPage() {
     const [stats, setStats] = useState({
         totalProducts: 0,
         totalCategories: 0,
-        totalValue: 0,
         loading: true,
     });
 
@@ -27,15 +26,10 @@ export default function DashboardPage() {
                 const products = (await getItems("products")) as Product[];
 
                 const categories = (await getItems("categories")) as Category[];
-                const totalValue = products.reduce(
-                    (sum, p) => sum + (p.price || 0),
-                    0
-                );
 
                 setStats({
                     totalProducts: products.length,
                     totalCategories: categories.length,
-                    totalValue,
                     loading: false,
                 });
             } catch (error) {
@@ -65,14 +59,7 @@ export default function DashboardPage() {
             description: "Различных категорий",
             icon: Tag,
             color: "text-green-600",
-        },
-        {
-            title: "Общая стоимость",
-            value: `${stats.totalValue.toLocaleString("uz-UZ")} с.`,
-            description: "Товаров в каталоге",
-            icon: DollarSign,
-            color: "text-yellow-600",
-        },
+        }
     ];
 
     return (

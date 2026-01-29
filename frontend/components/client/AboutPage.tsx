@@ -260,19 +260,18 @@ export const AboutPageClient = ({
             </div>
 
             {/* About Company Section */}
-            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 py-16 md:py-24">
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 items-start">
-                    {/* About Label */}
+            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-16 pt-10 pb-16 md:pb-24">
+                <p className="about-section text-lg font-medium text-gray-900 leading-relaxed" dangerouslySetInnerHTML={{ __html: translations.sections.text }}></p>
+                {/* <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 items-start">
+                    
                     <div className="about-section md:col-span-1 lg:col-span-1 text-sm font-semibold text-gray-500 pt-2">
                         {translations.sections.aboutCompany}
                     </div>
 
-                    {/* Title */}
                     <h2 className="about-section md:col-span-2 lg:col-span-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cGray leading-tight">
                         {translations.sections.equipment.title}
                     </h2>
 
-                    {/* Description */}
                     <div className="about-section space-y-6 md:col-span-3 lg:col-span-2">
                         <p className="text-lg text-gray-700 font-semibold">
                             {translations.sections.equipment.production}
@@ -281,10 +280,10 @@ export const AboutPageClient = ({
                             {translations.sections.equipment.description}
                         </p>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Video Section */}
-                <div className="mt-16 video-container">
+                <div className="mt-10 video-container">
                     <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl aspect-video bg-gray-900">
                         {!showVideo ? (
                             <div

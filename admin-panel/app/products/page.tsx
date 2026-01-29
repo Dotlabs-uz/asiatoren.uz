@@ -298,9 +298,6 @@ export default function ProductsPage() {
                                     Изображение
                                 </TableHead>
                                 <TableHead>Название</TableHead>
-                                <TableHead className="hidden sm:table-cell">
-                                    Цена
-                                </TableHead>
                                 <TableHead className="hidden md:table-cell">
                                     Категория
                                 </TableHead>
@@ -356,13 +353,6 @@ export default function ProductsPage() {
                                                 ) || "—"}
                                             </div>
                                         </div>
-                                    </TableCell>
-                                    <TableCell className="hidden sm:table-cell">
-                                        {product.price
-                                            ? `${product.price.toLocaleString(
-                                                  "uz-Uz"
-                                              )} sum`
-                                            : "—"}
                                     </TableCell>
                                     <TableCell>
                                         {getCategoryName(product.categoryId)}

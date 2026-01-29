@@ -14,7 +14,6 @@ export interface Product {
     id: string;
     title: MultilingualText;
     description: MultilingualText;
-    price: number;
     features: MultilingualText[];
     categoryId: string;
     images: string[];
@@ -28,7 +27,6 @@ export interface Product {
 export interface ProductFormData {
     title: MultilingualText;
     description: MultilingualText;
-    price: number;
     features: MultilingualText[];
     categoryId: string;
     images: string[];

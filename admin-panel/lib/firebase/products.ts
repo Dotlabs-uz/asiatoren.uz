@@ -23,7 +23,6 @@ const mapDocToProduct = (docId: string, data: any): Product => {
         id: docId,
         title: data.title || { ru: "", en: "", uz: "" },
         description: data.description || { ru: "", en: "", uz: "" },
-        price: data.price || 0,
         features: data.features || [],
         categoryId: data.categoryId || "",
         images: data.images || [],
@@ -77,7 +76,6 @@ export const addProduct = async (data: ProductFormData): Promise<string> => {
         const productData = {
             title: data.title,
             description: data.description,
-            price: data.price,
             features: data.features || [],
             categoryId: data.categoryId,
             images: data.images || [],
@@ -111,7 +109,6 @@ export const updateProduct = async (
         if (data.title !== undefined) updateData.title = data.title;
         if (data.description !== undefined)
             updateData.description = data.description;
-        if (data.price !== undefined) updateData.price = data.price;
         if (data.features !== undefined) updateData.features = data.features;
         if (data.categoryId !== undefined)
             updateData.categoryId = data.categoryId;
