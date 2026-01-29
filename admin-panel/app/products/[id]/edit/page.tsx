@@ -123,7 +123,6 @@ export default function EditProductPage() {
                     initialData={{
                         title: product.title,
                         description: product.description,
-                        price: product.price,
                         categoryId: product.categoryId,
                         images: product.images || [],
                         features: product.features || [],

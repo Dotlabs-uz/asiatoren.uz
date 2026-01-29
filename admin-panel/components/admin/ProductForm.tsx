@@ -42,7 +42,6 @@ export function ProductForm({
     const [formData, setFormData] = useState<ProductFormData>({
         title: initialData?.title || emptyMultilingualText,
         description: initialData?.description || emptyMultilingualText,
-        price: initialData?.price || 0,
         categoryId: initialData?.categoryId || "",
         images: initialData?.images || [],
         features: initialData?.features || [],
@@ -170,20 +169,10 @@ export function ProductForm({
             return;
         }
 
-        if (formData.price <= 0) {
-            toast({
-                title: "Ошибка",
-                description: "Укажите корректную цену",
-                variant: "destructive",
-            });
-            return;
-        }
-
         // Убедимся, что features - это массив (может быть пустым)
         const cleanedData: ProductFormData = {
             title: formData.title,
             description: formData.description,
-            price: formData.price,
             categoryId: formData.categoryId,
             images: formData.images,
             features: formData.features || [], // Всегда массив, даже если пустой
@@ -237,28 +226,6 @@ export function ProductForm({
 
             {/* Цена и категория */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Цена */}
-                <div className="space-y-2">
-                    <Label htmlFor="price">
-                        Цена (сум) <span className="text-red-500">*</span>
-                    </Label>
-                    <Input
-                        id="price"
-                        type="number"
-                        min="0"
-                        step="1"
-                        value={formData.price || ""}
-                        onChange={(e) =>
-                            setFormData({
-                                ...formData,
-                                price: Number(e.target.value),
-                            })
-                        }
-                        placeholder="0"
-                        required
-                    />
-                </div>
-
                 {/* Категория */}
                 <div className="space-y-2">
                     <Label htmlFor="category">
