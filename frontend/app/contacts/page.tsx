@@ -116,6 +116,11 @@ export default async function ContactsPage() {
                 address: t("contact.address2.address"),
                 mapUrl: t("contact.address2.mapUrl"),
             },
+            address3: {
+                title: t("contact.address3.title"),
+                address: t("contact.address3.address"),
+                mapUrl: t("contact.address3.mapUrl"),
+            },
             connectTitle: t("contact.connectTitle"),
             socialTitle: t("contact.socialTitle"),
         },
