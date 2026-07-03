@@ -55,7 +55,7 @@ export default async function Footer() {
 
     const contact = {
         phone1: "+998 77 201 31 31",
-        phone2: "+998 95 613 44 40",
+        phone2: "+998 77 204 40 44",
         tg: "@asiataren_poultry",
     };
 
